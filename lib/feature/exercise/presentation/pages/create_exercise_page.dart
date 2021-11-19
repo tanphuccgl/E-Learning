@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/widgets/body_get_course.dart';
 
 class CreateExercisePage extends StatefulWidget {
   static const String routeName = "/CreateExercisePage";
@@ -10,33 +14,88 @@ class CreateExercisePage extends StatefulWidget {
 }
 
 class _CreateExercisePageState extends State<CreateExercisePage> {
+  TextEditingController? _controller;
+  String dropdownValue = 'One';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _controller = TextEditingController();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    print("Fadsfas");
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: _appBar(title: "Create New Exercise"),
-      body: Container(
-        height: size.width / 0.5,
-        width: size.width,
-        child: Padding(
-          padding: EdgeInsets.only(
-              left: size.width / 25,
-              right: size.width / 25,
-              top: size.width / 20),
-          child: Column(
-            children: [
-              _nameExercise(title: "Name Exercise"),
-              SizedBox(
-                height: size.width / 20,
-              ),
-              _descriptionExercise(title: "Description"),
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: size.width / 0.5,
+          width: size.width,
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: size.width / 25,
+                right: size.width / 25,
+                top: size.width / 20),
+            child: Column(
+              children: [
+                _nameExercise(title: "Name Exercise"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                _descriptionExercise(title: "Description"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                _dropNameCourse(context),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                      print("aha $dropdownValue");
+                    });
+                    print("hihi $dropdownValue");
+                  },
+                  items: <String>['One', 'Two', 'Free', 'Four']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  BlocProvider<GetCourseBloc> _dropNameCourse(BuildContext context) {
+    return BlocProvider(
+      create: (_) => sl<GetCourseBloc>(),
+      child: Builder(builder: (context) {
+        return BodyGetCourse(
+          changeWithPage: "CreateExercisePage",
+        );
+      }),
     );
   }
 
@@ -105,7 +164,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 fontWeight: FontWeight.w600,
                 fontSize: size.width / 20),
           ),
-          TextFormField(
+          TextField(
             decoration: InputDecoration(
               hintText: "Input name",
               fillColor: Colors.white,
@@ -123,6 +182,10 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 ),
               ),
             ),
+            onTap: () {
+              setState(() {});
+            },
+            controller: _controller,
           ),
         ],
       ),

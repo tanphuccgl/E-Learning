@@ -20,7 +20,7 @@ class _GetCoursePageState extends State<GetCoursePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (_) => sl<GetCourseBloc>(),
-        child: BodyGetCourse(),
+        child: BodyGetCourse(changeWithPage: "GetCoursePage",),
     );
   }
 
