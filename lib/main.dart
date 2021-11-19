@@ -4,6 +4,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/add_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_exercise_page.dart';
 
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/pages/add_teacher_to_course_page_page.dart';
@@ -16,6 +17,7 @@ import 'package:thuc_tap_tot_nghiep/feature/sign_in/data/models/login_data.dart'
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
 import 'core/config/injection_container.dart' as di;
+import 'feature/exercise/presentation/pages/create_exercise_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +60,10 @@ class _MyAppState extends State<MyApp> {
             BodyAddTeacherToCourse(),
         PageRoutes.addClassPage: (context) => AddClassPage(),
         PageRoutes.detailCoursePage: (context) => DetailCoursePage(),
+        PageRoutes.detailExercisePage: (context) => DetailExercisePage(),
+        PageRoutes.createExercisePage: (context) => CreateExercisePage(),
+
+
 
       },
     );

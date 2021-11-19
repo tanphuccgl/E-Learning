@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_member_in_course/get_member_in_course_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/list_stud_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_course/get_exercise_by_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/execise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/title_header.dart';
@@ -83,7 +85,12 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
       );
 
       case 3:
-        return Container();
+        return BlocProvider(
+          create: (_) => sl<GetMemberInCourseBloc>(),
+          child: ListStudentPage(
+            idCourse: widget.idCourse,
+          ),
+        );
       case 4:
         return Container();
       case 5:

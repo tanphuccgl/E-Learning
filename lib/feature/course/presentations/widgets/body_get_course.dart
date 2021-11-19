@@ -147,13 +147,13 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
     return Row(
       children: [
         LinearPercentIndicator(
-          width: size.width / 2.5,
+          width: size.width / 2.7,
           lineHeight: size.width / 30,
           percent: 0.3,
           backgroundColor: Colors.black26,
           progressColor: Colors.amberAccent,
         ),
-        Text("$number% đã hoàn thành"),
+        Text("$number% completed",style: TextStyle(fontSize: size.width/30),),
       ],
     );
   }
