@@ -1,20 +1,28 @@
+import 'dart:collection';
+import 'dart:io';
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/widgets/body_get_course.dart';
-import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/list_file.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/data/data_source/add_exercise_remote.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class CreateExercisePage extends StatefulWidget {
   static const String routeName = "/CreateExercisePage";
+  final String? idCourse;
 
-  const CreateExercisePage({Key? key}) : super(key: key);
+  const CreateExercisePage({Key? key, this.idCourse}) : super(key: key);
 
   @override
   _CreateExercisePageState createState() => _CreateExercisePageState();
@@ -22,6 +30,9 @@ class CreateExercisePage extends StatefulWidget {
 
 class _CreateExercisePageState extends State<CreateExercisePage> {
   TextEditingController? _controllerText;
+  TextEditingController? _controllerDescription;
+  String? nameCourse;
+  String? description;
   String typePointValue = 'Point';
   TextEditingController? _controllerAllow;
   String _valueChangedAallow = '';
@@ -34,7 +45,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
   String _valueSavedDue = '';
   bool? isSwitchedDue;
   FilePickerResult? result;
-  List<PlatformFile>? listFile = [];
+  List<PlatformFile>? listFile;
 
   @override
   void initState() {
@@ -46,21 +57,26 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
     Intl.defaultLocale = 'en_US';
     setState(() {
       _controllerText = TextEditingController();
+      _controllerDescription = TextEditingController();
+
       _controllerAllow = TextEditingController(text: DateTime.now().toString());
       _controllerDue = TextEditingController(text: DateTime.now().toString());
     });
+    listFile = [];
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: _appBar(title: "Create New Exercise"),
       body: SingleChildScrollView(
         child: Container(
-          height: size.width / 0.2,
+          height: size.width / 0.37,
           width: size.width,
           child: Padding(
             padding: EdgeInsets.only(
@@ -105,6 +121,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 _typePoint(),
                 _chooseFile(title: "Additional files"),
                 _listFile(list: listFile),
+                _accpect(list: listFile),
               ],
             ),
           ),
@@ -113,15 +130,50 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
     );
   }
 
-  Widget _dateTime(
-      {bool? isSwitched,
-      String? valueChange,
-      String? valueToValidate,
-      String? valueSave,
-      TextEditingController? controllerDateTime,
-      Function(bool)? function,
-      String? label}) {
-    Size size = MediaQuery.of(context).size;
+  Widget _accpect({List<PlatformFile>? list}) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
+
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.only(top: size.width / 20),
+        child: Container(
+          height: size.width / 10,
+          width: size.width / 4,
+          child: ElevatedButton(
+            onPressed: () {
+              addExercise(idCourse: widget.idCourse,
+                  submissionDeadline: _valueChangedDue,
+                  allowSubmission: _valueChangedAallow,
+                  descriptionExercise: description,
+                  titleExercise: nameCourse,
+
+                  success: () => showSuccess(),
+                  failure: () => showCancel(),
+                  listFile
+                  :list);
+            },
+            child: Text("Accpect"),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _dateTime({bool? isSwitched,
+    String? valueChange,
+    String? valueToValidate,
+    String? valueSave,
+    TextEditingController? controllerDateTime,
+    Function(bool)? function,
+    String? label}) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Container(
       width: size.width,
@@ -143,8 +195,10 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 dateLabelText: label,
                 use24HourFormat: false,
                 locale: Locale('en', 'US'),
-                onChanged: (val) => setState(() {
+                onChanged: (val) =>
+                    setState(() {
                       valueChange = val;
+                      print(valueChange);
                     }),
                 validator: (val) {
                   setState(() => valueToValidate = val ?? '');
@@ -171,21 +225,52 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
   }
 
   Widget _listFile({List<PlatformFile>? list}) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Container(
-      height: size.width / 1,
+      height: size.width / 1.4,
       width: size.width,
       child: ListView.separated(
           itemBuilder: (context, index) {
-            return Container(
-              child: Column(
-                children: [
-                  Text("${list![index].name}"),
-                  Text("${list[index].size}"),
-                  Text("${list[index].bytes}"),
-                  Text("${list[index].identifier}"),
-                ],
+            return GestureDetector(
+              onTap: () {
+                openFile(file: list![index]);
+              },
+              child: Container(
+                height: size.width / 7,
+                width: size.width / 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TypeFile.fileImage.contains(list![index].extension)
+                        ? Container(
+                      height: size.width / 10,
+                      width: size.width / 10,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: FileImage(
+                                  File("${list[index].path}"),
+                                  scale: 1),
+                              fit: BoxFit.cover)),
+                    )
+                        : Container(
+                      height: size.width / 10,
+                      width: size.width / 10,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  "assets/icons/${thumbnail(
+                                      image: list[index].extension)}"),
+                              fit: BoxFit.cover)),
+                    ),
+                    SizedBox(
+                      width: size.width / 15,
+                    ),
+                    _detailFile(file: list[index])
+                  ],
+                ),
               ),
             );
           },
@@ -194,11 +279,84 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
     );
   }
 
+  Widget _detailFile({PlatformFile? file}) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    final kb = file!.size / 1024;
+    final mb = kb / 1024;
+    final fileSize =
+    mb >= 1 ? "${mb.toStringAsFixed(2)} MB" : "${kb.toStringAsFixed(2)} KB";
+    return Container(
+      height: size.width / 7,
+      width: size.width / 1.4,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "${file.name}",
+            style: TextStyle(color: Colors.black, fontSize: size.width / 20),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: size.width / 5,
+                child: Text(
+                  "$fileSize",
+                  style:
+                  TextStyle(color: Colors.black, fontSize: size.width / 25),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+              SizedBox(
+                width: size.width / 10,
+              ),
+              Text(
+                "${file.extension}",
+                style:
+                TextStyle(color: Colors.black, fontSize: size.width / 25),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ],
+          )
+          // Text("${list[index].extension}"),
+          // Text("$fileSize"),
+        ],
+      ),
+    );
+  }
+
+  String thumbnail({String? image}) {
+    if (TypeFile.fileStorage.contains(image)) {
+      return "files-and-folders.png";
+    } else if (TypeFile.fileVideo.contains(image)) {
+      return "video.png";
+    } else if (TypeFile.fileSound.contains(image)) {
+      return "file.png";
+    } else if (TypeFile.fileSpreadsheet.contains(image)) {
+      return "excel.png";
+    } else if (TypeFile.fileDocument.contains(image)) {
+      return "documents.png";
+    } else if (image == TypeFile.fileText) {
+      return "txt.png";
+    } else {
+      return "file(1).png";
+    }
+  }
+
   Widget _chooseFile({String? title}) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Container(
-        height: size.width / 2,
+        height: size.width / 8,
         width: size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +379,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                     decoration: BoxDecoration(
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius:
-                            BorderRadius.all(Radius.circular(size.width / 40))),
+                        BorderRadius.all(Radius.circular(size.width / 40))),
                     child: IconButton(
                       icon: Icon(
                         Icons.upload_file,
@@ -230,10 +388,18 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                       onPressed: () async {
                         result = await FilePicker.platform
                             .pickFiles(allowMultiple: true);
+                        List<PlatformFile>? listFile1 = [];
+
                         if (result != null) {
-                          listFile = result!.files;
-                          setState(() {});
-                          print("${result!.files.length}");
+                          setState(() {
+                            listFile1 = result!.files;
+                          });
+
+                          listFile!.addAll(listFile1!);
+
+                          /// duyệt mảng chỉ show 1-1
+                          listFile = LinkedHashSet<PlatformFile>.from(listFile!)
+                              .toList();
                         } else {
                           // User canceled the picker
                         }
@@ -247,7 +413,9 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
 
   /// chọn loại điểm
   Widget _typePoint() {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Container(
       width: size.width / 1.7,
@@ -287,9 +455,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                   onChanged: (String? newValue) {
                     setState(() {
                       typePointValue = newValue!;
-                      print("aha $typePointValue");
                     });
-                    print("hihi $typePointValue");
                   },
                   items: <String>['Point', 'Scale']
                       .map<DropdownMenuItem<String>>((String value) {
@@ -322,7 +488,9 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
   }
 
   Widget _descriptionExercise({String? title}) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Container(
       height: size.width / 1.7,
@@ -347,19 +515,26 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 ),
                 border: Border.all(color: Colors.grey, width: 2.0)),
             child: Padding(
-              padding: EdgeInsets.all(size.width / 20),
-              child: Container(
-                height: size.width / 3.2,
-                child: ListView(
-                  children: [
-                    // Text(
-                    //   content!,
-                    //   style: TextStyle(
-                    //       color: Colors.black,
-                    //       fontSize: size.width / 25,
-                    //       fontWeight: FontWeight.w300),
-                    // ),
+              padding: EdgeInsets.all(size.width / 25),
+              child: SingleChildScrollView(
+                child: TextField(
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(700),
                   ],
+                  maxLines: 20,
+                  decoration: InputDecoration(
+                    hintText: "Input description",
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    fillColor: Colors.white,
+                  ),
+                  onChanged: (value) {
+                    description = value;
+                  },
+                  controller: _controllerDescription,
                 ),
               ),
             ),
@@ -370,7 +545,9 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
   }
 
   Widget _nameExercise({String? title}) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Container(
       height: size.width / 4.7,
@@ -387,6 +564,9 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 fontSize: size.width / 20),
           ),
           TextField(
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(50),
+            ],
             decoration: InputDecoration(
               hintText: "Input name",
               fillColor: Colors.white,
@@ -404,8 +584,8 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 ),
               ),
             ),
-            onTap: () {
-              setState(() {});
+            onChanged: (value) {
+              nameCourse = value;
             },
             controller: _controllerText,
           ),
@@ -415,7 +595,9 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
   }
 
   AppBar _appBar({String? title}) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -433,4 +615,38 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
       elevation: 0,
     );
   }
+
+  void showCancel() {
+    var alert = new AlertDialog1(
+
+      title: "ERROR",
+      description: "The system is maintenance",
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    showDialog(
+        context: context,
+        builder: (context) {
+          return alert;
+        });
+  }
+
+  void showSuccess() {
+    var alert = new AlertDialog1(
+
+      title: "SUCCESS",
+      description: "Change password successfully",
+      onPressed: () {
+        Navigator.pushReplacementNamed(context, PageRoutes.detailExercisePage);
+      },
+    );
+    showDialog(
+        context: context,
+        builder: (context) {
+          return alert;
+        });
+  }
+
+
 }

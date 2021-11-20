@@ -47,6 +47,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SignInPage(),
+      //CreateExercisePage(idCourse: "eb5f9ca4-0d73-4dbb-a28a-03dc76e5cdb6",),
       //  initialRoute: widget.initScreen ==0 || widget.initScreen==null ?? ,
       routes: {
         PageRoutes.onBoardingPage: (context) => OnBoardingPage(),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 Widget header({BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
@@ -26,7 +29,9 @@ Widget _noti({BuildContext? context}) {
 
   return GestureDetector(
     onTap: () {
-      print("tap noti");
+      prefs!.setString(SAVE_LOGIN_RESPONSE, '');
+      Navigator.pushNamedAndRemoveUntil(context, PageRoutes.onBoardingPage,
+              (Route<dynamic> route) => false);
     },
     child: Container(
       height: size.width / 10,

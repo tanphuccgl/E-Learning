@@ -25,7 +25,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
   Future<LoginData> _login(String email, String pass) async {
     var body = jsonEncode({'username': email, 'password': pass});
     final response = await client
-        ?.post(Uri.parse('http://149.28.129.166:3000/account/Login'),
+        ?.post(Uri.parse('http://api.itcode.vn:3000/account/Login'),
             headers: {
               "Accept": "application/json",
               "content-type": "application/json" // k co header la failed 415

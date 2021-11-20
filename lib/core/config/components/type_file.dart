@@ -1,0 +1,119 @@
+class TypeFile{
+static const List<String> fileStorage = [
+  "7z",
+  "bdoc",
+  "cdoc",
+  "ddoc",
+  "gtar",
+  "tgz",
+  "gz",
+  "gzip",
+  "hqx",
+  "rar",
+  "sit",
+  "tar",
+  "zip"
+];
+static const List<String> fileSound = [
+  "zip",
+  "aif",
+  "aiff",
+  "aifc",
+  "au",
+  "flac",
+  "m3u",
+  "mp3",
+  "m4a",
+  "oga",
+  "ogg",
+  "ra",
+  "ram",
+  "rm",
+  "wav",
+  "wma"
+];
+static const List<String> fileVideo = [
+  "3gp",
+  "avi",
+  "dv",
+  "dif",
+  "flv",
+  "f4v",
+  "fmp4",
+  "mov",
+  "movie",
+  "mp4",
+  "m4v",
+  "mpeg",
+  "mpe",
+  "mpg",
+  "ogv",
+  "qt",
+  "rmvb",
+  "rv",
+  "swf",
+  "swfl",
+  "ts",
+  "webm",
+  "wmv",
+  "asf"
+];
+static const List<String> filePresentation = [
+  "gslides",
+  "odp",
+  "otp",
+  "pps",
+  "ppt",
+  "pptx",
+  "pptm",
+  'potx',
+  "potm",
+  "ppam",
+  "ppsx",
+  "ppsm",
+  "pub",
+  "sxi",
+  "sti"
+];
+static const List<String> fileSpreadsheet = [
+  "csv",
+  "gsheet",
+  "ods",
+  "ots",
+  "xls",
+  "xlsx",
+  "xlsm"
+];
+static const List<String> fileImage = [
+  "ai",
+  "bmp",
+  "gdraw",
+  "gif",
+  "ico",
+  "jpe",
+  "jpeg",
+  "jpg",
+  "pct",
+  "pic",
+  "pict",
+  "png",
+  "svg",
+  "svgz",
+  "tif",
+  "tiff",
+  "gif"
+];
+static const List<String> fileDocument = [
+  "doc",
+  "docx",
+  "epub",
+  "gdoc",
+  "odt",
+  "ott",
+  "oth",
+  "pdf",
+  "rtf"
+];
+static const String fileText = "txt";
+
+}

@@ -56,7 +56,7 @@ class _ExercisePageState extends State<ExercisePage> {
             top: size.width / 40),
         child: Column(
           children: [
-            _header(datetime: "Mar 22th 2021", countExercise: list?.length),
+            _header(datetime: "Mar 22th 2021", countExercise: list?.length,idCourse: widget.idCourse),
             Container(
               width: size.width - size.width / 25,
               height: size.width,
@@ -81,7 +81,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
   Widget _header({
     String? datetime,
-    int? countExercise,
+    int? countExercise,String? idCourse
   }) {
     Size size = MediaQuery.of(context).size;
 
@@ -129,7 +129,7 @@ class _ExercisePageState extends State<ExercisePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CreateExercisePage()));
+                          builder: (context) => CreateExercisePage(idCourse: idCourse!,)));
                 },
               ))
         ],
