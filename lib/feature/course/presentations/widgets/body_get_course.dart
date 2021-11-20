@@ -25,8 +25,9 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    prefs?.clear();
+    prefs?.remove("idCourse");
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetCourseBloc, GetCourseState>(
@@ -37,8 +38,7 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
         if (widget.changeWithPage == "GetCoursePage") {
           return _listCourse(list: state.data);
         } else if (widget.changeWithPage == "CreateExercisePage") {
-
-          return  _dropdown(list: state.data);
+          return _dropdown(list: state.data);
         }
       } else if (state is Loading) {
         return SpinkitLoading();
@@ -51,21 +51,21 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
     });
   }
 
+
   Widget _dropdown({List<GetCourseData>? list}) {
     Size size = MediaQuery.of(context).size;
-    String? b ;
+    String? b;
     String? a;
-    prefs?.get("idCourse");
-    print(prefs?.get("idCourse"));
-    if(  prefs?.get("idCourse")==null)
-      {
-        a = list![0].nameCourse;
-        b = list[0].idCourse;
-      }else{
-      a=   prefs?.get("nameCourse").toString();
-      b=   prefs?.get("idCourse").toString();
+    // prefs?.get("idCourse");
+    // print(prefs?.get("idCourse"));
+    if (prefs?.get("idCourse") == null) {
+      a = list![0].nameCourse;
+      b = list[0].idCourse;
+    } else {
+      a = prefs?.get("nameCourse").toString();
+      b = prefs?.get("idCourse").toString();
     }
-    print("id $b");
+
     return Container(
         width: size.width / 2,
         height: size.width / 5,
@@ -85,7 +85,7 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
                   size: size.width / 10,
                 ),
                 underline: SizedBox(),
-                dropdownColor: Colors.white,
+
                 alignment: AlignmentDirectional.center,
                 value: a,
                 iconSize: 24,
@@ -100,11 +100,8 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
                       b = f.idCourse;
                     }
                   }
-                  print("aaa  ${a}");
-                  print("bbbb  ${b}");
                   prefs?.setString("nameCourse", a!);
                   prefs?.setString("idCourse", b!);
-
                 },
                 items:
                     list!.map<DropdownMenuItem<String>>((GetCourseData value) {

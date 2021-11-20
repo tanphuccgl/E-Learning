@@ -18,7 +18,8 @@ import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
 import 'core/config/injection_container.dart' as di;
 import 'feature/exercise/presentation/pages/create_exercise_page.dart';
-
+import 'dart:async';
+import 'package:intl/date_symbol_data_local.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
@@ -41,6 +42,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SignInPage(),
@@ -65,7 +68,7 @@ class _MyAppState extends State<MyApp> {
 
 
 
-      },
+      }, supportedLocales: [Locale('en', 'US')]
     );
   }
 }

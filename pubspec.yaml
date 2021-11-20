@@ -54,7 +54,8 @@ dependencies:
   shared_preferences: ^2.0.8
   file_picker: ^4.2.2+1
   percent_indicator: ^3.4.0
-
+  date_time_picker: ^2.1.0
+  open_file:
 
 
 
