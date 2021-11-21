@@ -57,6 +57,8 @@ dependencies:
   date_time_picker: ^2.1.0
   open_file:
   file_icon: ^1.0.0
+  image_gallery_saver: ^1.7.1
+
 
 
 

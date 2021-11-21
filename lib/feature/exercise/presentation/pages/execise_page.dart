@@ -11,9 +11,11 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_e
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_exercise_page.dart';
 
 class ExercisePage extends StatefulWidget {
-  final String? idCourse;
 
-  const ExercisePage({Key? key, this.idCourse}) : super(key: key);
+  final String? idCourse;
+  final String? nameCourse;
+
+  const ExercisePage({Key? key, this.idCourse,this.nameCourse}) : super(key: key);
 
   @override
   _ExercisePageState createState() => _ExercisePageState();
@@ -48,7 +50,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
     return Container(
       width: size.width,
-      height: size.width / 0.75,
+      height: size.width / 0.62,
       child: Padding(
         padding: EdgeInsets.only(
             left: size.width / 25,
@@ -59,7 +61,7 @@ class _ExercisePageState extends State<ExercisePage> {
             _header(datetime: "Mar 22th 2021", countExercise: list?.length,idCourse: widget.idCourse),
             Container(
               width: size.width - size.width / 25,
-              height: size.width,
+              height: size.width/0.8,
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return _item(
@@ -67,7 +69,7 @@ class _ExercisePageState extends State<ExercisePage> {
                           "${parseStringToTime(textTime: list?[index]?.allowSubmission ?? null)} "
                           "- ${parseStringToTime(textTime: list?[index]?.submissionDeadline ?? null)}",
                       titleExercise: list?[index].titleExercise,
-                      descriptionExercise: list?[index].descriptionExercise,
+                      descriptionExercise: list?[index].descriptionExercise==null ? "":list?[index].descriptionExercise ,
                       data: list?[index]);
                 },
                 itemCount: list?.length,
@@ -129,7 +131,7 @@ class _ExercisePageState extends State<ExercisePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CreateExercisePage(idCourse: idCourse!,)));
+                          builder: (context) => CreateExercisePage(idCourse: idCourse!,nameCourse: widget.nameCourse,)));
                 },
               ))
         ],
@@ -195,7 +197,7 @@ class _ExercisePageState extends State<ExercisePage> {
           Padding(
             padding: EdgeInsets.only(bottom: size.width / 20),
             child: Container(
-              width: size.width / 1.3,
+              width: size.width / 1,
               height: size.width / 5,
               decoration: BoxDecoration(
                   color: Colors.cyan.withOpacity(0.3),
@@ -208,7 +210,7 @@ class _ExercisePageState extends State<ExercisePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _content(
-                        titleExercise: titleExercise,
+                        titleExercise: titleExercise ,
                         descriptionExercise: descriptionExercise),
                     IconButton(
                         onPressed: () {
@@ -237,7 +239,7 @@ class _ExercisePageState extends State<ExercisePage> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width / 1.9,
+
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -247,25 +249,30 @@ class _ExercisePageState extends State<ExercisePage> {
             Icons.assignment_turned_in_outlined,
             size: size.width / 10,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                titleExercise!,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: size.width / 20),
-              ),
-              Text(
-                descriptionExercise!,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: size.width / 30),
-              ),
-            ],
+          SizedBox(width: size.width/20,),
+          Container(
+            width:
+            size.width/2.6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  titleExercise! ,maxLines: 2,overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: size.width / 25),
+                ),
+                Text(
+                  descriptionExercise!,maxLines: 1,overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: size.width / 35),
+                ),
+              ],
+            ),
           ),
           SizedBox(
             width: size.width / 10,
@@ -295,10 +302,11 @@ class _ExercisePageState extends State<ExercisePage> {
 
 String parseStringToTime({String? textTime}) {
   /// 2021-11-18T17:13:00.475Z
+  /// ///2021/11/21 13:59
   String showTime;
   DateTime dateTime;
   if (textTime != null) {
-    dateTime = DateFormat('yyyy-MM-ddThh:mm').parse(textTime);
+    dateTime = DateFormat('yyyy/MM/dd hh:mm').parse(textTime);
     showTime = DateFormat('d/MM/yyyy, hh:mm a').format(dateTime);
   } else {
     showTime = "";

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class TitleHeader extends StatefulWidget {
   final ValueChanged<int>? onChanged;
+  final int? choosingPos1;
 
-  const TitleHeader({Key? key, this.onChanged}) : super(key: key);
+  const TitleHeader({Key? key, this.onChanged,this.choosingPos1}) : super(key: key);
 
   @override
   _TitleHeaderState createState() => _TitleHeaderState();
@@ -12,12 +13,20 @@ class TitleHeader extends StatefulWidget {
 
 class _TitleHeaderState extends State<TitleHeader> {
   List<HeaderItem>? items;
-  int choosingPos = 1;
+  int? choosingPos ;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    if( widget.choosingPos1!=null)
+    {
+      choosingPos = widget.choosingPos1;
+    }else
+    {
+      choosingPos = 1;
+    }
     items = <HeaderItem>[];
     items?.add(HeaderItem("Bài giảng", 1));
     items?.add(HeaderItem("Bài tập", 2));

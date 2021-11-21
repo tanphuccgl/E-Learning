@@ -6,14 +6,16 @@ import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/list_stud
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_course/get_exercise_by_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/execise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/title_header.dart';
+import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
 
 class DetailCoursePage extends StatefulWidget {
   final String? idCourse;
   final String? nameCourse;
-
+  final int? widgetId;
+  final int? choosingPos;
   static const String routeName = "/DetailCoursePage";
 
-  const DetailCoursePage({Key? key,this.idCourse,this.nameCourse}) : super(key: key);
+  const DetailCoursePage({Key? key,this.choosingPos,this.idCourse,this.nameCourse,this.widgetId}) : super(key: key);
 
   @override
   _DetailCoursePageState createState() => _DetailCoursePageState();
@@ -26,7 +28,14 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    curentWidgetId = 1;
+    if( widget.widgetId!=null)
+      {
+        curentWidgetId = widget.widgetId;
+      }else
+        {
+          curentWidgetId = 1;
+        }
+
   }
 
   @override
@@ -38,6 +47,11 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
         preferredSize: Size.fromHeight(size.width/7),
         child: AppBar(
           backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(
+                builder: (context) => HomePage()))
+          ),
           iconTheme: IconThemeData(
             color: Colors.black, //change your color here
           ),
@@ -58,7 +72,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
             setState(() {
               curentWidgetId = e;
             });
-          },
+          },choosingPos1: widget.choosingPos,
         ),
         getWidgetById(curentWidgetId),
       ]),
@@ -80,7 +94,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
       return BlocProvider(
         create: (_) => sl<GetExerciseByCourseBloc>(),
         child: ExercisePage(
-          idCourse: widget.idCourse,
+          idCourse: widget.idCourse,nameCourse: widget.nameCourse,
         ),
       );
 

@@ -23,105 +23,91 @@ class GetInfoExerciseResponse {
 }
 
 class GetInfoExerciseData {
-  int? iId;
   int? idTeacher;
   String? idCourse;
   String? nameCourse;
   String? titleExercise;
-  int? isTextPoint;
-  List<FileUpload>? fileUpload;
   String? descriptionExercise;
+  int? isTextPoint;
   String? allowSubmission;
   String? submissionDeadline;
+  List<Files>? files;
   String? createDate;
   String? updateDate;
-  bool? deleted;
 
   GetInfoExerciseData(
-      {this.iId,
-        this.idTeacher,
+      {this.idTeacher,
         this.idCourse,
         this.nameCourse,
         this.titleExercise,
-        this.isTextPoint,
-        this.fileUpload,
         this.descriptionExercise,
+        this.isTextPoint,
         this.allowSubmission,
         this.submissionDeadline,
+        this.files,
         this.createDate,
-        this.updateDate,
-        this.deleted});
+        this.updateDate});
 
   GetInfoExerciseData.fromJson(Map<String, dynamic> json) {
-    iId = json['_id'];
     idTeacher = json['idTeacher'];
     idCourse = json['idCourse'];
     nameCourse = json['nameCourse'];
     titleExercise = json['titleExercise'];
-    isTextPoint = json['isTextPoint'];
-    if (json['fileUpload'] != null) {
-      fileUpload = <FileUpload>[];
-      json['fileUpload'].forEach((v) {
-        fileUpload?.add(new FileUpload.fromJson(v));
-      });
-    }
     descriptionExercise = json['descriptionExercise'];
+    isTextPoint = json['isTextPoint'];
     allowSubmission = json['allowSubmission'];
     submissionDeadline = json['submissionDeadline'];
+    if (json['files'] != null) {
+      files = <Files>[];
+      json['files'].forEach((v) {
+        files?.add(new Files.fromJson(v));
+      });
+    }
     createDate = json['createDate'];
     updateDate = json['updateDate'];
-    deleted = json['deleted'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.iId;
     data['idTeacher'] = this.idTeacher;
     data['idCourse'] = this.idCourse;
     data['nameCourse'] = this.nameCourse;
     data['titleExercise'] = this.titleExercise;
-    data['isTextPoint'] = this.isTextPoint;
-    if (this.fileUpload != null) {
-      data['fileUpload'] = this.fileUpload?.map((v) => v.toJson()).toList();
-    }
     data['descriptionExercise'] = this.descriptionExercise;
+    data['isTextPoint'] = this.isTextPoint;
     data['allowSubmission'] = this.allowSubmission;
     data['submissionDeadline'] = this.submissionDeadline;
+    if (this.files != null) {
+      data['files'] = this.files?.map((v) => v.toJson()).toList();
+    }
     data['createDate'] = this.createDate;
     data['updateDate'] = this.updateDate;
-    data['deleted'] = this.deleted;
     return data;
   }
 }
 
-class FileUpload {
+class Files {
   String? fieldname;
   String? originalname;
-  String? encoding;
-  String? mimetype;
-  String? destination;
   String? filename;
-  String? path;
+  String? pathname;
+  String? mimetype;
   int? size;
 
-  FileUpload(
+  Files(
       {this.fieldname,
         this.originalname,
-        this.encoding,
-        this.mimetype,
-        this.destination,
         this.filename,
-        this.path,
+        this.pathname,
+        this.mimetype,
         this.size});
 
-  FileUpload.fromJson(Map<String, dynamic> json) {
+  Files.fromJson(Map<String, dynamic> json) {
     fieldname = json['fieldname'];
     originalname = json['originalname'];
-    encoding = json['encoding'];
-    mimetype = json['mimetype'];
-    destination = json['destination'];
     filename = json['filename'];
-    path = json['path'];
+    pathname = json['pathname'];
+    mimetype = json['mimetype'];
     size = json['size'];
   }
 
@@ -129,11 +115,9 @@ class FileUpload {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['fieldname'] = this.fieldname;
     data['originalname'] = this.originalname;
-    data['encoding'] = this.encoding;
-    data['mimetype'] = this.mimetype;
-    data['destination'] = this.destination;
     data['filename'] = this.filename;
-    data['path'] = this.path;
+    data['pathname'] = this.pathname;
+    data['mimetype'] = this.mimetype;
     data['size'] = this.size;
     return data;
   }
