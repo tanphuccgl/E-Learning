@@ -6,33 +6,25 @@ import 'package:thuc_tap_tot_nghiep/main.dart';
 
 http.Client? client = http.Client();
 
-Future<bool> addExercise({String? titleExercise,
-  String? idCourse,
-  String? descriptionExercise,
-  DateTime? allowSubmission,
-  DateTime? submissionDeadline,
-  List<PlatformFile>? listFile,
-  Function? success,
-  Function? failure}) async {
-  var uri = Uri.parse('$mainUrl/exercise/AddExercise');
+Future<bool> addLecture(
+    {String? nameLecture,
+      String? idCourse,
+      String? descriptionLecture,
+      List<PlatformFile>? listFile,
+      Function? success,
+      Function? failure}) async {
+  print(idCourse);
+  var uri = Uri.parse('$mainUrl/lecture/OpenLecture?idCourse=$idCourse');
   var request = http.MultipartRequest('POST', uri);
-  print("allow1 ${allowSubmission}");
-  print("due1 ${submissionDeadline}");
+
   request.headers["Accept"] = "application/json";
   request.headers["auth-token"] = "${appUser?.token}";
   request.headers["Content-Type"] = "multipart/form-data";
 
-  request.fields["titleExercise"] = "$titleExercise";
-  if (descriptionExercise != null) {
-    request.fields["descriptionExercise"] = "$descriptionExercise";
+  request.fields["nameLecture"] = "$nameLecture";
+  if (descriptionLecture != null) {
+    request.fields["descriptionLecture"] = "$descriptionLecture";
   }
-  if (allowSubmission != null) {
-    request.fields["allowSubmission"] = "$allowSubmission";
-  }
-  if (submissionDeadline != null) {
-    request.fields["submissionDeadline"] = "$submissionDeadline";
-  }
-
 
   request.fields["files"] = "files";
   request.fields['idCourse'] = '$idCourse';
@@ -40,7 +32,6 @@ Future<bool> addExercise({String? titleExercise,
     var file = await http.MultipartFile.fromPath("files", item.path!);
     request.files.add(file);
   }
-
 
   var response = await request.send();
   var a = await response.stream.toBytes();

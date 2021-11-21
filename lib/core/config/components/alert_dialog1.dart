@@ -78,3 +78,19 @@ class AlertDialog1 extends StatelessWidget {
         ));
   }
 }
+void showPopup(
+    {String? title,
+      String? description,
+      Function()? function,
+      BuildContext? context}) {
+  var alert = new AlertDialog1(
+    title: title,
+    description: description,
+    onPressed: function,
+  );
+  showDialog(
+      context: context!,
+      builder: (context) {
+        return alert;
+      });
+}

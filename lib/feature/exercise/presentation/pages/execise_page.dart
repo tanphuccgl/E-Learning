@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_exercise_by_course_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_course/get_exercise_by_course_bloc.dart';
@@ -9,13 +10,15 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_ex
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_course/get_exercise_by_course_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_exercise_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/create_lecture_page.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class ExercisePage extends StatefulWidget {
-
   final String? idCourse;
   final String? nameCourse;
 
-  const ExercisePage({Key? key, this.idCourse,this.nameCourse}) : super(key: key);
+  const ExercisePage({Key? key, this.idCourse, this.nameCourse})
+      : super(key: key);
 
   @override
   _ExercisePageState createState() => _ExercisePageState();
@@ -44,8 +47,10 @@ class _ExercisePageState extends State<ExercisePage> {
       return Container();
     });
   }
-
-  Widget _list(List<GetExerciseByCourseData>? list) {
+/// danh sách bài tập
+  Widget _list(
+    List<GetExerciseByCourseData>? list,
+  ) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -58,21 +63,51 @@ class _ExercisePageState extends State<ExercisePage> {
             top: size.width / 40),
         child: Column(
           children: [
-            _header(datetime: "Mar 22th 2021", countExercise: list?.length,idCourse: widget.idCourse),
+            _header(
+              datetime: "Mar 22th 2021",
+              countExercise: list?.length,
+              idCourse: widget.idCourse,
+              ///check role
+              iconButton: appUser?.role == "teacher"
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.add,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateLecturePage(
+                                      idCourse: widget.idCourse,
+                                    )));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => CreateExercisePage(idCourse: idCourse!,nameCourse: widget.nameCourse,)));
+                      },
+                    )
+                  : null,
+            ),
             Container(
               width: size.width - size.width / 25,
-              height: size.width/0.8,
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return _item(
-                      time:
-                          "${parseStringToTime(textTime: list?[index]?.allowSubmission ?? null)} "
-                          "- ${parseStringToTime(textTime: list?[index]?.submissionDeadline ?? null)}",
-                      titleExercise: list?[index].titleExercise,
-                      descriptionExercise: list?[index].descriptionExercise==null ? "":list?[index].descriptionExercise ,
-                      data: list?[index]);
-                },
-                itemCount: list?.length,
+              height: size.width / 0.8,
+              child: Padding(
+                padding:  EdgeInsets.only(top:size.width/20),
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return _item(
+                        time:
+                            "${parseStringToTime(textTime: list?[index]?.allowSubmission ?? null)} "
+                            "- ${parseStringToTime(textTime: list?[index]?.submissionDeadline ?? null)}",
+                        titleExercise: list?[index].titleExercise,
+                        descriptionExercise:
+                            list?[index].descriptionExercise == null
+                                ? ""
+                                : list?[index].descriptionExercise,
+                        data: list?[index]);
+                  },
+                  itemCount: list?.length,
+                ),
               ),
             ),
           ],
@@ -81,10 +116,11 @@ class _ExercisePageState extends State<ExercisePage> {
     );
   }
 
-  Widget _header({
-    String? datetime,
-    int? countExercise,String? idCourse
-  }) {
+  Widget _header(
+      {String? datetime,
+      int? countExercise,
+      String? idCourse,
+      Widget? iconButton}) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -122,18 +158,7 @@ class _ExercisePageState extends State<ExercisePage> {
                   color: Colors.grey.shade200,
                   borderRadius:
                       BorderRadius.all(Radius.circular(size.width / 40))),
-              child: IconButton(
-                icon: Icon(
-                  Icons.add,
-
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateExercisePage(idCourse: idCourse!,nameCourse: widget.nameCourse,)));
-                },
-              ))
+              child: iconButton)
         ],
       ),
     );
@@ -210,16 +235,20 @@ class _ExercisePageState extends State<ExercisePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _content(
-                        titleExercise: titleExercise ,
+                        titleExercise: titleExercise,
                         descriptionExercise: descriptionExercise),
+                    ///check role
                     IconButton(
                         onPressed: () {
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetailExercisePage(
                                         data: data,
-                                      )));
+                                      )))
+
+                          ;
                         },
                         icon: Icon(
                           Icons.keyboard_arrow_right,
@@ -239,7 +268,6 @@ class _ExercisePageState extends State<ExercisePage> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -249,23 +277,28 @@ class _ExercisePageState extends State<ExercisePage> {
             Icons.assignment_turned_in_outlined,
             size: size.width / 10,
           ),
-          SizedBox(width: size.width/20,),
+          SizedBox(
+            width: size.width / 20,
+          ),
           Container(
-            width:
-            size.width/2.6,
+            width: size.width / 2.6,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  titleExercise! ,maxLines: 2,overflow: TextOverflow.ellipsis,
+                  titleExercise!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: size.width / 25),
                 ),
                 Text(
-                  descriptionExercise!,maxLines: 1,overflow: TextOverflow.ellipsis,
+                  descriptionExercise!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       color: Colors.grey,
                       fontWeight: FontWeight.bold,
@@ -298,19 +331,4 @@ class _ExercisePageState extends State<ExercisePage> {
     BlocProvider.of<GetExerciseByCourseBloc>(context)
         .add(GetExerciseByCourseEventE(idCourse: widget.idCourse));
   }
-}
-
-String parseStringToTime({String? textTime}) {
-  /// 2021-11-18T17:13:00.475Z
-  /// ///2021/11/21 13:59
-  String showTime;
-  DateTime dateTime;
-  if (textTime != null) {
-    dateTime = DateFormat('yyyy/MM/dd hh:mm').parse(textTime);
-    showTime = DateFormat('d/MM/yyyy, hh:mm a').format(dateTime);
-  } else {
-    showTime = "";
-  }
-
-  return showTime;
 }

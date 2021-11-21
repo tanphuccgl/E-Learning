@@ -56,8 +56,7 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
     Size size = MediaQuery.of(context).size;
     String? b;
     String? a;
-    // prefs?.get("idCourse");
-    // print(prefs?.get("idCourse"));
+
     if (prefs?.get("idCourse") == null) {
       a = list![0].nameCourse;
       b = list[0].idCourse;

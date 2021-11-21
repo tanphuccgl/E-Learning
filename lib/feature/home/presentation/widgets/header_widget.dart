@@ -3,7 +3,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
-Widget header({BuildContext? context}) {
+Widget header({BuildContext? context,String? name}) {
   Size size = MediaQuery.of(context!).size;
 
   return Row(
@@ -17,7 +17,7 @@ Widget header({BuildContext? context}) {
           SizedBox(
             width: size.width / 20,
           ),
-          _nameUser(name: "Julian Torn",context: context)
+          _nameUser(name: name,context: context)
         ],
       ),
       _noti(context: context),

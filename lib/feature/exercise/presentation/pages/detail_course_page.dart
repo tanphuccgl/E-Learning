@@ -15,7 +15,13 @@ class DetailCoursePage extends StatefulWidget {
   final int? choosingPos;
   static const String routeName = "/DetailCoursePage";
 
-  const DetailCoursePage({Key? key,this.choosingPos,this.idCourse,this.nameCourse,this.widgetId}) : super(key: key);
+  const DetailCoursePage(
+      {Key? key,
+      this.choosingPos,
+      this.idCourse,
+      this.nameCourse,
+      this.widgetId})
+      : super(key: key);
 
   @override
   _DetailCoursePageState createState() => _DetailCoursePageState();
@@ -28,30 +34,27 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if( widget.widgetId!=null)
-      {
-        curentWidgetId = widget.widgetId;
-      }else
-        {
-          curentWidgetId = 1;
-        }
-
+    if (widget.widgetId != null) {
+      curentWidgetId = widget.widgetId;
+    } else {
+      curentWidgetId = 1;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(size.width/7),
+        preferredSize: Size.fromHeight(size.width / 7),
         child: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(
-                builder: (context) => HomePage()))
-          ),
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomePage()))),
           iconTheme: IconThemeData(
             color: Colors.black, //change your color here
           ),
@@ -72,7 +75,8 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
             setState(() {
               curentWidgetId = e;
             });
-          },choosingPos1: widget.choosingPos,
+          },
+          choosingPos1: widget.choosingPos,
         ),
         getWidgetById(curentWidgetId),
       ]),
@@ -82,21 +86,22 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
   Widget getWidgetById(int? id) {
     switch (id) {
       case 1:
-      // return BlocProvider(
-      //   create: (_) => moodleDI<CourseContentBloc>(),
-      //   child: Lecture(
-      //     idCourse: widget.idCourse,
-      //   ),
-      // );
+        // return BlocProvider(
+        //   create: (_) => moodleDI<CourseContentBloc>(),
+        //   child: Lecture(
+        //     idCourse: widget.idCourse,
+        //   ),
+        // );
         return Container();
 
       case 2:
-      return BlocProvider(
-        create: (_) => sl<GetExerciseByCourseBloc>(),
-        child: ExercisePage(
-          idCourse: widget.idCourse,nameCourse: widget.nameCourse,
-        ),
-      );
+        return BlocProvider(
+          create: (_) => sl<GetExerciseByCourseBloc>(),
+          child: ExercisePage(
+            idCourse: widget.idCourse,
+            nameCourse: widget.nameCourse,
+          ),
+        );
 
       case 3:
         return BlocProvider(

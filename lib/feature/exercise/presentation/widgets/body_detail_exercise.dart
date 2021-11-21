@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
@@ -8,6 +9,10 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_in
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_info_exercise/get_info_exercise_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/execise_page.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/thumbnail.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/submit_exercise_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class BodyDetailExercise extends StatefulWidget {
   final int? idExercise;
@@ -35,7 +40,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                 body: SingleChildScrollView(
                   child: Container(
                     width: size.width,
-                    height: size.height / 1.1,
+                    height: size.height / 0.5, //0.9
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: size.width / 25,
@@ -56,6 +61,24 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                           ),
                           _uploadedFile(
                               list: state.data?.files, title: "Uploaded File"),
+
+                          appUser?.role == "teacher"
+                              ? SizedBox.shrink()
+                              : (accpect(
+                                  context: context,
+                                  function: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SubmitExercisePage(
+                                                    idExercise:
+                                                        widget.idExercise,
+                                                    titleExercise: state
+                                                        .data?.titleExercise)));
+                                  },
+                                  content: "Submit")),
+                          _submitStatus(title: "Submission status"),
                         ],
                       ),
                     ),
@@ -79,10 +102,82 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
         .add(GetInfoExerciseEventE(idExercise: widget.idExercise));
   }
 
+  ///Submission status
+  Widget _submitStatus({String? title}) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.width / 1,
+      width: size.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title!,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+                fontSize: size.width / 20),
+          ),
+          Container(
+            height: size.width / 3,
+            width: size.width,
+            child: ListView(
+              children: [
+                DataTable(
+
+                  columns: [
+                    DataColumn(
+                        label: Text('ID',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Name',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold))),
+
+                  ],
+                  rows: [
+                    DataRow(
+                        cells: [
+                      DataCell(Container(child: Text('1'),color: Colors.amberAccent,)),
+                      DataCell(Text('Stephen')),
+
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('5')),
+                      DataCell(Text('John')),
+
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('10')),
+                      DataCell(Text('Harry')),
+
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('15')),
+                      DataCell(Text('Peter')),
+
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('15')),
+                      DataCell(Text('Peter')),
+
+                    ]),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _uploadedFile({List<Files>? list, String? title}) {
     Size size = MediaQuery.of(context).size;
     return Container(
-        height: size.width / 1.2,
         width: size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +203,10 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
 
     return Container(
       width: size.width,
-      height: size.width / 1.4,
+
+      ///  widget.list!.length > 4 ? size.width / 1.4 : widget.list!.length * size.width / 6,
+      height:
+          list!.length > 4 ? size.width / 1.4 : list.length * size.width / 6,
       child: ListView.separated(
           itemBuilder: (context, index) {
             return Container(
@@ -121,14 +219,14 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       TypeFile.fileImage.contains(
-                              list?[index].originalname?.split(".").last)
+                              list[index].originalname?.split(".").last)
                           ? Container(
                               height: size.width / 10,
                               width: size.width / 10,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(
-                                          "${list?[index].pathname}"),
+                                          "${list[index].pathname}"),
                                       fit: BoxFit.cover)),
                             )
                           : Container(
@@ -137,13 +235,13 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          "assets/icons/${thumbnail(image: list?[index].originalname?.split(".").last)}"),
+                                          "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
                                       fit: BoxFit.cover)),
                             ),
                       SizedBox(
                         width: size.width / 15,
                       ),
-                      _detailFile(file: list?[index]),
+                      _detailFile(file: list[index]),
                     ],
                   ),
                   IconButton(
@@ -157,7 +255,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
             );
           },
           separatorBuilder: (context, index) => Divider(),
-          itemCount: list!.length),
+          itemCount: list.length),
     );
   }
 

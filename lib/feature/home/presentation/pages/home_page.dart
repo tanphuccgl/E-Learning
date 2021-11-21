@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                 top: size.width / 10),
             child: Column(
               children: [
-                header(context: context),
+                header(context: context,name: appUser?.fullName),
                 filter(context: context),
                 content(title: "Popular courses", context: context),
                 GetCoursePage(),
