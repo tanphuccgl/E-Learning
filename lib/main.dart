@@ -4,11 +4,14 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/grading_assignment_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/haha.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/add_class_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/create_class_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/func_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/grade_exercise_teacher_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/submit_exercise_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/function_page.dart';
 
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/create_lecture_page.dart';
@@ -78,6 +81,11 @@ class _MyAppState extends State<MyApp> {
         PageRoutes.gradeExerciseTeacherPage: (context) => GradeExerciseTeacherPage(),
         PageRoutes.gradingAssignmentPage: (context) => GradingAssignmentPage(),
         PageRoutes.examplePage: (context) => ExamplePage(),
+        PageRoutes.functionPage: (context) => FunctionPage(),
+        PageRoutes.funcClassPage: (context) => FuncClassPage(),
+        PageRoutes.createClassPage: (context) => CreateClassPage(),
+
+
 
 
 
