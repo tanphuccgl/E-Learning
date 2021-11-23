@@ -1,4 +1,6 @@
-# thuc_tap_tot_nghiep
+# App E Learning
+
+TTTN
 
 A new Flutter project.
 
