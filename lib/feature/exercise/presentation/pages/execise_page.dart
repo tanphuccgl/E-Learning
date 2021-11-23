@@ -74,16 +74,16 @@ class _ExercisePageState extends State<ExercisePage> {
                         Icons.add,
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateLecturePage(
-                                      idCourse: widget.idCourse,
-                                    )));
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
-                        //         builder: (context) => CreateExercisePage(idCourse: idCourse!,nameCourse: widget.nameCourse,)));
+                        //         builder: (context) => CreateLecturePage(
+                        //               idCourse: widget.idCourse,
+                        //             )));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateExercisePage(idCourse: widget.idCourse!,nameCourse: widget.nameCourse,)));
                       },
                     )
                   : null,

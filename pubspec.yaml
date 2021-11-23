@@ -58,6 +58,14 @@ dependencies:
   open_file:
   file_icon: ^1.0.0
   image_gallery_saver: ^1.7.1
+  painter: ^2.0.0
+  flutter_colorpicker: ^1.0.2
+  screenshot: ^1.2.3
+  path_provider: ^2.0.7
+
+
+
+
 
 
 

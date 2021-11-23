@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
+import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/info_answer_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/grading_summary.dart';
+import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/submit_status.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_info_exercise/get_info_exercise_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_info_exercise/get_info_exercise_event.dart';
@@ -10,6 +13,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_in
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/execise_page.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/thumbnail.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/grade_exercise_teacher_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/submit_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
@@ -40,7 +44,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                 body: SingleChildScrollView(
                   child: Container(
                     width: size.width,
-                    height: size.height / 0.5, //0.9
+
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: size.width / 25,
@@ -48,10 +52,12 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                           top: size.width / 20),
                       child: Column(
                         children: [
+                          ///khung giờ nộp bài
                           _header(
                               allowSubmission: state.data?.allowSubmission,
                               submissionDeadline:
                                   state.data?.submissionDeadline),
+                          /// mô tả
                           _content(
                               content: state.data?.descriptionExercise == null
                                   ? ""
@@ -59,12 +65,39 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                           SizedBox(
                             height: size.width / 15,
                           ),
-                          _uploadedFile(
-                              list: state.data?.files, title: "Uploaded File"),
 
+                          ///pick file
+                          _uploadedFile(
+                              list: state.data?.files, title: "Uploaded File (${state.data?.files?.length})"),
+                          SizedBox(
+                            height: size.width / 15,
+                          ),
+                          ///
                           appUser?.role == "teacher"
-                              ? SizedBox.shrink()
-                              : (accpect(
+                              ? gradingSummary(
+                                  context: context, title: "Grading summary")
+                              : InfoAnswerPage(
+                                  idAccount: appUser?.iId,
+                                  idAnswer: state.data?.idAnswer,
+                                  submissionDeadline:
+                                      state.data?.submissionDeadline,
+                                  allowSubmission: state.data?.allowSubmission),
+                          appUser?.role == "teacher"
+                              ? accpect(
+                                  context: context,
+                                  function: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GradeExerciseTeacherPage(
+                                                    idExercise:
+                                                        widget.idExercise,isTextPoint:state.data?.isTextPoint,
+                                                    idCourse:
+                                                        state.data?.idCourse)));
+                                  },
+                                  content: "View all")
+                              : accpect(
                                   context: context,
                                   function: () {
                                     Navigator.push(
@@ -77,8 +110,10 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                                     titleExercise: state
                                                         .data?.titleExercise)));
                                   },
-                                  content: "Submit")),
-                          _submitStatus(title: "Submission status"),
+                                  content: "Submit"),
+                          SizedBox(
+                            height: size.width / 15,
+                          ),
                         ],
                       ),
                     ),
@@ -100,79 +135,6 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
   void getDetailExe() {
     BlocProvider.of<GetInfoExerciseBloc>(context)
         .add(GetInfoExerciseEventE(idExercise: widget.idExercise));
-  }
-
-  ///Submission status
-  Widget _submitStatus({String? title}) {
-    Size size = MediaQuery.of(context).size;
-
-    return Container(
-      height: size.width / 1,
-      width: size.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title!,
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontSize: size.width / 20),
-          ),
-          Container(
-            height: size.width / 3,
-            width: size.width,
-            child: ListView(
-              children: [
-                DataTable(
-
-                  columns: [
-                    DataColumn(
-                        label: Text('ID',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold))),
-                    DataColumn(
-                        label: Text('Name',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold))),
-
-                  ],
-                  rows: [
-                    DataRow(
-                        cells: [
-                      DataCell(Container(child: Text('1'),color: Colors.amberAccent,)),
-                      DataCell(Text('Stephen')),
-
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('5')),
-                      DataCell(Text('John')),
-
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('10')),
-                      DataCell(Text('Harry')),
-
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('15')),
-                      DataCell(Text('Peter')),
-
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('15')),
-                      DataCell(Text('Peter')),
-
-                    ]),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget _uploadedFile({List<Files>? list, String? title}) {
@@ -294,13 +256,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
               SizedBox(
                 width: size.width / 10,
               ),
-              // Text(
-              //   "${file.extension}",
-              //   style:
-              //   TextStyle(color: Colors.black, fontSize: size.width / 25),
-              //   overflow: TextOverflow.ellipsis,
-              //   maxLines: 1,
-              // ),
+
             ],
           )
           // Text("${list[index].extension}"),

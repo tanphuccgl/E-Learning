@@ -1,8 +1,12 @@
+import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/grading_assignment_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/info_answer_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/haha.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/add_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_exercise_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/grade_exercise_teacher_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/submit_exercise_page.dart';
 
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
@@ -33,6 +37,12 @@ class PageRoutes {
   static const String createExercisePage = CreateExercisePage.routeName;
   static const String createLecturePage = CreateLecturePage.routeName;
   static const String submitExercisePage = SubmitExercisePage.routeName;
+  static const String infoAnswerPage = InfoAnswerPage.routeName;
+  static const String gradeExerciseTeacherPage = GradeExerciseTeacherPage.routeName;
+  static const String gradingAssignmentPage = GradingAssignmentPage.routeName;
+
+  static const String examplePage = ExamplePage.routeName;
+
 
 
 

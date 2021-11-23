@@ -49,7 +49,7 @@ class _SubmitExercisePageState extends State<SubmitExercisePage> {
       appBar: appBar(context: context, title: widget.titleExercise),
       body: SingleChildScrollView(
         child: Container(
-          height: size.width / 0.37,
+
           width: size.width,
           child: Padding(
             padding: EdgeInsets.only(

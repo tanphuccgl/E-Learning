@@ -112,8 +112,8 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
         );
       case 4:
         return Container();
-      case 5:
-        return Container();
+      // case 5:
+      //   return Container();
     }
     return Container();
   }

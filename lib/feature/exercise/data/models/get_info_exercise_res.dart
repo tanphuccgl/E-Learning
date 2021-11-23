@@ -23,6 +23,8 @@ class GetInfoExerciseResponse {
 }
 
 class GetInfoExerciseData {
+  int? idAnswer;
+  int? idExercise;
   int? idTeacher;
   String? idCourse;
   String? nameCourse;
@@ -49,6 +51,8 @@ class GetInfoExerciseData {
         this.updateDate});
 
   GetInfoExerciseData.fromJson(Map<String, dynamic> json) {
+    idAnswer = json['idAnswer'];
+    idExercise = json['idExercise'];
     idTeacher = json['idTeacher'];
     idCourse = json['idCourse'];
     nameCourse = json['nameCourse'];
@@ -69,6 +73,8 @@ class GetInfoExerciseData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['idAnswer'] = this.idAnswer;
+    data['idExercise'] = this.idExercise;
     data['idTeacher'] = this.idTeacher;
     data['idCourse'] = this.idCourse;
     data['nameCourse'] = this.nameCourse;

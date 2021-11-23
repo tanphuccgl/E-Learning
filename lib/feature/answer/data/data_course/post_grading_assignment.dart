@@ -6,37 +6,44 @@ import 'package:thuc_tap_tot_nghiep/main.dart';
 
 http.Client? client = http.Client();
 
-Future<bool> addAnswer(
-    {String? descriptionAnswer,
-    int? idExercise,
+Future<bool> postGradingAssignment(
+    {String? feedbackFromTeacher,
+    int? idAnswer,
+    double? studyPoint,
     List<PlatformFile>? listFile,
     Function? success,
     Function? failure}) async {
-  print(idExercise);
-  print(descriptionAnswer);
-  var uri = Uri.parse('$mainUrl/answer/AddAnswer');
+  print(idAnswer);
+  print(studyPoint);
+  print(feedbackFromTeacher);
+
+  var uri = Uri.parse(
+      '$mainUrl/answer/GradingAssignment?studyPoint=$studyPoint&idAnswer=$idAnswer');
   var request = http.MultipartRequest('POST', uri);
 
   request.headers["Accept"] = "application/json";
   request.headers["auth-token"] = "${appUser?.token}";
   request.headers["Content-Type"] = "multipart/form-data";
 
-  if (descriptionAnswer != null) {
-    request.fields["descriptionAnswer"] = "$descriptionAnswer";
-  }
-
+  // if (descriptionAnswer != null) {
+  //   request.fields["descriptionAnswer"] = "$descriptionAnswer";
+  // }
+  request.fields["feedbackFromTeacher"] = "$feedbackFromTeacher";
+  request.fields["studyPoint"] = "$studyPoint ";
   request.fields["files"] = "files";
-  request.fields['idExercise'] = '$idExercise';
+  request.fields['idAnswer'] = '$idAnswer';
   for (var item in listFile!) {
     var file = await http.MultipartFile.fromPath("files", item.path!);
     request.files.add(file);
   }
+  print("Fsdafds");
 
   var response = await request.send();
+  print("Fsdafds");
   var a = await response.stream.toBytes();
   var b = String.fromCharCodes(a);
-  print("${b}");
   print("${response.request}");
+  print("${b}");
 
   if (response.statusCode == 200) {
     success!();

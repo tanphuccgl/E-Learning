@@ -23,3 +23,21 @@ Widget accpect({ Function()? function,BuildContext? context,String? content}) {
     ),
   );
 }
+Widget changePage({ Function()? function,BuildContext? context,Icon? icon}) {
+  Size size = MediaQuery.of(context!).size;
+
+  return Padding(
+    padding: EdgeInsets.only(top: size.width / 20),
+    child: Container(
+      height: size.width / 15,
+      width: size.width / 7,
+      child: ElevatedButton(
+        onPressed: function,
+        child:icon,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
+      ),
+    ),
+  );
+}

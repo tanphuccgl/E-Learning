@@ -7,6 +7,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/core/error/exceptions.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_exercise_by_id_account_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 abstract class GetInfoExerciseRemoteDataSource {
   Future<GetInfoExerciseResponse> getInfoExercise(int idExercise   );
@@ -27,8 +28,10 @@ class GetInfoExerciseRemoteDataSourceImpl implements GetInfoExerciseRemoteDataSo
       Uri.parse('$mainUrl/exercise/GetInformationExercise/$idExercise'),
       headers: {
         "Accept": "application/json",
-        "content-type": "application/json" // k co header la failed 415
-      },
+        "content-type": "application/json", // k co header la failed 415
+    "auth-token": "${appUser?.token}",
+
+    },
     );
     log("Get GetInfoExercise: " + "$mainUrl/exercise/GetInformationExercise/$idExercise");
     log("Response Json GetInfoExercise: ${json.decode(response!.body)}");

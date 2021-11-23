@@ -70,6 +70,9 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+
+    });
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -77,7 +80,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
       appBar: appBar(title: "Create New Exercise", context: context),
       body: SingleChildScrollView(
         child: Container(
-          height: size.width / 0.37,
+
           width: size.width,
           child: Padding(
             padding: EdgeInsets.only(
@@ -214,6 +217,9 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                             listFile: listFile);
                       }
                     }),
+                SizedBox(
+                  height: size.width / 20,
+                ),
               ],
             ),
           ),

@@ -31,8 +31,8 @@ class _TitleHeaderState extends State<TitleHeader> {
     items?.add(HeaderItem("Bài giảng", 1));
     items?.add(HeaderItem("Bài tập", 2));
     items?.add(HeaderItem("DS Học sinh", 3));
-    items?.add(HeaderItem("Chấm điểm", 4));
-    items?.add(HeaderItem("DS điểm", 5));
+    // items?.add(HeaderItem("Chấm điểm", 5));
+    items?.add(HeaderItem("DS điểm", 4));
   }
 
   @override
