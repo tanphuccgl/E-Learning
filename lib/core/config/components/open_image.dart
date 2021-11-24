@@ -27,8 +27,7 @@ class OpenImage extends StatefulWidget {
 
 class _OpenImageState extends State<OpenImage> {
   final Dio dio = Dio();
-  bool loading = false;
-  double progress = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +111,6 @@ class _OpenImageState extends State<OpenImage> {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
           setState(() {
-            progress = value1 / value2;
           });
         });
         if (Platform.isIOS) {
@@ -142,8 +140,7 @@ class _OpenImageState extends State<OpenImage> {
 
   downloadFile() async {
     setState(() {
-      loading = true;
-      progress = 0;
+
     });
     print("${widget.url!}");
     print("${widget.originalname!}");
@@ -156,7 +153,7 @@ class _OpenImageState extends State<OpenImage> {
       print("Problem Downloading File");
     }
     setState(() {
-      loading = false;
+
     });
   }
 

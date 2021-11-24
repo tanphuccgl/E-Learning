@@ -1,7 +1,14 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/open_image.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
@@ -21,6 +28,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/submit_e
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/pick_multi_file.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
+var dio = Dio();
 
 class BodyDetailExercise extends StatefulWidget {
   final int? idExercise;
@@ -33,6 +41,8 @@ class BodyDetailExercise extends StatefulWidget {
 
 class _BodyDetailExerciseState extends State<BodyDetailExercise> {
   List<PlatformFile>? listFile;
+  final Dio dio = Dio();
+
 
   @override
   void initState() {
@@ -241,7 +251,10 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                     IconButton(
                       icon: Icon(Icons.arrow_circle_down),
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+
+                          downloadFile(url: list[index].pathname,namefile: list[index].originalname);
+                        });
                       },
                     ),
                   ],
@@ -252,6 +265,93 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
           separatorBuilder: (context, index) => Divider(),
           itemCount: list.length),
     );
+  }
+
+///down file
+  Future<bool> saveFile(String url, String fileName) async {
+    Directory directory;
+    try {
+      if (Platform.isAndroid) {
+        if (await _requestPermission(Permission.storage)) {
+          directory = (await getExternalStorageDirectory())!;
+          String newPath = "";
+          print(directory);
+          List<String> paths = directory.path.split("/");
+          for (int x = 1; x < paths.length; x++) {
+            String folder = paths[x];
+            if (folder != "Android") {
+              newPath += "/" + folder;
+            } else {
+              break;
+            }
+          }
+          newPath = newPath;
+          print(newPath);
+          directory = Directory(newPath);
+        } else {
+          return false;
+        }
+      } else {
+        if (await _requestPermission(Permission.photos) &&
+            await _requestPermission(Permission.accessMediaLocation) &&
+            await _requestPermission(Permission.manageExternalStorage)) {
+          directory = await getTemporaryDirectory();
+        } else {
+          return false;
+        }
+      }
+      File saveFile = File(directory.path + "/$fileName");
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+      if (await directory.exists()) {
+        await dio.download(url, saveFile.path,
+            onReceiveProgress: (value1, value2) {
+              setState(() {
+
+              });
+            });
+        if (Platform.isIOS) {
+          await ImageGallerySaver.saveFile(saveFile.path,
+              isReturnPathOfIOS: true);
+        }
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> _requestPermission(Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      var result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  downloadFile({String? url, String? namefile}) async {
+    setState(() {
+
+    });
+
+    bool downloaded = await saveFile(url!, "${namefile!}");
+    if (downloaded) {
+      showSuccess();
+      print("File Downloaded");
+    } else {
+      showCancel();
+      print("Problem Downloading File");
+    }
+    setState(() {
+
+    });
   }
 
   Widget _detailFile({Files? file}) {
@@ -406,5 +506,34 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
         elevation: 0,
       ),
     );
+  }
+  void showCancel() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "File download failed");
+  }
+
+  void showSuccess() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => DetailCoursePage(
+          //           idCourse: widget.idCourse,
+          //           nameCourse: widget.nameCourse,
+          //           widgetId: 2,
+          //           choosingPos: 2,
+          //         )));
+        },
+        title: "SUCCESS",
+        description: "File download successful");
   }
 }
