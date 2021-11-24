@@ -180,7 +180,6 @@ class _BodyInfoAnswerState extends State<BodyInfoAnswer> {
     Size size = MediaQuery.of(context!).size;
 
     return Container(
-
       width: size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,7 +195,8 @@ class _BodyInfoAnswerState extends State<BodyInfoAnswer> {
           Container(
             height: size.width / 1.2,
             width: size.width,
-            child: ListView(physics: const NeverScrollableScrollPhysics(),
+            child: ListView(
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 DataTable(
                   columns: [
@@ -265,7 +265,9 @@ class _BodyInfoAnswerState extends State<BodyInfoAnswer> {
                           style: TextStyle(
                               fontSize: size.width / 25,
                               fontWeight: FontWeight.bold))),
-                      DataCell(Text("${data?.feedbackFromTeacher}")),
+                      DataCell(Text(data?.feedbackFromTeacher == null
+                          ? ""
+                          : "${data?.feedbackFromTeacher}")),
                     ]),
                     DataRow(cells: [
                       DataCell(Text('Attachments',
@@ -286,12 +288,13 @@ class _BodyInfoAnswerState extends State<BodyInfoAnswer> {
     );
   }
 }
+
 ///Submission status
 Widget submitStatus(
     {String? title,
-      BuildContext? context,
-      GetInformationAnswerData? data,
-      String? submissionDeadline}) {
+    BuildContext? context,
+    GetInformationAnswerData? data,
+    String? submissionDeadline}) {
   Size size = MediaQuery.of(context!).size;
 
   return Container(
@@ -322,22 +325,22 @@ Widget submitStatus(
                               fontWeight: FontWeight.bold))),
                   DataColumn(
                       label: Container(
-                        width: size.width / 1.8,
-                        height: size.width,
-                        color: data?.createDate == null
-                            ? Colors.white
-                            : Colors.green.withOpacity(0.8),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                              data?.createDate == null
-                                  ? 'No attempt'
-                                  : "Submitted for grading",
-                              style: TextStyle(
-                                  fontSize: size.width / 28,
-                                  fontWeight: FontWeight.normal)),
-                        ),
-                      )),
+                    width: size.width / 1.8,
+                    height: size.width,
+                    color: data?.createDate == null
+                        ? Colors.white
+                        : Colors.green.withOpacity(0.8),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                          data?.createDate == null
+                              ? 'No attempt'
+                              : "Submitted for grading",
+                          style: TextStyle(
+                              fontSize: size.width / 28,
+                              fontWeight: FontWeight.normal)),
+                    ),
+                  )),
                 ],
                 rows: [
                   DataRow(cells: [
@@ -371,16 +374,17 @@ Widget submitStatus(
                         style: TextStyle(
                             fontSize: size.width / 25,
                             fontWeight: FontWeight.bold))),
-                    DataCell(Text(data?.updateDate == null
-                        ? ""
-                        : '${data?.updateDate}')),
+                    DataCell(Text(
+                        data?.updateDate == null ? "" : '${data?.updateDate}')),
                   ]),
                   DataRow(cells: [
                     DataCell(Text('Comment',
                         style: TextStyle(
                             fontSize: size.width / 25,
                             fontWeight: FontWeight.bold))),
-                    DataCell(Text(data?.feedbackFromTeacher==null?"":"${data?.feedbackFromTeacher}")),
+                    DataCell(Text(data?.feedbackFromTeacher == null
+                        ? ""
+                        : "${data?.feedbackFromTeacher}")),
                   ]),
                   DataRow(cells: [
                     DataCell(Text('Attachments',
@@ -388,7 +392,7 @@ Widget submitStatus(
                             fontSize: size.width / 25,
                             fontWeight: FontWeight.bold))),
                     DataCell(
-                     Text(""),
+                      Text(""),
                     ),
                   ]),
                 ],
@@ -427,7 +431,7 @@ String formatTime({String? timeDue}) {
   // } else if (day == 0 && hour == 0) {
   //   return "$minute minute";
   // } else if (day == 0 && hour == 0 && minute == 0) {}
-print( "${day} day ${hour} hour ${minute} minute");
+  print("${day} day ${hour} hour ${minute} minute");
   return "${day} day ${hour} hour ${minute} minute";
 }
 

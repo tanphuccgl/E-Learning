@@ -190,7 +190,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                       if (nameExercise?.trim().length == 0 ||
                           nameExercise == null) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Input name Course"),
+                          content: Text("Input name"),
                         ));
                       } else {
                         print("aloww $_valueChangedAallow");

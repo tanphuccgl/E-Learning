@@ -62,7 +62,7 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
                   SizedBox(
                     width: size.width / 6,
                   ),
-                  Text("Name Class"),
+                  Text("Name Course"),
                   SizedBox(
                     width: size.width / 5,
                   ),

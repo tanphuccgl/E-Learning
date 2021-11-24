@@ -64,7 +64,7 @@ class _ExercisePageState extends State<ExercisePage> {
         child: Column(
           children: [
             _header(
-              datetime: "Mar 22th 2021",
+              datetime: DateFormat('dd-MM-yyyy').format(DateTime.now()),
               countExercise: list?.length,
               idCourse: widget.idCourse,
               ///check role

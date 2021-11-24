@@ -59,7 +59,7 @@ class _BodyGradeExeState extends State<BodyGradeExe> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _title(name: "Num", width: size.width / 11),
+                  _title(name: "No", width: size.width / 11),
                   _title(name: "Name", width: size.width / 3.5),
                   _title(name: "Point", width: size.width / 9),
                   _title(name: "Status", width: size.width / 5),
