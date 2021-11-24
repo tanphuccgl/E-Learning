@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/card_widget.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/create_class_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/get_all_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 
 class FuncClassPage extends StatefulWidget {
@@ -39,7 +40,7 @@ class _FuncClassPageState extends State<FuncClassPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CreateClassPage()));
+                              builder: (context) => GetAllClassPage()));
                     }),
                 card(
                     title: "Create Class",

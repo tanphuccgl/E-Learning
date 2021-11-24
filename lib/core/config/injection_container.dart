@@ -8,6 +8,11 @@ import 'package:thuc_tap_tot_nghiep/feature/answer/data/repo/info_answer_repo_im
 import 'package:thuc_tap_tot_nghiep/feature/answer/domain/repo/info_answer_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/domain/usecase/get_info_answer.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/manager/get_info_answer/get_info_answer_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/data/data_sources/get_all_class_remote_data_source.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/data/repositories/get_all_class_repository_impl.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/domain/repositories/get_all_class_repository.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/domain/usecases/get_all_class.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/presentations/manager/get_all_class/get_all_class_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_course_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_member_in_course_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/repositories/get_course_repo_impl.dart';
@@ -77,6 +82,7 @@ Future<void> init() async {
   sl.registerFactory(() => GetInformationAnswerBloc(pr: sl()));
   sl.registerFactory(() => GetGradeExerciseBloc(pr: sl()));
   sl.registerFactory(() => GetDashboardBloc(pr: sl()));
+  sl.registerFactory(() => GetAllClassBloc(pr: sl()));
 
 
   ///use case
@@ -93,7 +99,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetInformationAnswer(sl()));
   sl.registerLazySingleton(() => GetGradeExercise(sl()));
   sl.registerLazySingleton(() => GetDashboard(sl()));
-
+  sl.registerLazySingleton(() => GetAllClass(sl()));
 
   ///repo
   //login
@@ -146,6 +152,13 @@ Future<void> init() async {
         getDashboardRemoteDataSource: sl(),
         networkInfo: sl(),
       ));
+  sl.registerLazySingleton<GetAllClassRepository>(
+          () => GetAllClassRepositoryImpl(
+        getAllClassRemoteDataSource: sl(),
+        networkInfo: sl(),
+      ));
+
+
 
 
   ///data source
@@ -173,6 +186,10 @@ Future<void> init() async {
       () => GetGradeExerciseRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetDashboardRemoteDataSource>(
           () => GetDashboardRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<GetAllClassRemoteDataSource>(
+          () => GetAllClassRemoteDataSourceImpl(client: sl()));
+
+
 
   ///core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
