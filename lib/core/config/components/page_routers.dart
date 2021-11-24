@@ -24,6 +24,7 @@ import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/page
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/set_new_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
+import 'package:thuc_tap_tot_nghiep/test.dart';
 
 class PageRoutes {
   static const String onBoardingPage = OnBoardingPage.routeName;
@@ -53,6 +54,7 @@ class PageRoutes {
   static const String funcCoursePage = FuncCoursePage.routeName;
   static const String getCoursePage = GetCoursePage.routeName;
 
+  static const String test = Test.routeName;
 
 
 

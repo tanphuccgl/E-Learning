@@ -1,5 +1,8 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_file/open_file.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/open_image.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
@@ -16,6 +19,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/thumbnail.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/grade_exercise_teacher_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/submit_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/pick_multi_file.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class BodyDetailExercise extends StatefulWidget {
@@ -28,6 +32,15 @@ class BodyDetailExercise extends StatefulWidget {
 }
 
 class _BodyDetailExerciseState extends State<BodyDetailExercise> {
+  List<PlatformFile>? listFile;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    listFile = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetInfoExerciseBloc, GetInfoExerciseState>(
@@ -44,7 +57,6 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                 body: SingleChildScrollView(
                   child: Container(
                     width: size.width,
-
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: size.width / 25,
@@ -57,6 +69,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                               allowSubmission: state.data?.allowSubmission,
                               submissionDeadline:
                                   state.data?.submissionDeadline),
+
                           /// mô tả
                           _content(
                               content: state.data?.descriptionExercise == null
@@ -66,16 +79,21 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                             height: size.width / 15,
                           ),
 
-                          ///pick file
+                          ///pick file and show
                           _uploadedFile(
-                              list: state.data?.files, title: "Uploaded File (${state.data?.files?.length})"),
+                              list: state.data?.files,
+                              title:
+                                  "Uploaded File (${state.data?.files?.length})"),
                           SizedBox(
                             height: size.width / 15,
                           ),
-                          ///
+
+                          ///gradingSummary
                           appUser?.role == "teacher"
                               ? gradingSummary(
                                   context: context, title: "Grading summary")
+
+                              /// submission
                               : InfoAnswerPage(
                                   idAccount: appUser?.iId,
                                   idAnswer: state.data?.idAnswer,
@@ -92,7 +110,9 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                             builder: (context) =>
                                                 GradeExerciseTeacherPage(
                                                     idExercise:
-                                                        widget.idExercise,isTextPoint:state.data?.isTextPoint,
+                                                        widget.idExercise,
+                                                    isTextPoint:
+                                                        state.data?.isTextPoint,
                                                     idCourse:
                                                         state.data?.idCourse)));
                                   },
@@ -171,48 +191,61 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
           list!.length > 4 ? size.width / 1.4 : list.length * size.width / 6,
       child: ListView.separated(
           itemBuilder: (context, index) {
-            return Container(
-              height: size.width / 7,
-              width: size.width / 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TypeFile.fileImage.contains(
-                              list[index].originalname?.split(".").last)
-                          ? Container(
-                              height: size.width / 10,
-                              width: size.width / 10,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "${list[index].pathname}"),
-                                      fit: BoxFit.cover)),
-                            )
-                          : Container(
-                              height: size.width / 10,
-                              width: size.width / 10,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
-                                      fit: BoxFit.cover)),
-                            ),
-                      SizedBox(
-                        width: size.width / 15,
-                      ),
-                      _detailFile(file: list[index]),
-                    ],
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_circle_down),
-                    onPressed: () {
-                      setState(() {});
-                    },
-                  ),
-                ],
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OpenImage(
+                            url: list[index].pathname,
+                            file: list[index],
+                            originalname: list[index].originalname,
+                          )),
+                );
+              },
+              child: Container(
+                height: size.width / 7,
+                width: size.width / 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TypeFile.fileImage.contains(
+                                list[index].originalname?.split(".").last)
+                            ? Container(
+                                height: size.width / 10,
+                                width: size.width / 10,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            "${list[index].pathname}"),
+                                        fit: BoxFit.cover)),
+                              )
+                            : Container(
+                                height: size.width / 10,
+                                width: size.width / 10,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
+                                        fit: BoxFit.cover)),
+                              ),
+                        SizedBox(
+                          width: size.width / 15,
+                        ),
+                        _detailFile(file: list[index]),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_circle_down),
+                      onPressed: () {
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
               ),
             );
           },
@@ -256,7 +289,6 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
               SizedBox(
                 width: size.width / 10,
               ),
-
             ],
           )
           // Text("${list[index].extension}"),

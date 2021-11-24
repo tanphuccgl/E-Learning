@@ -26,11 +26,11 @@ import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/page
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/data/models/login_data.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
+import 'package:thuc_tap_tot_nghiep/test.dart';
 import 'core/config/injection_container.dart' as di;
 import 'feature/answer/presentation/pages/info_answer_page.dart';
 import 'feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'dart:async';
-import 'package:intl/date_symbol_data_local.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
@@ -89,6 +89,7 @@ class _MyAppState extends State<MyApp> {
         PageRoutes.getCoursePage: (context) => GetCoursePage(),
         PageRoutes.funcCoursePage: (context) => FuncCoursePage(),
 
+        PageRoutes.test: (context) => Test(),
 
 
 
