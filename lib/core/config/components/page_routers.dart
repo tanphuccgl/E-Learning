@@ -7,6 +7,7 @@ import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/func_class
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/func_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/get_course_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/remove_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_exercise_page.dart';
@@ -53,6 +54,7 @@ class PageRoutes {
   static const String createClassPage = CreateClassPage.routeName;
   static const String funcCoursePage = FuncCoursePage.routeName;
   static const String getCoursePage = GetCoursePage.routeName;
+  static const String removeCoursePage = RemoveCoursePage.routeName;
 
   static const String test = Test.routeName;
 

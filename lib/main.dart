@@ -9,6 +9,7 @@ import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/func_class
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/func_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/get_course_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/remove_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/grade_exercise_teacher_page.dart';
@@ -88,6 +89,8 @@ class _MyAppState extends State<MyApp> {
         PageRoutes.createClassPage: (context) => CreateClassPage(),
         PageRoutes.getCoursePage: (context) => GetCoursePage(),
         PageRoutes.funcCoursePage: (context) => FuncCoursePage(),
+        PageRoutes.removeCoursePage: (context) => RemoveCoursePage(),
+
 
         PageRoutes.test: (context) => Test(),
 

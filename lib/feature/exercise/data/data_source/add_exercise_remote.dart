@@ -6,18 +6,17 @@ import 'package:thuc_tap_tot_nghiep/main.dart';
 
 http.Client? client = http.Client();
 
-Future<bool> addExercise({String? titleExercise,
-  String? idCourse,
-  String? descriptionExercise,
-  DateTime? allowSubmission,
-  DateTime? submissionDeadline,
-  List<PlatformFile>? listFile,
-  Function? success,
-  Function? failure}) async {
+Future<bool> addExercise(
+    {String? titleExercise,
+    String? idCourse,
+    String? descriptionExercise,
+    DateTime? allowSubmission,
+    DateTime? submissionDeadline,
+    List<PlatformFile>? listFile,
+    Function? success,
+    Function? failure}) async {
   var uri = Uri.parse('$mainUrl/exercise/AddExercise');
   var request = http.MultipartRequest('POST', uri);
-  print("allow1 ${allowSubmission}");
-  print("due1 ${submissionDeadline}");
   request.headers["Accept"] = "application/json";
   request.headers["auth-token"] = "${appUser?.token}";
   request.headers["Content-Type"] = "multipart/form-data";
@@ -33,14 +32,12 @@ Future<bool> addExercise({String? titleExercise,
     request.fields["submissionDeadline"] = "$submissionDeadline";
   }
 
-
   request.fields["files"] = "files";
   request.fields['idCourse'] = '$idCourse';
   for (var item in listFile!) {
     var file = await http.MultipartFile.fromPath("files", item.path!);
     request.files.add(file);
   }
-
 
   var response = await request.send();
   var a = await response.stream.toBytes();

@@ -101,7 +101,12 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                           ///gradingSummary
                           appUser?.role == "teacher"
                               ? gradingSummary(
-                                  context: context, title: "Grading summary")
+                                  context: context, title: "Grading summary"
+                          ,totalNumberOfGradedSubmissions: state.data?.totalNumberOfGradedSubmissions,
+                            totalNumberOfSubmissions: state.data?.totalNumberOfSubmissions,
+                            totalStudentInCourse: state.data?.totalStudentInCourse,
+
+                          )
 
                               /// submission
                               : InfoAnswerPage(
