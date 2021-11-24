@@ -60,6 +60,11 @@ import 'package:thuc_tap_tot_nghiep/feature/sign_in/domain/repositories/login_re
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/domain/usecases/get_current_user.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/domain/usecases/post_login.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/data/data_source/get_all_teacher_remote.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/data/repo/get_all_teacher_repo_impl.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/domain/repo/get_all_teacher_repo.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/domain/usecase/get_all_teacher.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -83,6 +88,8 @@ Future<void> init() async {
   sl.registerFactory(() => GetGradeExerciseBloc(pr: sl()));
   sl.registerFactory(() => GetDashboardBloc(pr: sl()));
   sl.registerFactory(() => GetAllClassBloc(pr: sl()));
+  sl.registerFactory(() => GetAllTeacherBloc(pr: sl()));
+
 
 
   ///use case
@@ -100,6 +107,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetGradeExercise(sl()));
   sl.registerLazySingleton(() => GetDashboard(sl()));
   sl.registerLazySingleton(() => GetAllClass(sl()));
+  sl.registerLazySingleton(() => GetAllTeacher(sl()));
+
 
   ///repo
   //login
@@ -157,6 +166,11 @@ Future<void> init() async {
         getAllClassRemoteDataSource: sl(),
         networkInfo: sl(),
       ));
+  sl.registerLazySingleton<GetAllTeacherRepository>(
+          () => GetAllTeacherRepositoryImpl(
+        getAllTeacherRemoteDataSource: sl(),
+        networkInfo: sl(),
+      ));
 
 
 
@@ -188,7 +202,8 @@ Future<void> init() async {
           () => GetDashboardRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetAllClassRemoteDataSource>(
           () => GetAllClassRemoteDataSourceImpl(client: sl()));
-
+  sl.registerLazySingleton<GetAllTeacherRemoteDataSource>(
+          () => GetAllTeacherRemoteDataSourceImpl(client: sl()));
 
 
   ///core
