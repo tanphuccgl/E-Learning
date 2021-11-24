@@ -33,12 +33,17 @@ class GetInfoExerciseData {
   int? isTextPoint;
   String? allowSubmission;
   String? submissionDeadline;
+  int? totalNumberOfSubmissions;
+  int? totalNumberOfGradedSubmissions;
+  int? totalStudentInCourse;
   List<Files>? files;
   String? createDate;
   String? updateDate;
 
   GetInfoExerciseData(
-      {this.idTeacher,
+      {this.idAnswer,
+        this.idExercise,
+        this.idTeacher,
         this.idCourse,
         this.nameCourse,
         this.titleExercise,
@@ -46,6 +51,9 @@ class GetInfoExerciseData {
         this.isTextPoint,
         this.allowSubmission,
         this.submissionDeadline,
+        this.totalNumberOfSubmissions,
+        this.totalNumberOfGradedSubmissions,
+        this.totalStudentInCourse,
         this.files,
         this.createDate,
         this.updateDate});
@@ -61,6 +69,9 @@ class GetInfoExerciseData {
     isTextPoint = json['isTextPoint'];
     allowSubmission = json['allowSubmission'];
     submissionDeadline = json['submissionDeadline'];
+    totalNumberOfSubmissions = json['totalNumberOfSubmissions'];
+    totalNumberOfGradedSubmissions = json['totalNumberOfGradedSubmissions'];
+    totalStudentInCourse = json['totalStudentInCourse'];
     if (json['files'] != null) {
       files = <Files>[];
       json['files'].forEach((v) {
@@ -83,6 +94,10 @@ class GetInfoExerciseData {
     data['isTextPoint'] = this.isTextPoint;
     data['allowSubmission'] = this.allowSubmission;
     data['submissionDeadline'] = this.submissionDeadline;
+    data['totalNumberOfSubmissions'] = this.totalNumberOfSubmissions;
+    data['totalNumberOfGradedSubmissions'] =
+        this.totalNumberOfGradedSubmissions;
+    data['totalStudentInCourse'] = this.totalStudentInCourse;
     if (this.files != null) {
       data['files'] = this.files?.map((v) => v.toJson()).toList();
     }
