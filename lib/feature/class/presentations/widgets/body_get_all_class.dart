@@ -99,7 +99,7 @@ class _BodyGetAllClassState extends State<BodyGetAllClass> {
             width: size.width / 4,
           ),
           Container(
-            child: Text(data!.lv.toString()),
+            child: Text(data.lv.toString()),
             width: size.width / 15,
           )
         ],

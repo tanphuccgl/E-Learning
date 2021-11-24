@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/input_title.dart';
 
 class AddCoursePage extends StatefulWidget {
   static const String routeName = "/AddCoursePage";
@@ -10,55 +12,44 @@ class AddCoursePage extends StatefulWidget {
 }
 
 class _AddCoursePageState extends State<AddCoursePage> {
-  TextEditingController nameCourseController = TextEditingController();
+  TextEditingController? nameCourseController ;
   String? nameCourse;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameCourseController = TextEditingController();
+    nameCourse="";
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text("Add course"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: size.height / 12.8,
-              width: size.width / 2,
-              child: TextFormField(
-                controller: nameCourseController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.login), labelText: 'Name Course'),
-                onChanged: (value) {
-                  nameCourse = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Container(
-                child: TextButton(
-                  child: Text("them giaso vien "),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                        context, PageRoutes.addTeacherToCoursePage);
+      appBar: appBar(context: context,title: "Create Course"),
+      body: Container(
+        width: size.width,
+        height: size.height,
+
+        child: Padding(
+    padding: EdgeInsets.only(
+    left: size.width / 25,
+    right: size.width / 25,),
+          child: Column(
+            children: <Widget>[
+              inputName(
+                  title: "Name Course",
+                  context: context,
+                  function: (value) {
+                    nameCourse = value;
                   },
-                ),
+                  textEditingController: nameCourseController,
+                  hintText: "Input name"),
+              SizedBox(
+                height: size.width / 20,
               ),
-            ),
-          ],
+
+            ],
+          ),
         ),
       ),
     );

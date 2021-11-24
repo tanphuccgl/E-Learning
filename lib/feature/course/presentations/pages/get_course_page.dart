@@ -6,9 +6,12 @@ import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_state.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/widgets/body_get_all_course.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/widgets/body_get_course.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class GetCoursePage extends StatefulWidget {
+  static const String routeName="/GetCoursePage";
   const GetCoursePage({Key? key}) : super(key: key);
 
   @override
@@ -20,7 +23,9 @@ class _GetCoursePageState extends State<GetCoursePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (_) => sl<GetCourseBloc>(),
-        child: BodyGetCourse(changeWithPage: "GetCoursePage",),
+        child:
+        appUser?.role=="admin"?BodyGetAllCourse():
+        BodyGetCourse(changeWithPage: "GetCoursePage",),
     );
   }
 

@@ -86,7 +86,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
   }
 
   Widget _gradeClass({Function(int?)? function, int? gradeValue}) {
-    Size size = MediaQuery.of(context!).size;
+    Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
       height: size.width / 5,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/card_widget.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/func_class_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/func_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/widgets/bottom_navi_bar_cus.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
@@ -51,6 +52,16 @@ class _FunctionPageState extends State<FunctionPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => FuncClassPage()));
+                    }),
+                card(
+                    title: "Course",
+                    colorCard: Colors.lightBlueAccent,context: context,
+                    colorText: Colors.white,
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FuncCoursePage()));
                     }),
 
               ],

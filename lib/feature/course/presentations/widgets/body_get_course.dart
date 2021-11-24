@@ -238,6 +238,6 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
 
   void getCourse() {
     BlocProvider.of<GetCourseBloc>(context).add(GetCourseEventE(
-        idAccount: "idAccount=${appUser?.iId}", keySearchNameCourse: ""));
+        idAccount: "?idAccount=${appUser?.iId}", keySearchNameCourse: ""));
   }
 }

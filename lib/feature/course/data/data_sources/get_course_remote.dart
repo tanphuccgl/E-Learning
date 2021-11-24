@@ -26,7 +26,7 @@ class GetCourseRemoteDataSourceImpl implements GetCourseRemoteDataSource {
       String keySearchNameCourse, String idAccount) async {
     final response = await client!.get(
       Uri.parse(
-          '$mainUrl/course/GetCourse?$keySearchNameCourse$idAccount'),
+          '$mainUrl/course/GetCourse$keySearchNameCourse$idAccount'),
       headers: {
         "Accept": "application/json",
         "content-type": "application/json" // k co header la failed 415
@@ -35,7 +35,7 @@ class GetCourseRemoteDataSourceImpl implements GetCourseRemoteDataSource {
     );
 
     log("Get GetCourseResponse: " +
-        "$mainUrl/course/GetCourse?$keySearchNameCourse$idAccount");
+        "$mainUrl/course/GetCourse$keySearchNameCourse$idAccount");
     log("Response Json GetCourseResponse: ${json.decode(response.body)}");
 
     if (response.statusCode == 200) {
