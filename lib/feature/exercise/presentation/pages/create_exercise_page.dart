@@ -182,8 +182,8 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                   list: listFile,
                 ),
                 /// nút xac nhận
-                accpect(
-                   content: "Accpect",
+                accept(
+                   content: "Accept",
                     context: context,
                     function: () {
                       ///check nhập tên bài tập

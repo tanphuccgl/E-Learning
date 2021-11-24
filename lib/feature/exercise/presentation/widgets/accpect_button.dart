@@ -3,7 +3,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-Widget accpect({ Function()? function,BuildContext? context,String? content}) {
+Widget accept({ Function()? function,BuildContext? context,String? content}) {
   Size size = MediaQuery.of(context!).size;
 
   return Center(

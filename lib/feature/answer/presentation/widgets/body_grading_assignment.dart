@@ -150,8 +150,8 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                             ),
                             context: context,
                             function: () {}),
-                        accpect(
-                            content: "Accpect",
+                        accept(
+                            content: "Accept",
                             context: context,
                             function: () {
                               ///check nhập tên bài tập

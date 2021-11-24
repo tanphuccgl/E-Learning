@@ -83,7 +83,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                       state.data?.submissionDeadline,
                                   allowSubmission: state.data?.allowSubmission),
                           appUser?.role == "teacher"
-                              ? accpect(
+                              ? accept(
                                   context: context,
                                   function: () {
                                     Navigator.push(
@@ -97,7 +97,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                                         state.data?.idCourse)));
                                   },
                                   content: "View all")
-                              : accpect(
+                              : accept(
                                   context: context,
                                   function: () {
                                     Navigator.push(

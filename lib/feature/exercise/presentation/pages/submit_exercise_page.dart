@@ -99,8 +99,8 @@ class _SubmitExercisePageState extends State<SubmitExercisePage> {
                   list: listFile,
                 ),
                 /// nút xac nhận
-                accpect(
-                    content: "Accpect",
+                accept(
+                    content: "Accept",
                     context: context,
                     function: () {
                       /// gọi api thêm bài tập

@@ -115,9 +115,9 @@ class _CreateLecturePageState extends State<CreateLecturePage> {
                 ),
 
                 /// nút xac nhận
-                accpect(
+                accept(
 
-                    context: context,content: "Accpect",
+                    context: context,content: "Accept",
                     function: () {
                       ///check nhập tên bài tập
                       if (nameLecture?.trim().length == 0 ||

@@ -25,7 +25,7 @@ class _BodyGetAllClassState extends State<BodyGetAllClass> {
         } else if (state is Loading) {
           return SpinkitLoading();
         } else if (state is Loaded) {
-          return _list(list: state.data);
+          return _list(list: state.data!.reversed.toList());
         } else if (state is Error) {
           return Container(
             child: Text("Lỗi hệ thống"),
