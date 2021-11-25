@@ -3,6 +3,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/card_widget.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/func_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/func_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/widgets/bottom_navi_bar_cus.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class FunctionPage extends StatefulWidget {
@@ -63,6 +64,17 @@ class _FunctionPageState extends State<FunctionPage> {
                           MaterialPageRoute(
                               builder: (context) => FuncCoursePage()));
                     }),
+                card(
+                    title: "User",
+                    colorCard: Colors.lightBlueAccent,context: context,
+                    colorText: Colors.white,
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FuncUserPage()));
+                    }),
+
 
               ],
             ),

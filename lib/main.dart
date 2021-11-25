@@ -28,6 +28,8 @@ import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/page
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/data/models/login_data.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 import 'package:thuc_tap_tot_nghiep/test.dart';
 import 'core/config/injection_container.dart' as di;
 import 'feature/answer/presentation/pages/info_answer_page.dart';
@@ -92,12 +94,10 @@ class _MyAppState extends State<MyApp> {
         PageRoutes.funcCoursePage: (context) => FuncCoursePage(),
         PageRoutes.removeCoursePage: (context) => RemoveCoursePage(),
         PageRoutes.editCoursePage: (context) => EditCoursePage(),
+        PageRoutes.funcUserPage: (context) => FuncUserPage(),
 
 
         PageRoutes.test: (context) => Test(),
-
-
-
 
 
       }, supportedLocales: [Locale('en', 'US')]
