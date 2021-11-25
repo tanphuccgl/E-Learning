@@ -39,7 +39,6 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SingleChildScrollView(
         child: Container(
           width: size.width,
-          height: size.height,
           child: Padding(
             padding: EdgeInsets.only(
               left: size.width / 25,
@@ -92,6 +91,39 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: size.width / 20,
                 ),
                 inputName(
+                    title: "Phone Number",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input number"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                inputName(
+                    title: "Parent Name",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input name"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                inputName(
+                    title: "Phone Number Parent",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input number"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                inputName(
                     title: "Password",
                     context: context,
                     function: (value) {
@@ -130,7 +162,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   _role(context: context,function: (a){},typePointValue: "Teacher")
                 ],),
                 accept(function: (){},context: context,content: "Accept"),
-
+                SizedBox(
+                  height: size.width / 20,
+                ),
 
               ],
             ),
