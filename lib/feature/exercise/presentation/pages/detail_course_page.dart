@@ -69,17 +69,19 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
           elevation: 0,
         ),
       ),
-      body: Column(children: [
-        TitleHeader(
-          onChanged: (e) {
-            setState(() {
-              curentWidgetId = e;
-            });
-          },
-          choosingPos1: widget.choosingPos,
-        ),
-        getWidgetById(curentWidgetId),
-      ]),
+      body: Container(
+        child: Column(children: [
+          TitleHeader(
+            onChanged: (e) {
+              setState(() {
+                curentWidgetId = e;
+              });
+            },
+            choosingPos1: widget.choosingPos,
+          ),
+          getWidgetById(curentWidgetId),
+        ]),
+      ),
     );
   }
 

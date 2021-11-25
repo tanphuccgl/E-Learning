@@ -79,7 +79,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _title(
-                        name: "Học sinh: ${widget.nameStudent}",
+                        name: "Name student: ${widget.nameStudent}",
                         createDate: widget.createDate),
                     SizedBox(
                       height: size.width / 20,
@@ -117,7 +117,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                       padding: EdgeInsets.all(size.width / 25),
                       child: Center(
                           child: Text(
-                        "bai lam",
+                        "Submitted assignments",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -180,6 +180,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                             function: () {}),
                       ],
                     ),
+
                   ],
                 ),
               )),
@@ -221,8 +222,10 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                         BorderRadius.all(Radius.circular(size.width / 30)),
                     direction: Axis.horizontal,
                     children: <Widget>[
-                      Icon(Icons.ac_unit),
-                      Icon(Icons.call),
+                      Icon(Icons.arrow_drop_up_rounded),
+                      Icon(
+                        Icons.arrow_drop_down_outlined,
+                      ),
                     ],
                     onPressed: (int index) {
                       setState(() {
@@ -259,7 +262,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
       width: size.width,
 
       ///  widget.list!.length > 4 ? size.width / 1.4 : widget.list!.length * size.width / 6,
-      height: size.width / 0.8 * list!.length,
+      height: size.width / 0.65 * list!.length,
       child: ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {

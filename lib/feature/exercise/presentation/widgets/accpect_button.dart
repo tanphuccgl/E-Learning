@@ -3,7 +3,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-Widget accept({ Function()? function,BuildContext? context,String? content}) {
+Widget accept({ Function()? function,BuildContext? context,String? content,Color? color=Colors.green}) {
   Size size = MediaQuery.of(context!).size;
 
   return Center(
@@ -16,7 +16,7 @@ Widget accept({ Function()? function,BuildContext? context,String? content}) {
           onPressed: function,
           child: Text(content!),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            backgroundColor: MaterialStateProperty.all<Color>(color!),
           ),
         ),
       ),

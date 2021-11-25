@@ -5,6 +5,7 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_couse_res.dar
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_state.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 
 class BodyGetAllCourse extends StatefulWidget {
@@ -97,32 +98,41 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
   Widget _item({GetCourseData? data, int? number}) {
     Size size = MediaQuery.of(context).size;
 
-    return Container(
-      width: size.width,
-      height: size.width / 8,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text("$number"),
-          SizedBox(
-            width: size.width / 5,
-          ),
-          Container(
-            child: Text(data!.nameCourse!),
-            width: size.width / 4,
-          ),
-          SizedBox(
-            width: size.width / 6,
-          ),
-          Container(
-            child: Text(
-              data.fullName!,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailCoursePage(
+                    idCourse: data?.idCourse, nameCourse: data?.nameCourse)));
+      },
+      child: Container(
+        width: size.width,
+        height: size.width / 8,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("$number"),
+            SizedBox(
+              width: size.width / 5,
             ),
-            width: size.width / 9,
-          )
-        ],
+            Container(
+              child: Text(data!.nameCourse!),
+              width: size.width / 4,
+            ),
+            SizedBox(
+              width: size.width / 6,
+            ),
+            Container(
+              child: Text(
+                data.fullName!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              width: size.width / 9,
+            )
+          ],
+        ),
       ),
     );
   }

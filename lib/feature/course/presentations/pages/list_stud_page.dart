@@ -5,6 +5,8 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_member_in_cou
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_member_in_course/get_member_in_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_member_in_course/get_member_in_course_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_member_in_course/get_member_in_course_state.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class ListStudentPage extends StatefulWidget {
   final String? idCourse;
@@ -24,7 +26,30 @@ class _ListStudentPageState extends State<ListStudentPage> {
         getMember();
       } else if (state is Loaded) {
         return state.data!.isNotEmpty
-            ? _list(data: state.data)
+            ? Container(
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  appUser?.role == "admin"
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            accept(
+                                content: "Delete",
+                                context: context,
+                                function: () {},
+                                color: Colors.red),
+                            accept(
+                                content: "Add",
+                                context: context,
+                                function: () {},
+                                color: Colors.green),
+                          ],
+                        )
+                      : SizedBox.shrink(),
+                  _list(data: state.data),
+                ],
+              ))
             : Center(child: Text("Invail member"));
       } else if (state is Loading) {
         return SpinkitLoading();
@@ -41,7 +66,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height / 1.23,
+      height: size.height / 1.35,
       width: size.width,
       child: Padding(
         padding: EdgeInsets.only(
@@ -65,23 +90,27 @@ class _ListStudentPageState extends State<ListStudentPage> {
     return Container(
       height: size.width / 6,
       width: size.width,
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade500),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade500),
         color: Colors.grey.shade300.withOpacity(0.3),
         borderRadius: BorderRadius.all(
           Radius.circular(size.width / 20),
-
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: size.width / 50,bottom: size.width / 50,left: size.width / 20,right: size.width / 20),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: EdgeInsets.only(
+            top: size.width / 50,
+            bottom: size.width / 50,
+            left: size.width / 20,
+            right: size.width / 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               width: size.width / 7,
               height: size.width / 6,
               decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(size.width / 2)),
+                borderRadius: BorderRadius.all(Radius.circular(size.width / 2)),
                 image: DecorationImage(
                   image: AssetImage(image!),
                   fit: BoxFit.cover,
@@ -95,7 +124,9 @@ class _ListStudentPageState extends State<ListStudentPage> {
                   fontWeight: FontWeight.w600,
                   fontSize: size.width / 20),
             ),
-            SizedBox(width: size.width/4,)
+            SizedBox(
+              width: size.width / 4,
+            )
           ],
         ),
       ),
