@@ -35,7 +35,7 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBar(context: context,title: "Register Account"),
+      appBar: appBar(context: context,title: "Change Infomation"),
       body: SingleChildScrollView(
         child: Container(
           width: size.width,
@@ -152,7 +152,7 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
                     _gender(context: context,function: (a){},typePointValue: "Male"),
                 //    _role(context: context,function: (a){},typePointValue: "Teacher")
                   ],),
-                accept(function: (){},context: context,content: "Accept"),
+                accept(function: (){},context: context,content: "Change"),
                 SizedBox(
                   height: size.width / 20,
                 ),
