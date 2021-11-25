@@ -49,10 +49,15 @@ import 'package:thuc_tap_tot_nghiep/feature/home/domain/repo/get_dashboard_repo.
 import 'package:thuc_tap_tot_nghiep/feature/home/domain/usecase/get_dashboard.dart';
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/manager/get_dashboard/get_dashboard_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/data_source/get_all_lecture_of_course_remote.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/data/data_source/get_info_lecture_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/repo/get_all_lecture_of_course_repo_impl.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/data/repo/get_info_lecture_repo_impl.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/repo/get_all_lecture_of_course_repo.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/repo/get_info_lecture_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/usercase/get_all_lecture_of_course.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/usercase/get_info_lecture.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_all_lecture_of_course/get_all_lecture_of_course_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/data/data_sources/list_teacher_remote_data_source.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/data/repositories/list_teacher_repository_impl.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/domain/repositories/list_teacher_repository.dart';
@@ -95,6 +100,8 @@ Future<void> init() async {
   sl.registerFactory(() => GetAllClassBloc(pr: sl()));
   sl.registerFactory(() => GetAllTeacherBloc(pr: sl()));
   sl.registerFactory(() => GetAllLectureBloc(pr: sl()));
+  sl.registerFactory(() => GetInfoLectureBloc(pr: sl()));
+
 
 
 
@@ -116,6 +123,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllClass(sl()));
   sl.registerLazySingleton(() => GetAllTeacher(sl()));
   sl.registerLazySingleton(() => GetAllLecture(sl()));
+  sl.registerLazySingleton(() => GetInfoLecture(sl()));
+
 
 
   ///repo
@@ -184,6 +193,11 @@ Future<void> init() async {
         getAllLectureRemoteDataSource:  sl(),
         networkInfo: sl(),
       ));
+  sl.registerLazySingleton<GetInfoLectureRepository>(
+          () => GetInfoLectureRepositoryImpl(
+        getInfoLectureRemoteDataSource:   sl(),
+        networkInfo: sl(),
+      ));
 
 
 
@@ -220,6 +234,9 @@ Future<void> init() async {
           () => GetAllTeacherRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetAllLectureRemoteDataSource>(
           () => GetAllLectureRemoteDataSourceImpl(client: sl()));
+
+  sl.registerLazySingleton<GetInfoLectureRemoteDataSource>(
+          () => GetInfoLectureRemoteDataSourceImpl(client: sl()));
 
 
 

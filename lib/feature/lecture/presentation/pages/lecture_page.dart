@@ -14,10 +14,11 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_all
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_all_lecture_of_course/get_all_lecture_of_course_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_all_lecture_of_course/get_all_lecture_of_course_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/create_lecture_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/detail_lecture.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class LecturePage extends StatefulWidget {
-  static const String routeName="/LecturePage";
+  static const String routeName = "/LecturePage";
   final String? idCourse;
   final String? nameCourse;
 
@@ -35,26 +36,27 @@ class _LecturePageState extends State<LecturePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<GetAllLectureBloc, GetAllLectureState>(
         builder: (context, state) {
-          if (state is Empty) {
-            getCourse();
-          } else if (state is Loaded) {
-            return state.data!.isNotEmpty
-                ? _list(state.data)
-                : Center(child: Text("Invail exercise"));
-          } else if (state is Loading) {
-            return SpinkitLoading();
-          } else if (state is Error) {
-            return Center(
-              child: Text("Lỗi hệ thống"),
-            );
-          }
-          return Container();
-        });
+      if (state is Empty) {
+        getCourse();
+      } else if (state is Loaded) {
+        return state.data!.isNotEmpty
+            ? _list(state.data)
+            : Center(child: Text("Invail exercise"));
+      } else if (state is Loading) {
+        return SpinkitLoading();
+      } else if (state is Error) {
+        return Center(
+          child: Text("Lỗi hệ thống"),
+        );
+      }
+      return Container();
+    });
   }
+
   /// danh sách bài tập
   Widget _list(
-      List<GetAllLectureData>? list,
-      ) {
+    List<GetAllLectureData>? list,
+  ) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -71,42 +73,45 @@ class _LecturePageState extends State<LecturePage> {
               datetime: DateFormat('dd-MM-yyyy').format(DateTime.now()),
               countExercise: list?.length,
               idCourse: widget.idCourse,
+
               ///check role
               iconButton: appUser?.role == "teacher"
                   ? IconButton(
-                icon: Icon(
-                  Icons.add,
-                ),
-                onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => CreateLecturePage(
-                  //               idCourse: widget.idCourse,
-                  //             )));
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateLecturePage(idCourse: widget.idCourse!,nameCourse: widget.nameCourse,)));
-                },
-              )
+                      icon: Icon(
+                        Icons.add,
+                      ),
+                      onPressed: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => CreateLecturePage(
+                        //               idCourse: widget.idCourse,
+                        //             )));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateLecturePage(
+                                      idCourse: widget.idCourse!,
+                                      nameCourse: widget.nameCourse,
+                                    )));
+                      },
+                    )
                   : null,
             ),
             Container(
               width: size.width - size.width / 25,
               height: size.width / 0.8,
               child: Padding(
-                padding:  EdgeInsets.only(top:size.width/20),
+                padding: EdgeInsets.only(top: size.width / 20),
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return _item(
-                        time:
-                        list?[index].createDate,
+                        time: list?[index].createDate,
                         titleExercise: list?[index].nameLecture,
                         descriptionExercise:
-                        list?[index].descriptionLecture == null
-                            ? ""
-                            : list?[index].descriptionLecture,
+                            list?[index].descriptionLecture == null
+                                ? ""
+                                : list?[index].descriptionLecture,
                         data: list?[index]);
                   },
                   itemCount: list?.length,
@@ -121,9 +126,9 @@ class _LecturePageState extends State<LecturePage> {
 
   Widget _header(
       {String? datetime,
-        int? countExercise,
-        String? idCourse,
-        Widget? iconButton}) {
+      int? countExercise,
+      String? idCourse,
+      Widget? iconButton}) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -135,7 +140,7 @@ class _LecturePageState extends State<LecturePage> {
         children: [
           Padding(
             padding:
-            EdgeInsets.only(top: size.width / 30, bottom: size.width / 30),
+                EdgeInsets.only(top: size.width / 30, bottom: size.width / 30),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -160,7 +165,7 @@ class _LecturePageState extends State<LecturePage> {
               decoration: BoxDecoration(
                   color: Colors.grey.shade200,
                   borderRadius:
-                  BorderRadius.all(Radius.circular(size.width / 40))),
+                      BorderRadius.all(Radius.circular(size.width / 40))),
               child: iconButton)
         ],
       ),
@@ -169,9 +174,9 @@ class _LecturePageState extends State<LecturePage> {
 
   Widget _item(
       {String? time,
-        String? titleExercise,
-        String? descriptionExercise,
-        GetAllLectureData? data}) {
+      String? titleExercise,
+      String? descriptionExercise,
+      GetAllLectureData? data}) {
     Size size = MediaQuery.of(context).size;
 
     return Row(
@@ -193,7 +198,7 @@ class _LecturePageState extends State<LecturePage> {
                   decoration: BoxDecoration(
                     color: Colors.grey.shade300,
                     borderRadius:
-                    BorderRadius.all(Radius.circular(size.width / 20)),
+                        BorderRadius.all(Radius.circular(size.width / 20)),
                   )),
             ],
           ),
@@ -209,9 +214,9 @@ class _LecturePageState extends State<LecturePage> {
 
   Widget _card(
       {String? time,
-        String? titleExercise,
-        String? descriptionExercise,
-        GetAllLectureData? data}) {
+      String? titleExercise,
+      String? descriptionExercise,
+      GetAllLectureData? data}) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -240,16 +245,17 @@ class _LecturePageState extends State<LecturePage> {
                     _content(
                         titleExercise: titleExercise,
                         descriptionExercise: descriptionExercise),
+
                     ///check role
                     IconButton(
                         onPressed: () {
-                          //
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => DetailExercisePage(
-                          //           data: data,
-                          //         )))
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailLecturePage(
+                                    idLecture: data?.iId,
+                                  )))
 
                           ;
                         },
