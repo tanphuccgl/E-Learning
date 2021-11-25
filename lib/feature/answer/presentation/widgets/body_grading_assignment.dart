@@ -1,10 +1,15 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/open_image.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/thumbnail.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
@@ -180,7 +185,6 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                             function: () {}),
                       ],
                     ),
-
                   ],
                 ),
               )),
@@ -194,6 +198,86 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
       }
       return Container();
     });
+  }
+
+  Future<bool> saveFile(String url, String fileName) async {
+    Directory directory;
+    try {
+      if (Platform.isAndroid) {
+        if (await _requestPermission(Permission.storage)) {
+          directory = (await getExternalStorageDirectory())!;
+          String newPath = "";
+          print(directory);
+          List<String> paths = directory.path.split("/");
+          for (int x = 1; x < paths.length; x++) {
+            String folder = paths[x];
+            if (folder != "Android") {
+              newPath += "/" + folder;
+            } else {
+              break;
+            }
+          }
+          newPath = newPath;
+          print(newPath);
+          directory = Directory(newPath);
+        } else {
+          return false;
+        }
+      } else {
+        if (await _requestPermission(Permission.photos) &&
+            await _requestPermission(Permission.accessMediaLocation) &&
+            await _requestPermission(Permission.manageExternalStorage)) {
+          directory = await getTemporaryDirectory();
+        } else {
+          return false;
+        }
+      }
+      File saveFile = File(directory.path + "/$fileName");
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+      if (await directory.exists()) {
+        await dio.download(url, saveFile.path,
+            onReceiveProgress: (value1, value2) {
+          setState(() {});
+        });
+        if (Platform.isIOS) {
+          await ImageGallerySaver.saveFile(saveFile.path,
+              isReturnPathOfIOS: true);
+        }
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> _requestPermission(Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      var result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  downloadFile({String? url, String? namefile}) async {
+    setState(() {});
+
+    bool downloaded = await saveFile(url!, "${namefile!}");
+    if (downloaded) {
+      showSuccess1();
+      print("File Downloaded");
+    } else {
+      showCancel1();
+      print("Problem Downloading File");
+    }
+    setState(() {});
   }
 
   Widget _uploadedFile({List<FileUpload>? list, String? title}) {
@@ -268,63 +352,81 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
           itemBuilder: (context, index) {
             return Padding(
               padding: EdgeInsets.only(top: size.width / 3),
-              child: Container(
-                width: size.width,
-                child: TypeFile.fileImage
-                        .contains(list[index].originalname?.split(".").last)
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: size.width,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        NetworkImage("${list[index].pathname}"),
-                                    fit: BoxFit.cover)),
-                          ),
-                          SizedBox(
-                            height: size.width / 20,
-                          ),
-                          Text(
-                            "${list[index].originalname}",
-                            style: TextStyle(
-                                color: Colors.black, fontSize: size.width / 25),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: size.width / 10,
-                                width: size.width / 10,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
-                                        fit: BoxFit.cover)),
-                              ),
-                              SizedBox(
-                                width: size.width / 15,
-                              ),
-                              _detailFile(file: list[index]),
-                            ],
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.arrow_circle_down),
-                            onPressed: () {
-                              setState(() {});
-                            },
-                          ),
-                        ],
-                      ),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OpenImage(
+                              url: list[index].pathname,
+                              file: null,
+                              originalname: list[index].originalname,
+                            )),
+                  );
+                },
+                child: Container(
+                  width: size.width,
+                  child: TypeFile.fileImage
+                          .contains(list[index].originalname?.split(".").last)
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: size.width,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "${list[index].pathname}"),
+                                      fit: BoxFit.cover)),
+                            ),
+                            SizedBox(
+                              height: size.width / 20,
+                            ),
+                            Text(
+                              "${list[index].originalname}",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: size.width / 25),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: size.width / 10,
+                                  width: size.width / 10,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
+                                          fit: BoxFit.cover)),
+                                ),
+                                SizedBox(
+                                  width: size.width / 15,
+                                ),
+                                _detailFile(file: list[index]),
+                              ],
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.arrow_circle_down),
+                              onPressed: () {
+                                setState(() {
+                                  downloadFile(
+                                      url: list[index].pathname,
+                                      namefile: list[index].originalname);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                ),
               ),
             );
           },
@@ -344,48 +446,65 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
           list!.length > 4 ? size.width / 1.4 : list.length * size.width / 6,
       child: ListView.separated(
           itemBuilder: (context, index) {
-            return Container(
-              height: size.width / 7,
-              width: size.width / 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TypeFile.fileImage.contains(
-                              list[index].originalname?.split(".").last)
-                          ? Container(
-                              height: size.width / 10,
-                              width: size.width / 10,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "${list[index].pathname}"),
-                                      fit: BoxFit.cover)),
-                            )
-                          : Container(
-                              height: size.width / 10,
-                              width: size.width / 10,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
-                                      fit: BoxFit.cover)),
-                            ),
-                      SizedBox(
-                        width: size.width / 15,
-                      ),
-                      _detailFile(file: list[index]),
-                    ],
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_circle_down),
-                    onPressed: () {
-                      setState(() {});
-                    },
-                  ),
-                ],
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OpenImage(
+                            url: list[index].pathname,
+                            file: null,
+                            originalname: list[index].originalname,
+                          )),
+                );
+              },
+              child: Container(
+                height: size.width / 7,
+                width: size.width / 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TypeFile.fileImage.contains(
+                                list[index].originalname?.split(".").last)
+                            ? Container(
+                                height: size.width / 10,
+                                width: size.width / 10,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            "${list[index].pathname}"),
+                                        fit: BoxFit.cover)),
+                              )
+                            : Container(
+                                height: size.width / 10,
+                                width: size.width / 10,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
+                                        fit: BoxFit.cover)),
+                              ),
+                        SizedBox(
+                          width: size.width / 15,
+                        ),
+                        _detailFile(file: list[index]),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_circle_down),
+                      onPressed: () {
+                        setState(() {
+                          downloadFile(
+                              url: list[index].pathname,
+                              namefile: list[index].originalname);
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             );
           },
@@ -727,5 +846,35 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
         },
         title: "SUCCESS",
         description: "Successful grading");
+  }
+
+  void showCancel1() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "File download failed");
+  }
+
+  void showSuccess1() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => DetailCoursePage(
+          //           idCourse: widget.idCourse,
+          //           nameCourse: widget.nameCourse,
+          //           widgetId: 2,
+          //           choosingPos: 2,
+          //         )));
+        },
+        title: "SUCCESS",
+        description: "File download successful");
   }
 }

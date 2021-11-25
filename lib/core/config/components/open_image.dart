@@ -54,7 +54,7 @@ class _OpenImageState extends State<OpenImage> {
       body: Center(
         child: Container(
             child: TypeFile.fileImage
-                    .contains(widget.file!.originalname?.split(".").last)
+                    .contains(widget.originalname?.split(".").last)
                 ? Image.network(
                     widget.url!,
                     fit: BoxFit.cover,
