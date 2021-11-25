@@ -12,6 +12,7 @@ import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/remove_co
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/delete_user_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/list_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/reset_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 
@@ -44,6 +45,17 @@ class _FuncUserPageState extends State<FuncUserPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                card(
+                    title: "List Account",
+                    colorCard: Colors.lightBlueAccent,
+                    colorText: Colors.white,
+                    context: context,
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListUserPage()));
+                    }),
                 card(
                     title: "Register Account",
                     colorCard: Colors.green,
