@@ -3,6 +3,7 @@ import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/info_answe
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/haha.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/add_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/create_class_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/edit_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/func_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/edit_course_page.dart';
@@ -59,6 +60,7 @@ class PageRoutes {
   static const String removeCoursePage = RemoveCoursePage.routeName;
   static const String editCoursePage = EditCoursePage.routeName;
   static const String funcUserPage = FuncUserPage.routeName;
+  static const String editClassPage = EditClassPage.routeName;
 
 
   static const String test = Test.routeName;

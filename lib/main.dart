@@ -5,6 +5,7 @@ import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/grading_as
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/haha.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/add_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/create_class_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/edit_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/func_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/edit_course_page.dart';
@@ -95,6 +96,7 @@ class _MyAppState extends State<MyApp> {
         PageRoutes.removeCoursePage: (context) => RemoveCoursePage(),
         PageRoutes.editCoursePage: (context) => EditCoursePage(),
         PageRoutes.funcUserPage: (context) => FuncUserPage(),
+        PageRoutes.editClassPage: (context) => EditClassPage(),
 
 
         PageRoutes.test: (context) => Test(),
