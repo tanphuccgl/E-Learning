@@ -29,11 +29,10 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        bottomNavigationBar: appUser?.role == "admin"
-            ? CustomBottomNavigationBar(
+        bottomNavigationBar:  CustomBottomNavigationBar(
                 index: 0,
               )
-            : null,
+            ,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(

@@ -28,7 +28,7 @@ class RemoveClassPage extends StatefulWidget {
 }
 
 class RemoveClassPageState extends State<RemoveClassPage> {
-  List<Item> _items = [];
+  //List<Item> _items = [];
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
   List a = [];
@@ -41,13 +41,13 @@ class RemoveClassPageState extends State<RemoveClassPage> {
   //   });
   // }
 
-  List<Item> _generateItems({List<GetAllClassData>? list}) {
-    return List.generate(list!.length, (int index) {
-      return Item(
-        isSelected: false,
-      );
-    });
-  }
+  // List<Item> _generateItems({List<GetAllClassData>? list}) {
+  //   return List.generate(list!.length, (int index) {
+  //     return Item(
+  //       isSelected: false,
+  //     );
+  //   });
+  // }
 
   void updateSort(int columnIndex, bool ascending) {
     setState(() {

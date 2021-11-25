@@ -23,6 +23,7 @@ import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.da
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/create_lecture_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/pages/add_teacher_to_course_page_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/widgets/body_add_teacher_to_course.dart';
+import 'package:thuc_tap_tot_nghiep/feature/notifi/presentation/pages/notifi_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_screen.dart';
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/forgot_pw_page.dart';
@@ -39,12 +40,14 @@ import 'package:thuc_tap_tot_nghiep/feature/user/presentation/widgets/delete_tea
 import 'package:thuc_tap_tot_nghiep/test.dart';
 import 'core/config/injection_container.dart' as di;
 import 'feature/answer/presentation/pages/info_answer_page.dart';
+import 'feature/course/presentations/pages/list_score_page.dart';
 import 'feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'dart:async';
 
 import 'feature/lecture/presentation/pages/lecture_page.dart';
 import 'feature/user/presentation/pages/change_info_user_page.dart';
 import 'feature/user/presentation/pages/delete_user_page.dart';
+import 'feature/user/presentation/pages/personal_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -116,6 +119,9 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.resetPwPage: (context) => ResetPwPage(),
           PageRoutes.listUserPage: (context) => ListUserPage(),
           PageRoutes.lecturePage: (context) => LecturePage(),
+       //   PageRoutes.listScorePage: (context) => ListScorePage(),
+          PageRoutes.notifiPage: (context) => NotifiPage(),
+          PageRoutes.personalPage: (context) => PersonalPage(),
 
 
 

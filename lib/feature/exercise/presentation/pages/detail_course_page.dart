@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_member_in_course/get_member_in_course_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_point_teacher/get_point_teacher_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/list_score_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/list_stud_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_course/get_exercise_by_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/execise_page.dart';
@@ -114,7 +116,12 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
           ),
         );
       case 4:
-        return Container();
+        // return BlocProvider(
+        //   create: (_) => sl<GetPointTeacherBloc>(),
+        //   child: ListScorePage(
+        //     idCourse: widget.idCourse,
+        //   ),
+        // );
       // case 5:
       //   return Container();
     }

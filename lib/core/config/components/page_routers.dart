@@ -10,6 +10,7 @@ import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_cours
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/edit_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/func_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/get_course_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/list_score_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/remove_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
@@ -23,6 +24,7 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/create_le
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/lecture_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/pages/add_teacher_to_course_page_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/widgets/body_add_teacher_to_course.dart';
+import 'package:thuc_tap_tot_nghiep/feature/notifi/presentation/pages/notifi_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_screen.dart';
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/forgot_pw_page.dart';
@@ -33,6 +35,7 @@ import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_pa
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/delete_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/list_user_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/personal_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/reset_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/widgets/delete_teacher.dart';
@@ -77,6 +80,9 @@ class PageRoutes {
   static const String resetPwPage = ResetPwPage.routeName;
   static const String listUserPage = ListUserPage.routeName;
   static const String lecturePage = LecturePage.routeName;
+ // static const String listScorePage = ListScorePage.routeName;
+  static const String notifiPage = NotifiPage.routeName;
+  static const String personalPage = PersonalPage.routeName;
 
 
 
