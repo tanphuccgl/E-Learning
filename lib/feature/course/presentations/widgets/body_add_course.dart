@@ -126,7 +126,7 @@ class _BodyAddCourseState extends State<BodyAddCourse> {
         ),
         accept(
             context: context,
-            content: "Accept",
+            content: "Create",
             function: () {
               if (widget.nameCourse?.trim().length == 0 ||
                   widget.nameCourse == null) {

@@ -179,18 +179,12 @@ class RemoveCoursePageState extends State<RemoveCoursePage> {
                   columnSpacing: 0,
                   dividerThickness: 5,
                   onSelectAll: (bool? isSelected) {
-                    if (isSelected != null) {
-                      a.forEach((item) {
-                        item['isSelected'] = isSelected;
-                      });
 
-                      setState(() {});
-                    } else {
                       isSelected = false;
                       a.forEach((item) {
                         item['isSelected'] = isSelected;
                       });
-                    }
+                    
                     print(isSelected);
                   },
                   dataRowColor: MaterialStateColor.resolveWith(

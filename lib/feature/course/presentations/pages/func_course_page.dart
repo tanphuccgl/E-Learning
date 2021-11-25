@@ -6,6 +6,7 @@ import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/create_cla
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/pages/get_all_class_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/add_course_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/edit_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/get_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/remove_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
@@ -68,7 +69,7 @@ class _FuncCoursePageState extends State<FuncCoursePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AddCoursePage()));
+                              builder: (context) => EditCoursePage()));
                     }),
                 card(
                     title: "Remove Course",
