@@ -32,6 +32,7 @@ import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/reset_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/widgets/delete_teacher.dart';
 import 'package:thuc_tap_tot_nghiep/test.dart';
@@ -110,6 +111,7 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.changePwPage: (context) => ChangePwPage(),
           PageRoutes.deleteUserPage: (context) => DeleteUserPage(),
           PageRoutes.deleteTeacherPage: (context) => DeleteTeacherPage(),
+          PageRoutes.resetPwPage: (context) => ResetPwPage(),
 
 
 
