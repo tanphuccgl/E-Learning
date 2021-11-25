@@ -10,6 +10,7 @@ import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/edit_cour
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/get_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/remove_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 
 class FuncUserPage extends StatefulWidget {
   static const String routeName = "/FuncUserPage";
@@ -47,7 +48,7 @@ class _FuncUserPageState extends State<FuncUserPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => GetCoursePage()));
+                              builder: (context) => SignUpPage()));
                     }),
                 card(
                     title: "Change Information",

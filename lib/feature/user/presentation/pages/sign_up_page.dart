@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/input_title.dart';
 
 class SignUpPage extends StatefulWidget {
   static const String routeName = '/SignUpPage';
@@ -10,15 +13,15 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _firtNameController = TextEditingController();
+  final _fullNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _emailController = TextEditingController();
   final _userNameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  String? _firtName;
-  String? _lastName;
+
+  String? _fullName;
   int? _phoneNumber;
   String? _email;
   String? _userName;
@@ -31,178 +34,218 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.blue,
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text("Sign In Your Account"),
-      ),
+      backgroundColor: Colors.white,
+      appBar: appBar(context: context,title: "Register Account"),
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: size.height / 12.8,
-              color: Colors.blue,
+        child: Container(
+          width: size.width,
+          height: size.height,
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: size.width / 25,
+              right: size.width / 25,
             ),
-            Container(
-              //  height: size.height / 1.254901960784314,
-              width: size.width,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: size.height / 4.266666666666667,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        height: size.height / 12.8,
-                        width: size.width / 2,
-                        child: TextFormField(
-                          controller: _firtNameController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              icon: Icon(Icons.login), labelText: 'Firt Name'),
-                        ),
-                      ),
-                      Container(
-                        height: size.height / 12.8,
-                        width: size.width / 2,
-                        child: TextFormField(
-                          controller: _lastNameController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              icon: Icon(Icons.login), labelText: 'Last Name'),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        height: size.height / 12.8,
-                        width: size.width / 2,
-                        child: TextFormField(
-                          controller: _phoneNumberController,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                              icon: Icon(Icons.login),
-                              labelText: 'Phone Number'),
-                        ),
-                      ),
-                      Container(
-                          height: size.height / 12.8,
-                          width: size.width / 2,
-                          child: DropdownButton<String>(
-                            value:
-                            dropdownValue.isNotEmpty ? dropdownValue : null,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                            items: <String>['Man', 'Girl', 'Other']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          )),
-                    ],
-                  ),
-                  Container(
-                    height: size.height / 12.8,
-                    width: size.width,
-                    child: TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.login), labelText: 'Email'),
+            child: Column(
+              children: <Widget>[
+                inputName(
+                    title: "Full name",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input name"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                inputName(
+                    title: "Address",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input address"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                inputName(
+                    title: "Email",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input email"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                inputName(
+                    title: "Username",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input username"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                inputName(
+                    title: "Password",
+                    context: context,
+                    function: (value) {
+                      _fullName = value;
+                    },
+                    textEditingController: _fullNameController,
+                    hintText: "Input password"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
+                Row(crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Choose class",
+                      style: TextStyle(
+                          fontSize: size.width / 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
                     ),
-                  ),
-                  Container(
-                    height: size.height / 12.8,
-                    width: size.width,
-                    child: TextFormField(
-                      controller: _userNameController,
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.login), labelText: 'User Name'),
+                    TextButton(onPressed: () { print("add"); },
+                    child: Text(
+                      "Add",
+                      style: TextStyle(
+                          fontSize: size.width / 25,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w600),
                     ),
-                  ),
-                  Container(
-                    height: size.height / 12.8,
-                    width: size.width,
-                    child: TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.login), labelText: 'Password'),
                     ),
-                  ),
-                  Container(
-                    height: size.height / 12.8,
-                    width: size.width,
-                    child: TextFormField(
-                      controller: _confirmPasswordController,
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.login),
-                          labelText: 'Confirm Password'),
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Checkbox(
-                        value: _isChecked,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _isChecked = value!;
-                          });
-                        },
-                        checkColor: Colors.white,
-                      ),
-                      Text('I accept the'),
-                      TextButton(
-                          onPressed: () {}, child: Text('Terms and Conditions'))
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('SIGN UP'),
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: Size(size.width, 40)),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                SizedBox(height: size.width/20,),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  _gender(context: context,function: (a){},typePointValue: "Male"),
+                  _role(context: context,function: (a){},typePointValue: "Teacher")
+                ],),
+                accept(function: (){},context: context,content: "Accept"),
+
+
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
+  Widget _gender({BuildContext? context,String? typePointValue,Function(String?)? function}) {
+    Size size = MediaQuery.of(context!).size;
+
+    return Container(
+      width: size.width / 2.5,
+      height: size.width / 6,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.width / 24),
+          border: Border.all(color: Colors.grey),
+          color: Colors.lightBlueAccent),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text("Sex",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: size.width / 25,
+                  fontWeight: FontWeight.w600)),
+          Container(
+            width: size.width / 4,
+            height: size.width / 8,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(size.width / 35),
+                color: Colors.white),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: size.width / 30, right: size.width / 30),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: typePointValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: function,
+                  items: <String>['Male', 'Female']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+  Widget _role({BuildContext? context,String? typePointValue,Function(String?)? function}) {
+    Size size = MediaQuery.of(context!).size;
+
+    return Container(
+      width: size.width / 2.3,
+      height: size.width / 6,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.width / 24),
+          border: Border.all(color: Colors.grey),
+          color: Colors.lightBlueAccent),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text("Role",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: size.width / 25,
+                  fontWeight: FontWeight.w600)),
+          Container(
+            width: size.width / 3.5,
+            height: size.width / 8,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(size.width / 35),
+                color: Colors.white),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: size.width / 30, right: size.width / 30),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: typePointValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: function,
+                  items: <String>['Teacher', 'Student']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }
+
