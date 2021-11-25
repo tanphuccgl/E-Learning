@@ -42,6 +42,7 @@ import 'feature/answer/presentation/pages/info_answer_page.dart';
 import 'feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'dart:async';
 
+import 'feature/lecture/presentation/pages/lecture_page.dart';
 import 'feature/user/presentation/pages/change_info_user_page.dart';
 import 'feature/user/presentation/pages/delete_user_page.dart';
 
@@ -114,6 +115,7 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.deleteTeacherPage: (context) => DeleteTeacherPage(),
           PageRoutes.resetPwPage: (context) => ResetPwPage(),
           PageRoutes.listUserPage: (context) => ListUserPage(),
+          PageRoutes.lecturePage: (context) => LecturePage(),
 
 
 

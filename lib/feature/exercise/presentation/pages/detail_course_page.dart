@@ -7,6 +7,8 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_ex
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/execise_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/title_header.dart';
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_all_lecture_of_course/get_all_lecture_of_course_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/lecture_page.dart';
 
 class DetailCoursePage extends StatefulWidget {
   final String? idCourse;
@@ -88,13 +90,12 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
   Widget getWidgetById(int? id) {
     switch (id) {
       case 1:
-        // return BlocProvider(
-        //   create: (_) => moodleDI<CourseContentBloc>(),
-        //   child: Lecture(
-        //     idCourse: widget.idCourse,
-        //   ),
-        // );
-        return Container();
+        return BlocProvider(
+          create: (_) => sl<GetAllLectureBloc>(),
+          child: LecturePage(
+            idCourse: widget.idCourse,
+          ),
+        );
 
       case 2:
         return BlocProvider(

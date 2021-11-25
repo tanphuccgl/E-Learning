@@ -13,9 +13,10 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/data/data_source/add_lecture
 
 class CreateLecturePage extends StatefulWidget {
   final String? idCourse;
+  final String? nameCourse;
   static const String routeName = "/CreateLecturePage";
 
-  const CreateLecturePage({Key? key, this.idCourse}) : super(key: key);
+  const CreateLecturePage({Key? key, this.idCourse,this.nameCourse}) : super(key: key);
 
   @override
   _CreateLecturePageState createState() => _CreateLecturePageState();

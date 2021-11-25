@@ -20,6 +20,7 @@ import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/function_pag
 
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/create_lecture_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/lecture_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/pages/add_teacher_to_course_page_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/widgets/body_add_teacher_to_course.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_page.dart';
@@ -75,6 +76,7 @@ class PageRoutes {
   static const String deleteTeacherPage = DeleteTeacherPage.routeName;
   static const String resetPwPage = ResetPwPage.routeName;
   static const String listUserPage = ListUserPage.routeName;
+  static const String lecturePage = LecturePage.routeName;
 
 
 
