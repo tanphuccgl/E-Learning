@@ -33,6 +33,7 @@ import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_p
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/widgets/delete_teacher.dart';
 import 'package:thuc_tap_tot_nghiep/test.dart';
 import 'core/config/injection_container.dart' as di;
 import 'feature/answer/presentation/pages/info_answer_page.dart';
@@ -40,6 +41,7 @@ import 'feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'dart:async';
 
 import 'feature/user/presentation/pages/change_info_user_page.dart';
+import 'feature/user/presentation/pages/delete_user_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,6 +108,8 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.removeClassPage: (context) => RemoveClassPage(),
           PageRoutes.changeInfoUserPage: (context) => ChangeInfoUserPage(),
           PageRoutes.changePwPage: (context) => ChangePwPage(),
+          PageRoutes.deleteUserPage: (context) => DeleteUserPage(),
+          PageRoutes.deleteTeacherPage: (context) => DeleteTeacherPage(),
 
 
 

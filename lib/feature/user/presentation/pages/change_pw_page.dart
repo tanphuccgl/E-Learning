@@ -29,44 +29,42 @@ class _ChangePwPageState extends State<ChangePwPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(context: context, title: "Change Password"),
-      body: SingleChildScrollView(
-        child: Container(
-          width: size.width,
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: size.width / 25,
-              right: size.width / 25,
-            ),
-            child: Column(
-              children: <Widget>[
-                inputName(
-                    title: "Password current",
-                    context: context,
-                    function: (value) {
-                      _fullName = value;
-                    },
-                    textEditingController: _fullNameController,
-                    hintText: "Input password"),
-                SizedBox(
-                  height: size.width / 20,
-                ),
-                inputName(
-                    title: "Password new",
-                    context: context,
-                    function: (value) {
-                      _fullName = value;
-                    },
-                    textEditingController: _fullNameController,
-                    hintText: "Input password"),
-                SizedBox(
-                  height: size.width / 20,
-                ),
+      body: Container(
+        width: size.width,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: size.width / 25,
+            right: size.width / 25,
+          ),
+          child: Column(
+            children: <Widget>[
+              inputName(
+                  title: "Password current",
+                  context: context,
+                  function: (value) {
+                    _fullName = value;
+                  },
+                  textEditingController: _fullNameController,
+                  hintText: "Input password"),
+              SizedBox(
+                height: size.width / 20,
+              ),
+              inputName(
+                  title: "Password new",
+                  context: context,
+                  function: (value) {
+                    _fullName = value;
+                  },
+                  textEditingController: _fullNameController,
+                  hintText: "Input password"),
+              SizedBox(
+                height: size.width / 20,
+              ),
 
-                accept(function: () {}, context: context, content: "Accept"),
+              accept(function: () {}, context: context, content: "Accept"),
 
 
-              ],
-            ),
+            ],
           ),
         ),
       ),
