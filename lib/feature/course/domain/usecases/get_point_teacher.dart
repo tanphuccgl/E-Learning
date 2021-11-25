@@ -7,27 +7,31 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_point_teacher
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_member_in_course_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_point_teacher_repo.dart';
 
-
-
-class GetPointTeacher implements UseCase<GetPointTeacherResponse, GetPointTeacherParams> {
+class GetPointTeacher
+    implements UseCase<GetPointTeacherResponse, GetPointTeacherParams> {
   final GetPointTeacherRepository memberInCourseRepository;
 
   GetPointTeacher(this.memberInCourseRepository);
 
   @override
-  Future<Either<Failure, GetPointTeacherResponse>> call(GetPointTeacherParams params) async {
+  Future<Either<Failure, GetPointTeacherResponse>> call(
+      GetPointTeacherParams params) async {
     return await memberInCourseRepository.getPointTeacher(
-        params.idCourse!, );
+      params.idCourse!,
+    );
   }
 }
 
 class GetPointTeacherParams extends Equatable {
-  final String? idCourse ;
+  final String? idCourse;
 
-
-  GetPointTeacherParams({this.idCourse,});
+  GetPointTeacherParams({
+    this.idCourse,
+  });
 
   @override
   // TODO: implement props
-  List<Object> get props => [idCourse!, ];
+  List<Object> get props => [
+        idCourse!,
+      ];
 }

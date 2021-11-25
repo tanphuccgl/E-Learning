@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class TitleHeader extends StatefulWidget {
   final ValueChanged<int>? onChanged;
@@ -30,7 +31,7 @@ class _TitleHeaderState extends State<TitleHeader> {
     items?.add(HeaderItem("Exercise", 2));
     items?.add(HeaderItem("List User", 3));
     // items?.add(HeaderItem("Chấm điểm", 5));
-    items?.add(HeaderItem("List Score", 4));
+   appUser?.role=="student" ? items?.add(HeaderItem("List Score", 4)):null;
   }
 
   @override

@@ -80,7 +80,7 @@ class PageRoutes {
   static const String resetPwPage = ResetPwPage.routeName;
   static const String listUserPage = ListUserPage.routeName;
   static const String lecturePage = LecturePage.routeName;
- // static const String listScorePage = ListScorePage.routeName;
+ static const String listScorePage = ListScorePage.routeName;
   static const String notifiPage = NotifiPage.routeName;
   static const String personalPage = PersonalPage.routeName;
 

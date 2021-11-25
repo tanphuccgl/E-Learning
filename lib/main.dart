@@ -119,7 +119,7 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.resetPwPage: (context) => ResetPwPage(),
           PageRoutes.listUserPage: (context) => ListUserPage(),
           PageRoutes.lecturePage: (context) => LecturePage(),
-       //   PageRoutes.listScorePage: (context) => ListScorePage(),
+         PageRoutes.listScorePage: (context) => ListScorePage(),
           PageRoutes.notifiPage: (context) => NotifiPage(),
           PageRoutes.personalPage: (context) => PersonalPage(),
 

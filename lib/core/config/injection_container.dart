@@ -15,18 +15,23 @@ import 'package:thuc_tap_tot_nghiep/feature/class/domain/usecases/get_all_class.
 import 'package:thuc_tap_tot_nghiep/feature/class/presentations/manager/get_all_class/get_all_class_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_course_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_member_in_course_remote.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_point_student_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_point_teacher_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/repositories/get_course_repo_impl.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/repositories/get_member_in_course_repo_impl.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/data/repositories/get_point_student_repo_impl.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/repositories/get_point_teacher_repo_impl.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_course_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_member_in_course_repo.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_point_student_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_point_teacher_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_course.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_member_in_course.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_point_student.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_point_teacher.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_member_in_course/get_member_in_course_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_point_student/get_point_student_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_point_teacher/get_point_teacher_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/data_source/get_exercise_by_course_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/data_source/get_exercise_by_id_account_remote.dart';
@@ -107,6 +112,7 @@ Future<void> init() async {
   sl.registerFactory(() => GetAllLectureBloc(pr: sl()));
   sl.registerFactory(() => GetInfoLectureBloc(pr: sl()));
   sl.registerFactory(() => GetPointTeacherBloc(pr: sl()));
+  sl.registerFactory(() => GetPointStudentBloc(pr: sl()));
 
 
 
@@ -131,6 +137,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllLecture(sl()));
   sl.registerLazySingleton(() => GetInfoLecture(sl()));
   sl.registerLazySingleton(() => GetPointTeacher(sl()));
+  sl.registerLazySingleton(() => GetPointStudent(sl()));
 
 
 
@@ -210,6 +217,11 @@ Future<void> init() async {
         getPointTeacherRemoteDataSource:   sl(),
         networkInfo: sl(),
       ));
+  sl.registerLazySingleton<GetPointStudentRepository>(
+          () => GetPointStudentRepositoryImpl(
+        getPointStudentRemoteDataSource:   sl(),
+        networkInfo: sl(),
+      ));
 
 
 
@@ -251,6 +263,8 @@ Future<void> init() async {
           () => GetInfoLectureRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetPointTeacherRemoteDataSource>(
           () => GetPointTeacherRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<GetPointStudentRemoteDataSource>(
+          () => GetPointStudentRemoteDataSourceImpl(client: sl()));
 
 
 
