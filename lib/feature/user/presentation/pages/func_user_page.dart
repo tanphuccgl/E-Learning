@@ -12,6 +12,8 @@ import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/remove_co
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 
+import 'change_info_user_page.dart';
+
 class FuncUserPage extends StatefulWidget {
   static const String routeName = "/FuncUserPage";
 
@@ -59,7 +61,7 @@ class _FuncUserPageState extends State<FuncUserPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AddCoursePage()));
+                              builder: (context) => ChangeInfoUserPage()));
                     }),
                 card(
                     title: "Change Password",
