@@ -41,7 +41,7 @@ class _GradingAssignmentPageState extends State<GradingAssignmentPage> {
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
-          if (_scrollController!.offset > 10) {
+          if (_scrollController!.offset > 400) {
             _showBackToTopButton = true; // show the back-to-top button
           } else {
             _showBackToTopButton = false; // hide the back-to-top button

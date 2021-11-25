@@ -84,7 +84,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text('Home')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner), title: Text('Chuc nang')),
+                icon: Icon(Icons.qr_code_scanner), title: Text('Notification')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.qr_code), title: Text('Check In')),
             BottomNavigationBarItem(

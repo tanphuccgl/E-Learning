@@ -49,6 +49,8 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
   TextEditingController? cmtController;
   List<bool> _isSelected = [true, false];
   List<PlatformFile>? listFile;
+  List<FileUpload>? listFileUpdate;
+
   FilePickerResult? result;
 
   @override
@@ -56,10 +58,11 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
     // TODO: implement initState
     super.initState();
     cmt = "";
-    point = null;
+
     pointController = TextEditingController();
     cmtController = TextEditingController();
     listFile = [];
+    listFileUpdate = [];
   }
 
   @override
@@ -69,8 +72,8 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
       if (state is Empty) {
         getInfo();
       } else if (state is Loaded) {
+        listFileUpdate=state.swagger?.data?.feedbackFromTeacherByImage;
         Size size = MediaQuery.of(context).size;
-
         return SingleChildScrollView(
           padding: const EdgeInsets.all(8.0),
           child: Container(
@@ -89,7 +92,38 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                     SizedBox(
                       height: size.width / 20,
                     ),
-                    framesGrade(point: point),
+                    framesGrade(
+                        point: state.swagger?.data?.studyPoint != null
+                            ? state.swagger?.data?.studyPoint
+                            : point,
+                        cmt: state.swagger?.data?.feedbackFromTeacher != null
+                            ? state.swagger?.data?.feedbackFromTeacher
+                            : cmt),
+                    // state.swagger?.data?.feedbackFromTeacherByImage?.length != 0 ?
+                    // chooseFile(
+                    //     title: "Attached files",
+                    //     function: () async {
+                    //       result = await FilePicker.platform
+                    //           .pickFiles(allowMultiple: true);
+                    //       List<FileUpload>? listFile1 = [];
+                    //
+                    //       if (result != null) {
+                    //         setState(() {
+                    //           listFile1 = result!.files;
+                    //         });
+                    //
+                    //         listFileUpdate!.addAll(listFile1!);
+                    //
+                    //         /// duyệt mảng chỉ show 1-1
+                    //         listFileUpdate =
+                    //             LinkedHashSet<FileUpload>.from(listFileUpdate!)
+                    //                 .toList();
+                    //       } else {
+                    //         // User canceled the picker
+                    //       }
+                    //     },
+                    //     context: context)
+                    // :
                     chooseFile(
                         title: "Attached files",
                         function: () async {
@@ -115,9 +149,17 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                         context: context),
 
                     /// show những file được chọn
-                    ListFiles(
-                      list: listFile,
-                    ),
+                    state.swagger?.data?.feedbackFromTeacherByImage?.length != 0
+                        ? _updateFile(
+                            list: listFileUpdate,
+                            title:
+                                "Uploaded File (${state.swagger?.data?.fileUpload?.length})")
+                        : ListFiles(
+                            list: listFile,
+                          ),
+
+
+
                     Padding(
                       padding: EdgeInsets.all(size.width / 25),
                       child: Center(
@@ -612,7 +654,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
   }
 
   //String? feedback, TextEditingController? textEditingController
-  Widget framesGrade({double? point}) {
+  Widget framesGrade({double? point, String? cmt}) {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
@@ -678,7 +720,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                     Container(
                       height: size.width / 7,
                       child: Text(
-                        "$cmt",
+                        cmt!,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -876,5 +918,90 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
         },
         title: "SUCCESS",
         description: "File download successful");
+  }
+
+
+  Widget _updateFile({List<FileUpload>? list, String? title}) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+        width: size.width,
+        child: _listFileUpdate(list: list));
+  }
+
+  Widget _listFileUpdate({List<FileUpload>? list}) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      width: size.width,
+
+      ///  widget.list!.length > 4 ? size.width / 1.4 : widget.list!.length * size.width / 6,
+      height:
+      list!.length > 4 ? size.width / 1.4 : list.length * size.width / 6,
+      child: ListView.separated(
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OpenImage(
+                        url: list[index].pathname,
+                        // file: list[index],
+                        originalname: list[index].originalname,
+                      )),
+                );
+              },
+              child: Container(
+                height: size.width / 7,
+                width: size.width / 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TypeFile.fileImage.contains(
+                            list[index].originalname?.split(".").last)
+                            ? Container(
+                          height: size.width / 10,
+                          width: size.width / 10,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "${list[index].pathname}"),
+                                  fit: BoxFit.cover)),
+                        )
+                            : Container(
+                          height: size.width / 10,
+                          width: size.width / 10,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/icons/${thumbnail(image: list[index].originalname?.split(".").last)}"),
+                                  fit: BoxFit.cover)),
+                        ),
+                        SizedBox(
+                          width: size.width / 15,
+                        ),
+                        _detailFile(file: list[index]),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_circle_down),
+                      onPressed: () {
+                        setState(() {
+
+                          downloadFile(url: list[index].pathname,namefile: list[index].originalname);
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+          separatorBuilder: (context, index) => Divider(),
+          itemCount: list.length),
+    );
   }
 }

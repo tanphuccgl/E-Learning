@@ -146,13 +146,30 @@ class _BodyGradeExeState extends State<BodyGradeExe> {
                 fontSize: size.width / 33),
           ));
     } else if ( point != "null") {
-      return Text(
-        point!,
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.normal,
-            fontSize: size.width / 30),
-      );
+      return
+
+        TextButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GradingAssignmentPage(
+                        isTextPoint: widget.isTextPoint,
+                        idAnswer: data?.idAnswer,
+                        idAccount: data?.idAccount,
+                        data: data,
+                        nameStudent: data?.fullName,
+                        createDate: data?.createDate,
+                      )));
+            },
+            child: Text(
+              point!,
+              style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.normal,
+                  fontSize: size.width / 30),
+            ));
+
     } else if (point == "null") {
       return Text(
         "",

@@ -5,7 +5,8 @@ class TitleHeader extends StatefulWidget {
   final ValueChanged<int>? onChanged;
   final int? choosingPos1;
 
-  const TitleHeader({Key? key, this.onChanged,this.choosingPos1}) : super(key: key);
+  const TitleHeader({Key? key, this.onChanged, this.choosingPos1})
+      : super(key: key);
 
   @override
   _TitleHeaderState createState() => _TitleHeaderState();
@@ -13,26 +14,23 @@ class TitleHeader extends StatefulWidget {
 
 class _TitleHeaderState extends State<TitleHeader> {
   List<HeaderItem>? items;
-  int? choosingPos ;
-
+  int? choosingPos;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if( widget.choosingPos1!=null)
-    {
+    if (widget.choosingPos1 != null) {
       choosingPos = widget.choosingPos1;
-    }else
-    {
+    } else {
       choosingPos = 1;
     }
     items = <HeaderItem>[];
-    items?.add(HeaderItem("Bài giảng", 1));
-    items?.add(HeaderItem("Bài tập", 2));
-    items?.add(HeaderItem("DS Học sinh", 3));
+    items?.add(HeaderItem("Lecture", 1));
+    items?.add(HeaderItem("Exercise", 2));
+    items?.add(HeaderItem("List User", 3));
     // items?.add(HeaderItem("Chấm điểm", 5));
-    items?.add(HeaderItem("DS điểm", 4));
+    items?.add(HeaderItem("List Score", 4));
   }
 
   @override
@@ -53,16 +51,18 @@ class _TitleHeaderState extends State<TitleHeader> {
             },
             child: Container(
               height: size.width / 10,
-              width: size.width/3.5,
-              decoration: BoxDecoration( color: choosingPos == e.id ? Colors.black87 : Colors.grey.shade200,
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(size.width / 30)),
-                  // border: Border(
-                  //     bottom: BorderSide(
-                  //         color: choosingPos == e.id
-                  //             ? Colors.blue
-                  //             : Colors.transparent,
-                  //         width: 2)),
+              width: size.width / 3.5,
+              decoration: BoxDecoration(
+                color:
+                    choosingPos == e.id ? Colors.black87 : Colors.grey.shade200,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(size.width / 30)),
+                // border: Border(
+                //     bottom: BorderSide(
+                //         color: choosingPos == e.id
+                //             ? Colors.blue
+                //             : Colors.transparent,
+                //         width: 2)),
               ),
               margin: EdgeInsets.symmetric(
                 horizontal: size.width / 30,
