@@ -28,6 +28,7 @@ import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/page
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/set_new_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_info_user_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 import 'package:thuc_tap_tot_nghiep/test.dart';
@@ -65,6 +66,7 @@ class PageRoutes {
   static const String editClassPage = EditClassPage.routeName;
   static const String removeClassPage = RemoveClassPage.routeName;
   static const String changeInfoUserPage = ChangeInfoUserPage.routeName;
+  static const String changePwPage = ChangePwPage.routeName;
 
 
 

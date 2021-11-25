@@ -30,6 +30,7 @@ import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/page
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/data/models/login_data.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
 import 'package:thuc_tap_tot_nghiep/test.dart';
@@ -39,6 +40,7 @@ import 'feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'dart:async';
 
 import 'feature/user/presentation/pages/change_info_user_page.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
@@ -61,61 +63,58 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
-
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignInPage(),
-      //CreateExercisePage(idCourse: "eb5f9ca4-0d73-4dbb-a28a-03dc76e5cdb6",),
-      //  initialRoute: widget.initScreen ==0 || widget.initScreen==null ?? ,
-      routes: {
-        PageRoutes.onBoardingPage: (context) => OnBoardingPage(),
-        PageRoutes.onBoardingScreen: (context) => OnBoardingScreen(),
-        PageRoutes.signInPage: (context) => SignInPage(),
-        PageRoutes.forgotPasswordPage: (context) => ForgotPasswordPage(),
-        PageRoutes.setNewPasswordPage: (context) => SetNewPasswordPage(),
-        PageRoutes.signUpPage: (context) => SignUpPage(),
-        PageRoutes.homePage: (context) => HomePage(),
-        PageRoutes.addCoursePage: (context) => AddCoursePage(),
-        PageRoutes.addTeacherToCoursePage: (context) =>
-            AddTeacherToCoursePage(),
-        PageRoutes.bodyAddTeacherToCourse: (context) =>
-            BodyAddTeacherToCourse(),
-        PageRoutes.addClassPage: (context) => AddClassPage(),
-        PageRoutes.detailCoursePage: (context) => DetailCoursePage(),
-        PageRoutes.detailExercisePage: (context) => DetailExercisePage(),
-        PageRoutes.createExercisePage: (context) => CreateExercisePage(),
-        PageRoutes.createLecturePage: (context) => CreateLecturePage(),
-        PageRoutes.submitExercisePage: (context) => SubmitExercisePage(),
-        PageRoutes.infoAnswerPage: (context) => InfoAnswerPage(),
-        PageRoutes.gradeExerciseTeacherPage: (context) => GradeExerciseTeacherPage(),
-        PageRoutes.gradingAssignmentPage: (context) => GradingAssignmentPage(),
-        PageRoutes.examplePage: (context) => ExamplePage(),
-        PageRoutes.functionPage: (context) => FunctionPage(),
-        PageRoutes.funcClassPage: (context) => FuncClassPage(),
-        PageRoutes.createClassPage: (context) => CreateClassPage(),
-        PageRoutes.getCoursePage: (context) => GetCoursePage(),
-        PageRoutes.funcCoursePage: (context) => FuncCoursePage(),
-        PageRoutes.removeCoursePage: (context) => RemoveCoursePage(),
-        PageRoutes.editCoursePage: (context) => EditCoursePage(),
-        PageRoutes.funcUserPage: (context) => FuncUserPage(),
-        PageRoutes.editClassPage: (context) => EditClassPage(),
+        debugShowCheckedModeBanner: false,
+        home: SignInPage(),
+        //CreateExercisePage(idCourse: "eb5f9ca4-0d73-4dbb-a28a-03dc76e5cdb6",),
+        //  initialRoute: widget.initScreen ==0 || widget.initScreen==null ?? ,
+        routes: {
+          PageRoutes.onBoardingPage: (context) => OnBoardingPage(),
+          PageRoutes.onBoardingScreen: (context) => OnBoardingScreen(),
+          PageRoutes.signInPage: (context) => SignInPage(),
+          PageRoutes.forgotPasswordPage: (context) => ForgotPasswordPage(),
+          PageRoutes.setNewPasswordPage: (context) => SetNewPasswordPage(),
+          PageRoutes.signUpPage: (context) => SignUpPage(),
+          PageRoutes.homePage: (context) => HomePage(),
+          PageRoutes.addCoursePage: (context) => AddCoursePage(),
+          PageRoutes.addTeacherToCoursePage: (context) =>
+              AddTeacherToCoursePage(),
+          PageRoutes.bodyAddTeacherToCourse: (context) =>
+              BodyAddTeacherToCourse(),
+          PageRoutes.addClassPage: (context) => AddClassPage(),
+          PageRoutes.detailCoursePage: (context) => DetailCoursePage(),
+          PageRoutes.detailExercisePage: (context) => DetailExercisePage(),
+          PageRoutes.createExercisePage: (context) => CreateExercisePage(),
+          PageRoutes.createLecturePage: (context) => CreateLecturePage(),
+          PageRoutes.submitExercisePage: (context) => SubmitExercisePage(),
+          PageRoutes.infoAnswerPage: (context) => InfoAnswerPage(),
+          PageRoutes.gradeExerciseTeacherPage: (context) =>
+              GradeExerciseTeacherPage(),
+          PageRoutes.gradingAssignmentPage: (context) =>
+              GradingAssignmentPage(),
+          PageRoutes.examplePage: (context) => ExamplePage(),
+          PageRoutes.functionPage: (context) => FunctionPage(),
+          PageRoutes.funcClassPage: (context) => FuncClassPage(),
+          PageRoutes.createClassPage: (context) => CreateClassPage(),
+          PageRoutes.getCoursePage: (context) => GetCoursePage(),
+          PageRoutes.funcCoursePage: (context) => FuncCoursePage(),
+          PageRoutes.removeCoursePage: (context) => RemoveCoursePage(),
+          PageRoutes.editCoursePage: (context) => EditCoursePage(),
+          PageRoutes.funcUserPage: (context) => FuncUserPage(),
+          PageRoutes.editClassPage: (context) => EditClassPage(),
 
-        PageRoutes.removeClassPage: (context) => RemoveClassPage(),
-        PageRoutes.changeInfoUserPage: (context) =>         ChangeInfoUserPage(),
-
-
-
-
-
+          PageRoutes.removeClassPage: (context) => RemoveClassPage(),
+          PageRoutes.changeInfoUserPage: (context) => ChangeInfoUserPage(),
+          PageRoutes.changePwPage: (context) => ChangePwPage(),
 
 
 
 
-        PageRoutes.test: (context) => Test(),
+
+          PageRoutes.test: (context) => Test(),
 
 
-      }, supportedLocales: [Locale('en', 'US')]
+        }, supportedLocales: [Locale('en', 'US')]
     );
   }
 }
