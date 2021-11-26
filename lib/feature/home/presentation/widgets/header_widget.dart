@@ -30,17 +30,17 @@ Widget _noti({BuildContext? context}) {
   return GestureDetector(
     onTap: () {
       prefs!.setString(SAVE_LOGIN_RESPONSE, '');
-      Navigator.pushNamedAndRemoveUntil(context, PageRoutes.onBoardingPage,
+      Navigator.pushNamedAndRemoveUntil(context, PageRoutes.signInPage,
               (Route<dynamic> route) => false);
     },
     child: Container(
       height: size.width / 10,
       width: size.width / 10,
       decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: Colors.blueGrey.shade50.withOpacity(0.6),
           borderRadius: BorderRadius.all(Radius.circular(size.width / 30))),
       child: Icon(
-        Icons.notifications_none,
+        Icons.notifications,color: Colors.amber,
       ),
     ),
   );
@@ -60,14 +60,14 @@ Widget _nameUser({String? name,BuildContext? context}) {
           style: TextStyle(
               color: Colors.black,
               fontSize: size.width / 20,
-              fontWeight: FontWeight.w600),
+              fontWeight: FontWeight.w500),
         ),
         Text(
           name!,
           style: TextStyle(
               color: Colors.black,
               fontSize: size.width / 15,
-              fontWeight: FontWeight.bold),
+              fontWeight: FontWeight.w700),
         )
       ],
     ),

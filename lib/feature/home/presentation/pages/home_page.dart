@@ -34,27 +34,34 @@ class _HomePageState extends State<HomePage> {
               )
             ,
         body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 25,
-                right: size.width / 25,
-                top: size.width / 10),
-            child: appUser?.role == "admin"
-                ? Column(
-                    children: [
-                      header(context: context, name: appUser?.fullName),
-                      buildBody(context),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      header(context: context, name: appUser?.fullName),
-                      filter(context: context),
-                      content(title: "Popular courses", context: context),
-                      GetCoursePage(),
-                    ],
-                  ),
-          ),
+          child: appUser?.role == "admin"
+              ? Column(
+                  children: [
+                    header(context: context, name: appUser?.fullName),
+                    buildBody(context),
+                  ],
+                )
+              : Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width / 25,
+                          right: size.width / 25,
+                          top: size.width / 10),
+                      child: Container(child: Column(
+                        children: [
+                          header(context: context, name: appUser?.fullName),
+                          filter(context: context),
+                          content(title: "Recent courses", context: context),
+                        ],
+                      ),
+
+                      ),
+                    ),
+
+                    GetCoursePage(),
+                  ],
+                ),
         ));
   }
 }

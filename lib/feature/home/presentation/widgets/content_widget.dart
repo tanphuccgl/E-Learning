@@ -22,7 +22,7 @@ Widget _showButton({BuildContext? context}) {
       child: Text(
         "Show all",
         style: TextStyle(
-            color: Colors.grey,
+
             fontSize: size.width / 25,
             fontWeight: FontWeight.w700),
       ));
@@ -35,7 +35,7 @@ Widget _title({String? title,BuildContext? context}) {
     style: TextStyle(
       fontSize: size.width / 20,
       color: Colors.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w700,
     ),
   );
 }

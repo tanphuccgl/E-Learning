@@ -5,10 +5,10 @@ Widget filter({BuildContext? context}) {
   return Padding(
     padding: EdgeInsets.only(top: size.width / 15),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _searchBar(context: context),
-        _sort(context: context),
+     //   _sort(context: context),
       ],
     ),
   );
@@ -39,7 +39,7 @@ Widget _searchBar({BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
 
   return Container(
-      width: size.width / 1.4,
+      width: size.width / 1.2,
       height: size.width / 10,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -55,7 +55,7 @@ Widget _searchBar({BuildContext? context}) {
           ),
           Icon(
             Icons.search,
-            color: Colors.grey,
+            color: Colors.black,
             size: size.width / 15,
           ),
           SizedBox(
@@ -63,7 +63,7 @@ Widget _searchBar({BuildContext? context}) {
           ),
           Text(
             "Find course",
-            style: TextStyle(color: Colors.grey, fontSize: size.width / 20),
+            style: TextStyle(color: Colors.black, fontSize: size.width / 20,fontWeight: FontWeight.w400),
           )
         ],
       ));

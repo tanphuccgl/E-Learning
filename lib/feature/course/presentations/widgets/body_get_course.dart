@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,70 +52,7 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
     });
   }
 
-
-  Widget _dropdown({List<GetCourseData>? list}) {
-    Size size = MediaQuery.of(context).size;
-    String? b;
-    String? a;
-
-    if (prefs?.get("idCourse") == null) {
-      a = list![0].nameCourse;
-      b = list[0].idCourse;
-    } else {
-      a = prefs?.get("nameCourse").toString();
-      b = prefs?.get("idCourse").toString();
-    }
-
-    return Container(
-        width: size.width / 2,
-        height: size.width / 5,
-        child: InputDecorator(
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(size.width / 24),
-                  borderSide: BorderSide(color: Colors.grey, width: 50))),
-          child: StatefulBuilder(builder: (context, setState) {
-            return DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                menuMaxHeight: 300,
-                isExpanded: true,
-                icon: Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.black,
-                  size: size.width / 10,
-                ),
-                underline: SizedBox(),
-
-                alignment: AlignmentDirectional.center,
-                value: a,
-                iconSize: 24,
-                elevation: 30,
-                style: const TextStyle(color: Colors.black, fontSize: 15),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    a = newValue!;
-                  });
-                  for (var f in list!) {
-                    if (a == f.nameCourse) {
-                      b = f.idCourse;
-                    }
-                  }
-                  prefs?.setString("nameCourse", a!);
-                  prefs?.setString("idCourse", b!);
-                },
-                items:
-                    list!.map<DropdownMenuItem<String>>((GetCourseData value) {
-                  return DropdownMenuItem<String>(
-                    value: value.nameCourse,
-                    child: Text("${value.nameCourse}"),
-                  );
-                }).toList(),
-              ),
-            );
-          }),
-        ));
-  }
-
+  /// danh sách khóa học theo id
   Widget _listCourse({List<GetCourseData>? list}) {
     Size size = MediaQuery.of(context).size;
 
@@ -123,17 +61,26 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
         overscroll.disallowGlow();
         return true;
       },
-      child: Container(
+      child: Container(decoration: BoxDecoration( color: Colors.blueGrey.shade50,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20))),
         height: size.width / 0.75,
         width: size.width,
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return _item(
-                nameCourse: list?[index]?.nameCourse,
-                idCourse: list?[index]?.idCourse);
-          },
-          scrollDirection: Axis.vertical,
-          itemCount: list?.length,
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: size.width / 25,
+              right: size.width / 25,
+           ),
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return _item(
+                  nameCourse: list?[index]?.nameCourse,
+                  idCourse: list?[index]?.idCourse);
+            },
+            scrollDirection: Axis.vertical,
+            itemCount: list?.length,
+          ),
         ),
       ),
     );
@@ -147,10 +94,13 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
           height: size.width / 3,
           width: size.width,
           decoration: BoxDecoration(
-            color: Colors.primaries[Random().nextInt(Colors.primaries.length)]
-                .withOpacity(0.3),
-            borderRadius: BorderRadius.all(Radius.circular(size.width / 30)),
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(size.width / 30)),
+              image: DecorationImage(
+                image: AssetImage(
+                  "assets/images/shutterstock_520698799small-1500x430.png",
+                ),
+                fit: BoxFit.cover,
+              )),
           child: Padding(
             padding: EdgeInsets.all(size.width / 20),
             child: Row(
@@ -175,7 +125,7 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
                     },
                     icon: Icon(
                       Icons.keyboard_arrow_right,
-                      size: size.width / 10,
+                      size: size.width / 10,color: Colors.white,
                     ))
               ],
             ),
@@ -212,7 +162,10 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
         style: TextStyle(
             fontSize: size.width / 20,
             fontWeight: FontWeight.bold,
-            color: Colors.black),
+            color: Colors.white,shadows: [
+            Shadow(
+            color: Colors.black, offset: Offset(0, 0), blurRadius: 10)
+          ]),
       ),
     );
   }
@@ -225,12 +178,19 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
           width: size.width / 2.7,
           lineHeight: size.width / 30,
           percent: 0.3,
-          backgroundColor: Colors.black26,
+          backgroundColor: Colors.grey.shade600,
           progressColor: Colors.amberAccent,
         ),
         Text(
           "$number% completed",
-          style: TextStyle(fontSize: size.width / 30),
+          style: TextStyle(
+              fontSize: size.width / 25,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              shadows: [
+                Shadow(
+                    color: Colors.black, offset: Offset(0, 0), blurRadius: 30)
+              ]),
         ),
       ],
     );
@@ -239,5 +199,68 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
   void getCourse() {
     BlocProvider.of<GetCourseBloc>(context).add(GetCourseEventE(
         idAccount: "?idAccount=${appUser?.iId}", keySearchNameCourse: ""));
+  }
+
+  /// drop down get course
+  Widget _dropdown({List<GetCourseData>? list}) {
+    Size size = MediaQuery.of(context).size;
+    String? b;
+    String? a;
+
+    if (prefs?.get("idCourse") == null) {
+      a = list![0].nameCourse;
+      b = list[0].idCourse;
+    } else {
+      a = prefs?.get("nameCourse").toString();
+      b = prefs?.get("idCourse").toString();
+    }
+
+    return Container(
+        width: size.width / 2,
+        height: size.width / 5,
+        child: InputDecorator(
+          decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(size.width / 24),
+                  borderSide: BorderSide(color: Colors.grey, width: 50))),
+          child: StatefulBuilder(builder: (context, setState) {
+            return DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                menuMaxHeight: 300,
+                isExpanded: true,
+                icon: Icon(
+                  Icons.arrow_drop_down,
+                  color: Colors.black,
+                  size: size.width / 10,
+                ),
+                underline: SizedBox(),
+                alignment: AlignmentDirectional.center,
+                value: a,
+                iconSize: 24,
+                elevation: 30,
+                style: const TextStyle(color: Colors.black, fontSize: 15),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    a = newValue!;
+                  });
+                  for (var f in list!) {
+                    if (a == f.nameCourse) {
+                      b = f.idCourse;
+                    }
+                  }
+                  prefs?.setString("nameCourse", a!);
+                  prefs?.setString("idCourse", b!);
+                },
+                items:
+                    list!.map<DropdownMenuItem<String>>((GetCourseData value) {
+                  return DropdownMenuItem<String>(
+                    value: value.nameCourse,
+                    child: Text("${value.nameCourse}"),
+                  );
+                }).toList(),
+              ),
+            );
+          }),
+        ));
   }
 }
