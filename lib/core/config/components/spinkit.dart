@@ -6,9 +6,11 @@ class SpinkitLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SpinKitCircle(
-      color: Colors.amberAccent,
-    ));
+    return Scaffold(backgroundColor: Colors.white,
+      body: Center(
+          child: SpinKitCircle(
+            color: Colors.lightBlueAccent,
+          )),
+    );
   }
 }

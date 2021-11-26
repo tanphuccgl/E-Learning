@@ -6,4 +6,5 @@ const String SERVER_FAILURE_MESSAGE = 'Something wrong! Try again';
 const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
 const String imageLogo="assets/images/e-learning-logo-template-vector-7725662.png";
 const String imageBanner="assets/images/shutterstock_407031889.jpg";
+const String iconBack="assets/icons/back.png";
 

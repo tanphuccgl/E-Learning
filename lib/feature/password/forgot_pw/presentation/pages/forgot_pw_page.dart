@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   static const String routeName = '/ForgotPasswordPage';
+
   ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
@@ -12,69 +16,135 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
   String? _email;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.blue,
-      appBar: AppBar(
-        elevation: 0,
         backgroundColor: Colors.blue,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text('Forgot password'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
           children: <Widget>[
+            /// back ground
             Container(
-              height: 50,
+              height: size.height,
               decoration: BoxDecoration(color: Colors.blue),
-            ),
-            Container(
-              height: size.height - 130,
-              width: size.width,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: size.height / 4.266666666666667,
-                  ),
-                  Container(
-                    height: size.height / 12.8,
-                    child: TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.login), labelText: 'Email'),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: (size.height / 12.8)),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, PageRoutes.setNewPasswordPage);
-                        },
-                        child: Text('SEND CODE')),
-                  )
-                ],
+              child: Image.asset(
+                "assets/images/banner-wap.jpg",
+                fit: BoxFit.fitHeight,
               ),
             ),
+
+            /// làm mờ ảnh
+            ClipRRect(
+              // Clip it cleanly.
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                child: Container(
+                  color: Colors.grey.withOpacity(0.001),
+                  alignment: Alignment.center,
+                ),
+              ),
+            ),
+
+            /// appBar
+            Padding(
+              padding: EdgeInsets.all(size.width / 30),
+              child: Container(
+                width: size.width,
+                height: size.width / 5,
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Image.asset(
+                          iconBack,
+                          color: Colors.white,
+                        )),
+                    SizedBox(
+                      width: size.width / 6,
+                    ),
+                    Text(
+                      "Forgot Password",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: size.width / 20,
+                          fontWeight: FontWeight.w500),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: size.height / 4, horizontal: size.width / 15),
+              child: Container(
+                height: size.height - size.height / 6,
+                width: size.width,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    )),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width / 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ///nhập mail
+                      Container(
+                        height: size.height / 12.8,
+                        child: TextFormField(
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(labelText: 'Email'),
+                          onChanged: (value) {
+                            _email = value;
+                          },
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: size.width / 20,
+                      ),
+
+                      /// button dan nhap
+
+                      Container(
+                        width: size.width / 3,
+                        height: size.width / 9,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.blue,
+                                  offset: Offset(0, 4),
+                                  spreadRadius: 1,
+                                  blurRadius: 5)
+                            ],
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(size.width / 30))),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              if (_email == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Email is Invalid')));
+                              } else {
+                                Navigator.pushNamed(
+                                    context, PageRoutes.setNewPasswordPage);
+                              }
+                            },
+                            child: Text("Accept")),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
