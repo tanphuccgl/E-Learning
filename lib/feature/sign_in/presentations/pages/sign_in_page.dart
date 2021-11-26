@@ -17,26 +17,9 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.blue,
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            "Sign In Your Account",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
         body: buildBody(context));
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final int? index;
@@ -23,8 +24,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
         break;
       case 1:
-        Navigator.pushNamedAndRemoveUntil(
-            context, PageRoutes.notifiPage, (Route<dynamic> route) => false);
+        appUser?.role == "admin"
+            ? Navigator.pushNamedAndRemoveUntil(context,
+                PageRoutes.functionPage, (Route<dynamic> route) => false)
+            : Navigator.pushNamedAndRemoveUntil(context, PageRoutes.notifiPage,
+                (Route<dynamic> route) => false);
 
         break;
       case 2:
@@ -33,33 +37,33 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
         break;
       case 3:
-      // Navigator.pushNamedAndRemoveUntil(
-      //     context, PageRoutes.historyPage, (Route<dynamic> route) => false);
+        // Navigator.pushNamedAndRemoveUntil(
+        //     context, PageRoutes.historyPage, (Route<dynamic> route) => false);
 
         break;
       case 4:
-      // showDialog(
-      //   context: context,
-      //   builder: (context) => new AlertDialog(
-      //     title: new Text('Quit?'),
-      //     content: new Text('Do you really want logout?'),
-      //     actions: <Widget>[
-      //       new FlatButton(
-      //         onPressed: () {
-      //           prefs!.setString(SAVE_LOGIN_RESPONSE, '');
-      //
-      //           Navigator.pushNamedAndRemoveUntil(context,
-      //               PageRoutes.loginPage, (Route<dynamic> route) => false);
-      //         },
-      //         child: new Text('Yes'),
-      //       ),
-      //       new FlatButton(
-      //         onPressed: () => Navigator.of(context).pop(false),
-      //         child: new Text('No'),
-      //       ),
-      //     ],
-      //   ),
-      // );
+        // showDialog(
+        //   context: context,
+        //   builder: (context) => new AlertDialog(
+        //     title: new Text('Quit?'),
+        //     content: new Text('Do you really want logout?'),
+        //     actions: <Widget>[
+        //       new FlatButton(
+        //         onPressed: () {
+        //           prefs!.setString(SAVE_LOGIN_RESPONSE, '');
+        //
+        //           Navigator.pushNamedAndRemoveUntil(context,
+        //               PageRoutes.loginPage, (Route<dynamic> route) => false);
+        //         },
+        //         child: new Text('Yes'),
+        //       ),
+        //       new FlatButton(
+        //         onPressed: () => Navigator.of(context).pop(false),
+        //         child: new Text('No'),
+        //       ),
+        //     ],
+        //   ),
+        // );
 
         break;
     }
@@ -80,15 +84,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       child: ClipRRect(
         child: BottomNavigationBar(
           items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: ('Home')),
+            appUser?.role == "admin"
+                ? BottomNavigationBarItem(
+                    icon: Icon(Icons.functions), label: ('Function'))
+                : BottomNavigationBarItem(
+                    icon: Icon(Icons.notifications), label: ('Notificaion')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: ('Home')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                label: ('Notification')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                label: ("Personal")),
+                icon: Icon(Icons.person_outline), label: ("Personal")),
             // BottomNavigationBarItem(
             //     icon: Image.asset("assets/icons/Messages, Chat.png"),
             //     label: ('Messages')),
@@ -100,7 +103,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           selectedItemColor: Colors.black,
           onTap: onItemTapped,
           backgroundColor: Colors.white,
-          unselectedItemColor: HexColor("#949BA5"),enableFeedback: false,
+          unselectedItemColor: HexColor("#949BA5"),
+          enableFeedback: false,
           showSelectedLabels: true,
           showUnselectedLabels: true,
           selectedLabelStyle: TextStyle(color: HexColor("#212226")),

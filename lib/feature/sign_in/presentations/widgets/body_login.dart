@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/get_current_user.dart';
-import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_state.dart';
@@ -25,16 +27,13 @@ class BodyLoginState extends State<BodyLogin> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       if (state is Empty) {
         isLogin();
       } else if (state is LoginAlready) {
         appUser = getCurrentUser();
 
-            inHome();
-
-
+        inHome();
       } else if (state is Loaded) {
         appUser = state.data;
         inHome();
@@ -49,115 +48,167 @@ class BodyLoginState extends State<BodyLogin> {
     });
   }
 
-  Widget _body({Widget? widget})
-  {
+  Widget _body({Widget? widget}) {
     Size size = MediaQuery.of(context).size;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: size.height / 12.8,
-            decoration: BoxDecoration(color: Colors.blue),
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: size.height / 5,
+          decoration: BoxDecoration(color: Colors.blue),
+          child: Image.asset(
+            imageBanner,
+            fit: BoxFit.fitHeight,
           ),
-          Container(
-            height: size.height - 130,
+        ),
+        ClipRRect(
+          // Clip it cleanly.
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: Container(
+              color: Colors.grey.withOpacity(0.001),
+              alignment: Alignment.center,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: size.height / 6),
+          child: Container(
+            height: size.height - size.height / 6,
             width: size.width,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20))),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: size.height / 4.266666666666667,
-                ),
-                Container(
-                  height: size.height / 12.8,
-                  child: TextFormField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.login), labelText: 'Email'),
-                    onChanged: (value) {
-                      clear;
-                      _email = value;
-                    },
-                  ),
-                ),
-                Container(
-                  height: size.height / 12.8,
-                  child: TextFormField(
-                    controller: _passController,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.password), labelText: 'Password'),
-                    onChanged: (value) {
-                      clear;
-                      _pass = value;
-                    },
-                  ),
-                ),
-                /// _failed(),
-                widget!,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Checkbox(
-                          value: _isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isChecked = value!;
-                            });
-                          },
-                          checkColor: Colors.white,
-                        ),
-                        Text(
-                          "Remember me",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width / 10),
+              child: Column(
+                children: <Widget>[
+                  /// logo
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: size.width / 10),
+                    child: Container(
+                      height: size.width / 2,
+                      width: size.width / 2,
+                      child: Image.asset(
+                        imageLogo,
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                            context, PageRoutes.forgotPasswordPage);
+                  ),
+                  Container(
+                    height: size.height / 12.8,
+                    child: TextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(labelText: 'Email'),
+                      onChanged: (value) {
+                        clear;
+                        _email = value;
                       },
-                      child: Text("Forgot Password"),
-                    )
-                  ],
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      if (_email != null && _pass != null) {
-                        return login();
-                      } else {
-                        return clear();
-                      }
-                    },
-                    child: Text("SIGN IN")),
-                Text("Or"),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.face),
-                    SizedBox(
-                      width: size.width / 100,
                     ),
-                    Icon(Icons.g_mobiledata)
-                  ],
-                )
-              ],
+                  ),
+                  Container(
+                    height: size.height / 12.8,
+                    child: TextFormField(
+                      controller: _passController,
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: InputDecoration(labelText: 'Password'),
+                      onChanged: (value) {
+                        clear;
+                        _pass = value;
+                      },
+                    ),
+                  ),
+
+                  /// _failed(),
+                  widget!,
+                  SizedBox(
+                    height: size.width / 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Checkbox(
+                            value: _isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isChecked = value!;
+                              });
+                            },
+                            checkColor: Colors.white,
+                          ),
+                          Text(
+                            "Remember me",
+                            style: TextStyle(color: Colors.grey),
+                          )
+                        ],
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, PageRoutes.forgotPasswordPage);
+                        },
+                        child: Text("Forgot Password"),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.width / 15,
+                  ),
+
+                  /// button dan nhap
+
+                  Container(
+                    width: size.width / 3,
+                    height: size.width / 9,
+                    decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.blue,
+                              offset: Offset(0, 4),
+                              spreadRadius: 1,
+                              blurRadius: 5)
+                        ],
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(size.width / 30))),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (_email != null && _pass != null) {
+                            return login();
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Email or password is Invalid')));
+
+                            return clear();
+                          }
+                        },
+                        child: Text("Sign In")),
+                  ),
+
+                  /// đăng nhập bằng face hoặc google
+                  // Text("Or"),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: <Widget>[
+                  //     Icon(Icons.face),
+                  //     SizedBox(
+                  //       width: size.width / 100,
+                  //     ),
+                  //     Icon(Icons.g_mobiledata)
+                  //   ],
+                  // )
+                ],
+              ),
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
-
 
   /// hàm đến trang home - no back
   void inHome() {
