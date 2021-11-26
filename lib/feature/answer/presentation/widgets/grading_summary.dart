@@ -40,7 +40,7 @@ Widget gradingSummary(
                     height: size.width,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("$totalStudentInCourse",
+                      child: Text("${totalStudentInCourse!-1}",
                           style: TextStyle(
                               fontSize: size.width / 28,
                               fontWeight: FontWeight.normal)),

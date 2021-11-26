@@ -50,7 +50,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.width / 7),
@@ -74,17 +74,20 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
           elevation: 0,
         ),
       ),
-      body: Container(
+      body: Container(height: size.height-size.width/7,width: size.width,
         child: Column(children: [
-          TitleHeader(
-            onChanged: (e) {
-              setState(() {
-                curentWidgetId = e;
-              });
-            },
-            choosingPos1: widget.choosingPos,
+          Container(
+            child: TitleHeader(
+              onChanged: (e) {
+                setState(() {
+                  curentWidgetId = e;
+                });
+              },
+              choosingPos1: widget.choosingPos,
+            ),
           ),
-          getWidgetById(curentWidgetId),
+          Container(height: size.height-size.width/7-size.width/5,width: size.width,
+              child: getWidgetById(curentWidgetId)),
         ]),
       ),
     );
@@ -96,7 +99,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
         return BlocProvider(
           create: (_) => sl<GetAllLectureBloc>(),
           child: LecturePage(
-            idCourse: widget.idCourse,
+            idCourse: widget.idCourse,nameCourse: widget.nameCourse,
           ),
         );
 

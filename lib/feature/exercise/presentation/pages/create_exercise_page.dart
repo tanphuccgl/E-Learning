@@ -47,10 +47,13 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
   bool? isSwitchedDue;
   FilePickerResult? result;
   List<PlatformFile>? listFile;
+  bool? isClick;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isClick = true;
     initializeDateFormatting("en", null);
     isSwitchedAllow = false;
     isSwitchedDue = false;
@@ -70,9 +73,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-
-    });
+    setState(() {});
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -80,7 +81,6 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
       appBar: appBar(title: "Create New Exercise", context: context),
       body: SingleChildScrollView(
         child: Container(
-
           width: size.width,
           child: Padding(
             padding: EdgeInsets.only(
@@ -102,6 +102,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 SizedBox(
                   height: size.width / 20,
                 ),
+
                 /// Nhập mô tả
                 inputDescription(
                     title: "Description",
@@ -113,6 +114,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                 SizedBox(
                   height: size.width / 20,
                 ),
+
                 /// cài đặt thời gian mở
                 _pickDateTime(
                     controllerDateTime: _controllerAllow,
@@ -129,6 +131,7 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                         isSwitchedAllow = value;
                       });
                     }),
+
                 /// cài đặt thời gian kết thúc
                 _pickDateTime(
                     controllerDateTime: _controllerDue,
@@ -145,15 +148,18 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                         isSwitchedDue = value;
                       });
                     }),
+
                 /// chọn loại điểm 0 - điểm 10 ,1 - đạt/kh đạt
                 typePoint(
-                    function: (String? newValue) {
-                      setState(() {
-                        typePointValue = newValue!;
-                      });
+                    function: () {
+                      isClick = !isClick!;
+                      print(isClick);
+                      setState(() {});
                     },
+                    isClick: isClick,
                     context: context,
                     typePointValue: typePointValue),
+
                 /// pick file từ máy
                 chooseFile(
                     title: "Additional files",
@@ -177,13 +183,15 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                       }
                     },
                     context: context),
+
                 /// show những file được chọn
                 ListFiles(
                   list: listFile,
                 ),
+
                 /// nút xac nhận
                 accept(
-                   content: "Accept",
+                    content: "Accept",
                     context: context,
                     function: () {
                       ///check nhập tên bài tập
@@ -195,16 +203,19 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
                       } else {
                         print("aloww $_valueChangedAallow");
                         print("due $_valueChangedDue");
+
                         /// gọi api thêm bài tập
                         addExercise(
-                            idCourse: widget.idCourse,
+                            idCourse: widget.idCourse,isTextPoint: isClick==true? 0:1,
                             submissionDeadline:
+
                                 /// bật nút mới gửi DateTime tới server
-                            isSwitchedDue == true
-                                ? (_valueChangedDue == ""
-                                    ? DateTime.parse(DateTime.now().toString())
-                                    : DateTime.parse("$_valueChangedDue"))
-                                : null,
+                                isSwitchedDue == true
+                                    ? (_valueChangedDue == ""
+                                        ? DateTime.parse(
+                                            DateTime.now().toString())
+                                        : DateTime.parse("$_valueChangedDue"))
+                                    : null,
                             allowSubmission: isSwitchedAllow == true
                                 ? (_valueChangedAallow == ""
                                     ? DateTime.parse(DateTime.now().toString())
@@ -271,15 +282,15 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
           Switch(
             value: isSwitched!,
             onChanged: functionSwitch,
-            activeTrackColor: Colors.yellow,
-            activeColor: Colors.orangeAccent,
+            activeTrackColor: Colors.lightBlueAccent.withOpacity(0.3),
+            activeColor: Colors.lightBlueAccent,
           ),
         ],
       ),
     );
   }
 
-   /// chọn khóa học cần thêm bài tập
+  /// chọn khóa học cần thêm bài tập
   // BlocProvider<GetCourseBloc> _dropNameCourse(BuildContext context) {
   //   return BlocProvider(
   //     create: (_) => sl<GetCourseBloc>(),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/get_course_page.dart';
 
 Widget content({String? title,BuildContext? context,Key? key }) {
   Size size = MediaQuery.of(context!).size;
 
   return Padding(
-      padding: EdgeInsets.only(top: size.width / 15),
+      padding: EdgeInsets.only(top: size.width / 30),
       child:
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         _title(title: title,context: context),
@@ -17,7 +18,7 @@ Widget _showButton({BuildContext? context}) {
 
   return TextButton(
       onPressed: () {
-        print("show all tapp!!");
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>GetCoursePage(showAll: true,)));
       },
       child: Text(
         "Show all",

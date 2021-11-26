@@ -29,38 +29,57 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        bottomNavigationBar:  CustomBottomNavigationBar(
-                index: 0,
-              )
-            ,
-        body: SingleChildScrollView(
+        bottomNavigationBar: CustomBottomNavigationBar(
+          index: 0,
+        ),
+        body: Container(
+          width: size.width,
+          height: size.height,
           child: appUser?.role == "admin"
-              ? Column(
-                  children: [
-                    header(context: context, name: appUser?.fullName),
-                    buildBody(context),
-                  ],
+              ? Padding(
+                  padding: EdgeInsets.only(
+                      left: size.width / 25,
+                      right: size.width / 25,
+                      top: size.width / 10),
+                  child: Column(
+                    children: [
+                      header(context: context, name: appUser?.fullName),
+                      buildBody(context),
+                    ],
+                  ),
                 )
-              : Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width / 25,
-                          right: size.width / 25,
-                          top: size.width / 10),
-                      child: Container(child: Column(
-                        children: [
-                          header(context: context, name: appUser?.fullName),
-                          filter(context: context),
-                          content(title: "Recent courses", context: context),
-                        ],
+              : Container(
+                  width: size.width,
+                  height: size.height,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width / 25,
+                            right: size.width / 25,
+                            top: size.width / 10),
+                        child: Container(
+                          width: size.width,
+                          height: size.height / 4,
+                          child: Column(
+                            children: [
+                              header(context: context, name: appUser?.fullName),
+                              filter(context: context),
+                              content(
+                                  title: "Recent courses", context: context),
+                            ],
+                          ),
+                        ),
                       ),
-
-                      ),
-                    ),
-
-                    GetCoursePage(),
-                  ],
+                      Container(
+                          width: size.width,
+                          height: size.height - size.height / 2.5,
+                          child: GetCoursePage(
+                            showAll: false,
+                          )),
+                    ],
+                  ),
                 ),
         ));
   }

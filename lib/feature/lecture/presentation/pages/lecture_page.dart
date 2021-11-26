@@ -40,7 +40,7 @@ class _LecturePageState extends State<LecturePage> {
         getCourse();
       } else if (state is Loaded) {
         return state.data!.isNotEmpty
-            ? _list(state.data)
+            ? _list(state.data?.reversed.toList())
             : Center(child: Text("Invail exercise"));
       } else if (state is Loading) {
         return SpinkitLoading();
@@ -61,7 +61,7 @@ class _LecturePageState extends State<LecturePage> {
 
     return Container(
       width: size.width,
-      height: size.width / 0.62,
+      height: size.width / 0.5,
       child: Padding(
         padding: EdgeInsets.only(
             left: size.width / 25,
@@ -87,6 +87,7 @@ class _LecturePageState extends State<LecturePage> {
                         //         builder: (context) => CreateLecturePage(
                         //               idCourse: widget.idCourse,
                         //             )));
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -100,7 +101,7 @@ class _LecturePageState extends State<LecturePage> {
             ),
             Container(
               width: size.width - size.width / 25,
-              height: size.width / 0.8,
+              height: size.width / 0.75,
               child: Padding(
                 padding: EdgeInsets.only(top: size.width / 20),
                 child: ListView.builder(
@@ -189,14 +190,14 @@ class _LecturePageState extends State<LecturePage> {
             children: [
               Icon(
                 Icons.circle,
-                color: Colors.black,
+                color: Colors.red.withOpacity(0.5),
                 size: size.width / 30,
               ),
               Container(
                   width: size.width / 100,
                   height: size.width / 3.5,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: Colors.blueGrey.shade100,
                     borderRadius:
                         BorderRadius.all(Radius.circular(size.width / 20)),
                   )),
@@ -249,15 +250,12 @@ class _LecturePageState extends State<LecturePage> {
                     ///check role
                     IconButton(
                         onPressed: () {
-
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetailLecturePage(
-                                    idLecture: data?.iId,
-                                  )))
-
-                          ;
+                                        idLecture: data?.iId,textDescription: data?.descriptionLecture,
+                                      )));
                         },
                         icon: Icon(
                           Icons.keyboard_arrow_right,
@@ -282,10 +280,13 @@ class _LecturePageState extends State<LecturePage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           /// assignment_turned_in_rounded
-          Icon(
-            Icons.assignment_turned_in_outlined,
-            size: size.width / 10,
+          Image.asset(
+            "assets/icons/lecture.png",
+            fit: BoxFit.cover,
+            width: size.width / 10,
+            height: size.width / 10,
           ),
+
           SizedBox(
             width: size.width / 20,
           ),
@@ -293,7 +294,7 @@ class _LecturePageState extends State<LecturePage> {
             width: size.width / 2.6,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   titleExercise!,

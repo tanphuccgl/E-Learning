@@ -58,16 +58,15 @@ class _ListScorePageState extends State<ListScorePage> {
               padding:  EdgeInsets.only(top:size.width/10),
               child: Container(
           width: size.width,
-          height: size.width/0.7,
-
-                child: SizedBox(
+                  height: size.width / 0.67,
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: SingleChildScrollView(
                       child: DataTable(
                         sortColumnIndex: _sortColumnIndex,
                         sortAscending: _sortAscending,
                         columnSpacing: 0,
-                        dividerThickness: 5,
+                        dividerThickness: 3,
                         onSelectAll: (bool? isSelected) {
                           isSelected = false;
                           a.forEach((item) {
@@ -83,15 +82,15 @@ class _ListScorePageState extends State<ListScorePage> {
                                     : Color.fromARGB(100, 215, 217, 219)),
                         dataRowHeight: 80,
                         dataTextStyle: const TextStyle(
-                            fontStyle: FontStyle.italic, color: Colors.black),
+                            fontStyle: FontStyle.normal, color: Colors.black),
                         headingRowColor: MaterialStateColor.resolveWith(
                             (states) => Colors.lightBlueAccent),
                         headingRowHeight: 80,
                         headingTextStyle: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
-                        horizontalMargin: 10,
+                        horizontalMargin: 30,
                         showBottomBorder: true,
-                        showCheckboxColumn: true,
+                        showCheckboxColumn: false,
                         columns: _createColumns(),
                         rows: a.map((item) {
                           return DataRow(
@@ -124,7 +123,7 @@ class _ListScorePageState extends State<ListScorePage> {
                               ),
                               DataCell(Text(item['studyPoint'] == 'null'
                                   ? ""
-                                  : item['studyPoint'])),
+                                  : item['studyPoint'],style: TextStyle(color: Colors.red),)),
                               // DataCell(
                               //   Text(item.description),
                               // ),

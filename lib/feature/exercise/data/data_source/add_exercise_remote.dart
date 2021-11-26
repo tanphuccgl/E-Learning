@@ -11,7 +11,8 @@ Future<bool> addExercise(
     String? idCourse,
     String? descriptionExercise,
     DateTime? allowSubmission,
-    DateTime? submissionDeadline,
+      int? isTextPoint,
+      DateTime? submissionDeadline,
     List<PlatformFile>? listFile,
     Function? success,
     Function? failure}) async {
@@ -31,6 +32,7 @@ Future<bool> addExercise(
   if (submissionDeadline != null) {
     request.fields["submissionDeadline"] = "$submissionDeadline";
   }
+  request.fields["isTextPoint"] = "$isTextPoint";
 
   request.fields["files"] = "files";
   request.fields['idCourse'] = '$idCourse';

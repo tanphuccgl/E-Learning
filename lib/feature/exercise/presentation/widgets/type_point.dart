@@ -1,57 +1,90 @@
 import 'package:flutter/material.dart';
 
 /// chọn loại điểm
-Widget typePoint({BuildContext? context,String? typePointValue,Function(String?)? function}) {
+Widget typePoint(
+    {BuildContext? context,
+    String? typePointValue,
+    Function()? function,
+    bool? isClick}) {
   Size size = MediaQuery.of(context!).size;
 
-  return Container(
-    width: size.width / 1.7,
-    height: size.width / 6,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(size.width / 24),
-        border: Border.all(color: Colors.grey),
-        color: Colors.lightBlueAccent),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text("Type",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: size.width / 25,
-                fontWeight: FontWeight.w600)),
-        Container(
-          width: size.width / 3,
-          height: size.width / 8,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(size.width / 35),
-              color: Colors.white),
-          child: Padding(
-            padding: EdgeInsets.only(
-                left: size.width / 20, right: size.width / 20),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: typePointValue,
-                icon: const Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Type Point",
+        style: TextStyle(
+            color: Colors.black,
+            fontSize: size.width / 20,
+            fontWeight: FontWeight.w600),
+      ),
+      SizedBox(
+        height: size.width / 20,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+            onTap: function,
+            child: Container(
+              height: size.width / 10,
+              width: size.width / 3.5,
+              decoration: BoxDecoration(
+                color: isClick == true ? Colors.lightBlueAccent : Colors.white,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(size.width / 30)),
+                border: Border.all(color: Colors.lightBlueAccent, width: 2),
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: size.width / 30,
+              ),
+              child: Center(
+                child: Text(
+                  "Number Point",
+                  style: TextStyle(
+                      color: isClick == true
+                          ? Colors.white
+                          : Colors.lightBlueAccent,
+                      fontWeight: FontWeight.w700,
+                      fontSize: size.width / 25),
                 ),
-                onChanged: function,
-                items: <String>['Point', 'Scale']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
               ),
             ),
           ),
-        )
-      ],
-    ),
+          GestureDetector(
+            onTap: function,
+            child: Container(
+              height: size.width / 10,
+              width: size.width / 3.5,
+              decoration: BoxDecoration(
+                color: isClick == true ? Colors.white : Colors.lightBlueAccent,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(size.width / 30)),
+                border: Border.all(
+                    color: isClick == true
+                        ? Colors.lightBlueAccent
+                        : Colors.transparent,
+                    width: 2),
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: size.width / 30,
+              ),
+              child: Center(
+                child: Text(
+                  "Text Point",
+                  style: TextStyle(
+                      color: isClick == true
+                          ? Colors.lightBlueAccent
+                          : Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: size.width / 25),
+                ),
+              ),
+            ),
+          )
+        ],
+      )
+    ],
   );
 }

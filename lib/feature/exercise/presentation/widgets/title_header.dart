@@ -31,7 +31,7 @@ class _TitleHeaderState extends State<TitleHeader> {
     items?.add(HeaderItem("Exercise", 2));
     items?.add(HeaderItem("List User", 3));
     // items?.add(HeaderItem("Chấm điểm", 5));
-   appUser?.role=="student" ? items?.add(HeaderItem("List Score", 4)):null;
+    appUser?.role == "student" ? items?.add(HeaderItem("List Score", 4)) : null;
   }
 
   @override
@@ -55,15 +55,14 @@ class _TitleHeaderState extends State<TitleHeader> {
               width: size.width / 3.5,
               decoration: BoxDecoration(
                 color:
-                    choosingPos == e.id ? Colors.black87 : Colors.grey.shade200,
+                    choosingPos == e.id ? Colors.lightBlueAccent : Colors.white,
                 borderRadius:
                     BorderRadius.all(Radius.circular(size.width / 30)),
-                // border: Border(
-                //     bottom: BorderSide(
-                //         color: choosingPos == e.id
-                //             ? Colors.blue
-                //             : Colors.transparent,
-                //         width: 2)),
+                border: Border.all(
+                    color: choosingPos == e.id
+                        ? Colors.transparent
+                        : Colors.lightBlueAccent,
+                    width: 2),
               ),
               margin: EdgeInsets.symmetric(
                 horizontal: size.width / 30,
@@ -72,7 +71,9 @@ class _TitleHeaderState extends State<TitleHeader> {
                 child: Text(
                   e.name,
                   style: TextStyle(
-                      color: choosingPos == e.id ? Colors.white : Colors.black,
+                      color: choosingPos == e.id
+                          ? Colors.white
+                          : Colors.lightBlueAccent,
                       fontWeight: FontWeight.w500,
                       fontSize: size.width / 25),
                 ),

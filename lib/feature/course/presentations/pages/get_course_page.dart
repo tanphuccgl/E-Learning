@@ -11,8 +11,9 @@ import 'package:thuc_tap_tot_nghiep/feature/course/presentations/widgets/body_ge
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class GetCoursePage extends StatefulWidget {
+  final bool? showAll;
   static const String routeName="/GetCoursePage";
-  const GetCoursePage({Key? key}) : super(key: key);
+  const GetCoursePage({Key? key,this.showAll}) : super(key: key);
 
   @override
   _GetCoursePageState createState() => _GetCoursePageState();
@@ -25,7 +26,7 @@ class _GetCoursePageState extends State<GetCoursePage> {
         create: (_) => sl<GetCourseBloc>(),
         child:
         appUser?.role=="admin"?BodyGetAllCourse():
-        BodyGetCourse(changeWithPage: "GetCoursePage",),
+        (BodyGetCourse(changeWithPage: "GetCoursePage",showAll: widget.showAll,)),
     );
   }
 

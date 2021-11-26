@@ -6,6 +6,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/get_current_user.dart';
+import 'package:thuc_tap_tot_nghiep/feature/home/presentation/pages/home_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_state.dart';

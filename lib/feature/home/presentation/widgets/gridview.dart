@@ -58,32 +58,32 @@ class _GridViewWidgetState extends State<GridViewWidget> {
             _item(
                 color: Colors.green,
                 count: data?.totalAnswer,
-                icon: Icon(Icons.fifteen_mp),
+                image: Image.asset("assets/icons/search.png"),
                 title: "Total Answer"),
             _item(
                 color: Colors.lightBlue,
                 count: data?.totalCourse,
-                icon: Icon(Icons.fifteen_mp),
+                image: Image.asset("assets/icons/books.png"),
                 title: "Total Course"),
             _item(
                 color: Colors.red,
                 count: data?.totalExercise,
-                icon: Icon(Icons.fifteen_mp),
+                image: Image.asset("assets/icons/checklist.png"),
                 title: "Total Exercise"),
             _item(
                 color: Colors.amber,
                 count: data?.totalLecture,
-                icon: Icon(Icons.fifteen_mp),
+                image: Image.asset("assets/icons/business-presentation.png"),
                 title: "Total Lecture"),
             _item(
                 color: Colors.purpleAccent,
                 count: data?.totalStudent,
-                icon: Icon(Icons.fifteen_mp),
+                image: Image.asset("assets/icons/network.png"),
                 title: "Total Student"),
             _item(
                 color: Colors.pinkAccent,
                 count: data?.totalTeacher,
-                icon: Icon(Icons.fifteen_mp),
+                image: Image.asset("assets/icons/team.png"),
                 title: "Total Teacher"),
           ],
         ),
@@ -91,14 +91,15 @@ class _GridViewWidgetState extends State<GridViewWidget> {
     );
   }
 
-  Widget _item({Color? color, Icon? icon, String? title, int? count}) {
+  Widget _item({Color? color, Image? image, String? title, int? count}) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
       width: size.width / 5,
       height: size.width / 5,
       decoration: BoxDecoration(
-        color: color,
+        color: color,boxShadow:
+        [BoxShadow(color: color!,offset: Offset(0,0),blurRadius: 10)],
         borderRadius: BorderRadius.all(Radius.circular(size.width / 20)),
       ),
       child: Padding(
@@ -106,15 +107,12 @@ class _GridViewWidgetState extends State<GridViewWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CircleAvatar(
-              child: icon,
-              backgroundColor: Colors.white,
-            ),
+            Container(child: image!,width: size.width/12,height: size.height/12,),
             Text(
               title!,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: size.width / 20,
+                fontSize: size.width / 25,
                 fontWeight: FontWeight.w700,
               ),
             ),

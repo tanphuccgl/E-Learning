@@ -66,7 +66,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height / 1.35,
+      height: size.height-size.width/7-size.width/5,
       width: size.width,
       child: Padding(
         padding: EdgeInsets.only(
@@ -76,7 +76,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return _item(
-                  name: "${data?[index]?.role} - ${data?[index]?.fullName}",
+                  name: "${data?[index]?.role}\n${data?[index]?.fullName}",role:data?[index]?.role ,
                   image: "assets/images/avatar.jpg");
             },
             separatorBuilder: (context, index) => Divider(),
@@ -85,14 +85,14 @@ class _ListStudentPageState extends State<ListStudentPage> {
     );
   }
 
-  Widget _item({String? name, String? image}) {
+  Widget _item({String? name, String? image,String? role}) {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.width / 6,
       width: size.width,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade500),
-        color: Colors.grey.shade300.withOpacity(0.3),
+        border: Border.all(color:role=="teacher" ?Colors.red.shade500: Colors.green.shade500,width: 2),
+        color: Colors.blueGrey.shade100.withOpacity(0.3),
         borderRadius: BorderRadius.all(
           Radius.circular(size.width / 20),
         ),
@@ -121,7 +121,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
               name!,
               style: TextStyle(
                   color: Colors.black,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                   fontSize: size.width / 20),
             ),
             SizedBox(

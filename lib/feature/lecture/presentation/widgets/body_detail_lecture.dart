@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -14,17 +15,25 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/thumbnail.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/list_file.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/pick_multi_file.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/data/data_source/edit_lecture.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/models/get_info_lecture_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_state.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/detail_lecture.dart';
 
 var dio = Dio();
 
 class BodyDetailLecture extends StatefulWidget {
   final int? idLecture;
+  final String? textDescription;
 
-  const BodyDetailLecture({Key? key, this.idLecture}) : super(key: key);
+  const BodyDetailLecture({Key? key, this.idLecture, this.textDescription})
+      : super(key: key);
 
   @override
   _BodyDetailLectureState createState() => _BodyDetailLectureState();
@@ -33,12 +42,21 @@ class BodyDetailLecture extends StatefulWidget {
 class _BodyDetailLectureState extends State<BodyDetailLecture> {
   List<PlatformFile>? listFile;
   final Dio dio = Dio();
+  bool? isEdit;
+  TextEditingController? textEditingController;
+  String? textDescription;
+  List<FileUpload>? tempList;
+  FilePickerResult? result;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     listFile = [];
+    isEdit = false;
+    textEditingController = TextEditingController(text: widget.textDescription);
+    textDescription = '';
+    tempList = [];
   }
 
   @override
@@ -49,6 +67,7 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
         getDetailLecture();
       } else if (state is Loaded) {
         Size size = MediaQuery.of(context).size;
+        tempList = state.data?.fileUpload!;
 
         return state.data != null
             ? Scaffold(
@@ -71,18 +90,65 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
                           _content(
                               content: state.data?.descriptionLecture == null
                                   ? ""
-                                  : state.data?.descriptionLecture),
+                                  : state.data?.descriptionLecture,
+                              function: (value) {
+                                textDescription = value;
+                              },
+                              textEditingController: textEditingController),
                           SizedBox(
                             height: size.width / 15,
                           ),
 
                           ///pick file and show
                           _uploadedFile(
-                              list: state.data?.fileUpload,
+                              list: tempList,
                               title:
                                   "Uploaded File (${state.data?.fileUpload?.length})"),
                           SizedBox(
-                            height: size.width / 15,
+                            height: size.width / 25,
+                          ),
+                          isEdit == false
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    accept(
+                                        color: Colors.amber,
+                                        context: context,
+                                        content: "Edit",
+                                        function: () {
+                                          setState(() {});
+                                          isEdit = !isEdit!;
+                                        }),
+                                    accept(
+                                        color: Colors.red,
+                                        context: context,
+                                        content: "Remove",
+                                        function: () {}),
+                                  ],
+                                )
+
+                              ///   chua chinh link api
+                              : accept(
+                                  color: Colors.green,
+                                  context: context,
+                                  content: "Accept",
+                                  function: () {
+                                    setState(() {});
+                                    isEdit = false;
+                                    editLecture(
+                                        success: () => showSuccessUpdate(),
+                                        failure: () => showCancelUpdate(),
+                                        idCourse: state.data?.idCourse,
+                                        nameLecture: state.data?.nameLecture,
+                                        descriptionAnswer: textDescription,
+                                        idLecture: widget.idLecture,
+                                        fileKeep: tempList,
+                                        listFile: listFile);
+                                  }),
+                          SizedBox(
+                            height: size.width / 20,
                           ),
                         ],
                       ),
@@ -115,17 +181,54 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              title!,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: size.width / 20,
-                  fontWeight: FontWeight.w600),
-            ),
+            isEdit == true
+                ? chooseFile(
+                    title: "Additional files",
+                    function: () async {
+                      result = await FilePicker.platform
+                          .pickFiles(allowMultiple: true);
+                      List<PlatformFile>? listFile1 = [];
+
+                      if (result != null) {
+                        setState(() {
+                          listFile1 = result!.files;
+                        });
+
+                        listFile!.addAll(listFile1!);
+
+                        /// duyệt mảng chỉ show 1-1
+                        listFile = LinkedHashSet<PlatformFile>.from(listFile!)
+                            .toList();
+                      } else {
+                        // User canceled the picker
+                      }
+                    },
+                    context: context)
+                : Text(
+                    title!,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: size.width / 20,
+                        fontWeight: FontWeight.w600),
+                  ),
             SizedBox(
               height: size.width / 20,
             ),
-            _listFile(list: list),
+            Container(
+              width: size.width,
+              height: list!.length + listFile!.length > 4
+                  ? size.width / 1.4
+                  : list.length * size.width / 6,
+              child: ListView(
+                children: [
+                  ListFiles(
+                    list: listFile,
+                    isUpdate: isEdit == true ? false : true,
+                  ),
+                  _listFile(list: list),
+                ],
+              ),
+            ),
           ],
         ));
   }
@@ -137,9 +240,9 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
       width: size.width,
 
       ///  widget.list!.length > 4 ? size.width / 1.4 : widget.list!.length * size.width / 6,
-      height:
-          list!.length > 4 ? size.width / 1.4 : list.length * size.width / 6,
+      height: list!.length * size.width / 6,
       child: ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
@@ -188,16 +291,25 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
                         _detailFile(file: list[index]),
                       ],
                     ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_circle_down),
-                      onPressed: () {
-                        setState(() {
-                          downloadFile(
-                              url: list[index].pathname,
-                              namefile: list[index].originalname);
-                        });
-                      },
-                    ),
+                    isEdit == false
+                        ? IconButton(
+                            icon: Icon(Icons.arrow_circle_down),
+                            onPressed: () {
+                              setState(() {
+                                downloadFile(
+                                    url: list[index].pathname,
+                                    namefile: list[index].originalname);
+                              });
+                            },
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.cancel),
+                            onPressed: () {
+                              setState(() {
+                                list.remove(list[index]);
+                              });
+                            },
+                          ),
                   ],
                 ),
               ),
@@ -325,15 +437,16 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
                 width: size.width / 10,
               ),
             ],
-          )
-          // Text("${list[index].extension}"),
-          // Text("$fileSize"),
+          ),
         ],
       ),
     );
   }
 
-  Widget _content({String? content}) {
+  Widget _content(
+      {String? content,
+      TextEditingController? textEditingController,
+      Function(String?)? function}) {
     Size size = MediaQuery.of(context).size;
 
     return Padding(
@@ -347,7 +460,8 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
             ),
             color: Colors.grey.shade300.withOpacity(0.3),
             border: Border.all(
-                color: Colors.cyan.withOpacity(0.3), width: size.width / 100)),
+                color: Colors.redAccent.withOpacity(0.3),
+                width: size.width / 100)),
         child: Padding(
           padding: EdgeInsets.all(size.width / 20),
           child: Column(
@@ -365,8 +479,17 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
                 height: size.width / 3.2,
                 child: ListView(
                   children: [
-                    Text(
-                      content!,
+                    TextField(
+                      controller: textEditingController,
+                      onChanged: function,
+                      enabled: isEdit == true ? true : false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                      ),
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: size.width / 25,
@@ -392,7 +515,7 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
         borderRadius: BorderRadius.all(
           Radius.circular(size.width / 30),
         ),
-        color: Colors.cyan.withOpacity(0.3),
+        color: Colors.redAccent.withOpacity(0.3),
       ),
       child: Padding(
         padding: EdgeInsets.all(size.width / 20),
@@ -464,5 +587,33 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
         },
         title: "SUCCESS",
         description: "File download successful");
+  }
+
+  void showCancelUpdate() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "Update failed");
+  }
+
+  void showSuccessUpdate() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailLecturePage(
+                        textDescription: widget.textDescription,
+                        idLecture: widget.idLecture,
+                      )));
+        },
+        title: "SUCCESS",
+        description: "Update successful");
   }
 }

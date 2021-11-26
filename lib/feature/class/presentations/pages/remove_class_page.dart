@@ -175,7 +175,7 @@ class RemoveClassPageState extends State<RemoveClassPage> {
                     child: DataTable(
                       sortColumnIndex: _sortColumnIndex,
                       sortAscending: _sortAscending,
-                      columnSpacing: 0,
+                      columnSpacing: 50,
                       dividerThickness: 5,
                       onSelectAll: (bool? isSelected) {
 
@@ -193,15 +193,15 @@ class RemoveClassPageState extends State<RemoveClassPage> {
                               : Color.fromARGB(100, 215, 217, 219)),
                       dataRowHeight: 80,
                       dataTextStyle: const TextStyle(
-                          fontStyle: FontStyle.italic, color: Colors.black),
+                          fontStyle: FontStyle.normal, color: Colors.black),
                       headingRowColor: MaterialStateColor.resolveWith(
                               (states) => Colors.lightBlueAccent),
                       headingRowHeight: 80,
                       headingTextStyle: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black),
-                      horizontalMargin: 10,
+                      horizontalMargin: 30,
                       showBottomBorder: true,
-                      showCheckboxColumn: true,
+                      showCheckboxColumn: false,
                       columns: _createColumns(),
                       rows: a.map((item) {
                         return DataRow(
@@ -227,7 +227,7 @@ class RemoveClassPageState extends State<RemoveClassPage> {
                             DataCell(
                               Text(item['nameClass']),
                               placeholder: false,
-                              showEditIcon: true,
+                              showEditIcon: false,
                               onTap: () {
                                 print('onTap');
                               },

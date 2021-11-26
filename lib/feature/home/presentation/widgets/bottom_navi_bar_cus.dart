@@ -87,7 +87,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ('Home')),
             appUser?.role == "admin"
                 ? BottomNavigationBarItem(
-                    icon: Icon(Icons.functions), label: ('Function'))
+                    icon: Icon(Icons.grid_view_outlined), label: ('Feature'))
                 : BottomNavigationBarItem(
                     icon: Icon(Icons.notifications), label: ('Notificaion')),
             BottomNavigationBarItem(

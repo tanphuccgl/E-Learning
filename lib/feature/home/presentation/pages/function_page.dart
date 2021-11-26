@@ -40,7 +40,7 @@ class _FunctionPageState extends State<FunctionPage> {
               children: [
                 Center(
                     child: Text(
-                  "Function",
+                  "Feature",
                   style: TextStyle(
                       fontWeight: FontWeight.bold, fontSize: size.width / 15),
                 )),
