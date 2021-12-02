@@ -250,7 +250,10 @@ class _ExercisePageState extends State<ExercisePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetailExercisePage(
-                                        data: data,
+                                     submissionDeadline:data!.submissionDeadline ,
+                                    allowSubmission: data.allowSubmission,
+                                    descriptionExercise: data.descriptionExercise,
+                                    idExercise: data.iId,nameExercise: data.titleExercise,
                                       )));
                         },
                         icon: Icon(

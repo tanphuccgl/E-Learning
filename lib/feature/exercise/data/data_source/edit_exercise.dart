@@ -2,20 +2,23 @@ import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/core/error/exceptions.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/models/get_info_lecture_res.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
 http.Client? client = http.Client();
 
-Future<bool> editLecture(
-    {int? idLecture,
-    String? idCourse,
-    String? nameLecture,
-    String? descriptionAnswer,
-    List<FileUpload>? fileKeep,
-    List<PlatformFile>? listFile,
-    Function? success,
-    Function? failure}) async {
+Future<bool> editExercise(
+    {int? idExercise,
+      String? idCourse,
+      String? titleExercise,
+      String? descriptionExercise,
+      String? allowSubmission,
+    String? submissionDeadline,
+      List<Files>? fileKeep,
+      List<PlatformFile>? listFile,
+      Function? success,
+      Function? failure}) async {
   print(idCourse);
   ///chua chinh link api
   var uri = Uri.parse('$mainUrl/lecture/OpenLecture?idCourse=$idCourse');
@@ -25,13 +28,18 @@ Future<bool> editLecture(
   request.headers["auth-token"] = "${appUser?.token}";
   request.headers["Content-Type"] = "multipart/form-data";
 
-  request.fields["nameLecture"] = "$nameLecture";
-  request.fields["idLecture"] = "$idLecture";
+  request.fields["titleExercise"] = "$titleExercise";
+  request.fields["idExercise"] = "$idExercise";
 
+  if (allowSubmission != null) {
+    request.fields["allowSubmission"] = "$allowSubmission";
+  }
+  if (submissionDeadline != null) {
+    request.fields["submissionDeadline"] = "$submissionDeadline";
+  }
 
-
-  if (descriptionAnswer != null) {
-    request.fields["descriptionAnswer"] = "$descriptionAnswer";
+  if (descriptionExercise != null) {
+    request.fields["descriptionAnswer"] = "$descriptionExercise";
   }
   /// warning
   request.fields["fileKeep"] = "$fileKeep";
@@ -50,8 +58,8 @@ Future<bool> editLecture(
   var response = await request.send();
   var a = await response.stream.toBytes();
   var b = String.fromCharCodes(a);
-  print("${b}");
-  print("${response.request}");
+  print("editExercise ${b}");
+  print("editExercise request ${response.request}");
 
   if (response.statusCode == 200) {
     success!();
