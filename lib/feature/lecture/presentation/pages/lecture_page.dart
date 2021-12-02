@@ -254,7 +254,11 @@ class _LecturePageState extends State<LecturePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetailLecturePage(
-                                        idLecture: data?.iId,textDescription: data?.descriptionLecture,
+                                        idLecture: data?.iId,
+                                        textDescription:
+                                            data?.descriptionLecture,
+                                        nameCourse: widget.nameCourse,
+                                      idCourse:widget.idCourse
                                       )));
                         },
                         icon: Icon(

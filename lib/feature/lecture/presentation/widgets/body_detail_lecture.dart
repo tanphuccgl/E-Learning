@@ -9,6 +9,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog2.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/open_image.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
@@ -19,20 +20,29 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_c
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/list_file.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/pick_multi_file.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/data/data_source/delete_lecture.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/data_source/edit_lecture.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/models/get_info_lecture_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/detail_lecture.dart';
+import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/lecture_page.dart';
 
 var dio = Dio();
 
 class BodyDetailLecture extends StatefulWidget {
   final int? idLecture;
   final String? textDescription;
+  final String? nameCourse;
+  final String? idCourse;
 
-  const BodyDetailLecture({Key? key, this.idLecture, this.textDescription})
+  const BodyDetailLecture(
+      {Key? key,
+      this.idLecture,
+      this.textDescription,
+      this.nameCourse,
+      this.idCourse})
       : super(key: key);
 
   @override
@@ -125,7 +135,21 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
                                         color: Colors.red,
                                         context: context,
                                         content: "Remove",
-                                        function: () {}),
+                                        function: () {
+                                          AlertDialog2.yesAbortDialog(
+                                              context: context,
+                                              title: "Delete Lecture",
+                                              body:
+                                                  "You want to delete lecture ${state.data!.nameLecture}",
+                                              onPressed: () {
+                                                removeLecture(
+                                                    idLecture: widget.idLecture,
+                                                    failure: () =>
+                                                        showCancelDelete(),
+                                                    success: () =>
+                                                        showSuccessDelete());
+                                              });
+                                        }),
                                   ],
                                 )
 
@@ -615,5 +639,35 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
         },
         title: "SUCCESS",
         description: "Update successful");
+  }
+
+  void showCancelDelete() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "Delete failed");
+  }
+
+  void showSuccessDelete() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailCoursePage(
+                        idCourse: widget.idCourse,
+                        nameCourse: widget.nameCourse,
+                        widgetId: 1,
+                        choosingPos: 1,
+                      )));
+        },
+        title: "SUCCESS",
+        description: "Delete successful");
   }
 }

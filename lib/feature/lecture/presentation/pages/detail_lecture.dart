@@ -9,28 +9,26 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/widgets/body_de
 class DetailLecturePage extends StatefulWidget {
   final int? idLecture;
   final String? textDescription;
+  final String? nameCourse;
+  final String? idCourse;
   static const String routeName = "/DetailLecturePage";
 
-  const DetailLecturePage({Key? key, this.idLecture,this.textDescription}) : super(key: key);
+  const DetailLecturePage({Key? key, this.idLecture, this.textDescription,this.nameCourse,this.idCourse})
+      : super(key: key);
 
   @override
   _DetailLecturePageState createState() => _DetailLecturePageState();
 }
 
 class _DetailLecturePageState extends State<DetailLecturePage> {
-
-
   @override
   Widget build(BuildContext context) {
-
-    return
-      BlocProvider(
-        create: (_) => sl<GetInfoLectureBloc>(),
-        child: BodyDetailLecture(idLecture: widget.idLecture,textDescription:widget.textDescription ,
-
-        ),
-      );
+    return BlocProvider(
+      create: (_) => sl<GetInfoLectureBloc>(),
+      child: BodyDetailLecture(
+        idLecture: widget.idLecture,
+        textDescription: widget.textDescription,nameCourse: widget.nameCourse,idCourse:widget.idCourse
+      ),
+    );
   }
-
-
 }
