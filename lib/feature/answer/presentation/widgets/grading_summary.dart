@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 Widget gradingSummary(
     {String? title,
+    String? viewAll,
     BuildContext? context,
+      Function()? onPressed,
     int? totalNumberOfSubmissions,
     int? totalNumberOfGradedSubmissions,
     int? totalStudentInCourse}) {
@@ -14,15 +16,29 @@ Widget gradingSummary(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title!,
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-              fontSize: size.width / 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title!,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: size.width / 20),
+            ),
+            TextButton(
+              onPressed: onPressed!,
+              child: Text(
+                viewAll!,
+                style: TextStyle(
+                    fontWeight: FontWeight.w400, fontSize: size.width / 30),
+              ),
+            )
+          ],
         ),
         Container(
-          height: size.width / 1.7,
+          height: size.width / 1.9,
           width: size.width,
           child: ListView(
             physics: const NeverScrollableScrollPhysics(),
@@ -40,7 +56,7 @@ Widget gradingSummary(
                     height: size.width,
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("${totalStudentInCourse!-1}",
+                      child: Text("${totalStudentInCourse! - 1}",
                           style: TextStyle(
                               fontSize: size.width / 28,
                               fontWeight: FontWeight.normal)),

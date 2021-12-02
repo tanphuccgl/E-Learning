@@ -18,19 +18,13 @@ class DetailExercisePage extends StatefulWidget {
 }
 
 class _DetailExercisePageState extends State<DetailExercisePage> {
-
-
   @override
   Widget build(BuildContext context) {
-
-    return
-      BlocProvider(
-        create: (_) => sl<GetInfoExerciseBloc>(),
-        child: BodyDetailExercise(idExercise: widget.data?.iId,
-
-        ),
-      );
+    return BlocProvider(
+      create: (_) => sl<GetInfoExerciseBloc>(),
+      child: BodyDetailExercise(
+        idExercise: widget.data?.iId,
+      ),
+    );
   }
-
-
 }

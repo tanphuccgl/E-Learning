@@ -9,6 +9,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog2.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/open_image.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
@@ -16,11 +17,13 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/info_answer_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/grading_summary.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/submit_status.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/data/data_source/delete_exercise.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_info_exercise/get_info_exercise_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_info_exercise/get_info_exercise_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_info_exercise/get_info_exercise_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/create_exercise_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/detail_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/execise_page.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/thumbnail.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/grade_exercise_teacher_page.dart';
@@ -28,6 +31,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/pages/submit_e
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/pick_multi_file.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
+
 var dio = Dio();
 
 class BodyDetailExercise extends StatefulWidget {
@@ -42,7 +46,6 @@ class BodyDetailExercise extends StatefulWidget {
 class _BodyDetailExerciseState extends State<BodyDetailExercise> {
   List<PlatformFile>? listFile;
   final Dio dio = Dio();
-
 
   @override
   void initState() {
@@ -101,24 +104,10 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                           ///gradingSummary
                           appUser?.role == "teacher"
                               ? gradingSummary(
-                                  context: context, title: "Grading summary"
-                          ,totalNumberOfGradedSubmissions: state.data?.totalNumberOfGradedSubmissions,
-                            totalNumberOfSubmissions: state.data?.totalNumberOfSubmissions,
-                            totalStudentInCourse: state.data?.totalStudentInCourse,
-
-                          )
-
-                              /// submission
-                              : InfoAnswerPage(
-                                  idAccount: appUser?.iId,
-                                  idAnswer: state.data?.idAnswer,
-                                  submissionDeadline:
-                                      state.data?.submissionDeadline,
-                                  allowSubmission: state.data?.allowSubmission),
-                          appUser?.role == "teacher"
-                              ? accept(
                                   context: context,
-                                  function: () {
+                                  title: "Grading summary",
+                                  viewAll: "View all",
+                                  onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -131,7 +120,58 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                                     idCourse:
                                                         state.data?.idCourse)));
                                   },
-                                  content: "View all")
+                                  totalNumberOfGradedSubmissions: state
+                                      .data?.totalNumberOfGradedSubmissions,
+                                  totalNumberOfSubmissions:
+                                      state.data?.totalNumberOfSubmissions,
+                                  totalStudentInCourse:
+                                      state.data?.totalStudentInCourse,
+                                )
+
+                              /// submission
+                              : InfoAnswerPage(
+                                  idAccount: appUser?.iId,
+                                  idAnswer: state.data?.idAnswer,
+                                  submissionDeadline:
+                                      state.data?.submissionDeadline,
+                                  allowSubmission: state.data?.allowSubmission),
+                          appUser?.role == "teacher"
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    accept(
+                                        context: context,
+                                        color: Colors.amber,
+                                        function: () {},
+                                        content: "Edit"),
+                                    accept(
+                                        context: context,
+                                        color: Colors.red,
+                                        function: () {
+                                          AlertDialog2.yesAbortDialog(
+                                              context: context,
+                                              title: "Delete Exercise",
+                                              body:
+                                                  "You want to delete exercise ${state.data!.titleExercise}",
+                                              onPressed: () {
+                                                removeExercise(
+                                                    idExercise:
+                                                        widget.idExercise,
+                                                    failure: () =>
+                                                        showCancelDelete(),
+                                                    success: () =>
+                                                        showSuccessDelete(
+                                                            idCourse: state
+                                                                .data!.idCourse,
+                                                            nameCourse: state
+                                                                .data!
+                                                                .nameCourse));
+                                              });
+                                        },
+                                        content: "Remove"),
+                                  ],
+                                )
                               : accept(
                                   context: context,
                                   function: () {
@@ -257,8 +297,9 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                       icon: Icon(Icons.arrow_circle_down),
                       onPressed: () {
                         setState(() {
-
-                          downloadFile(url: list[index].pathname,namefile: list[index].originalname);
+                          downloadFile(
+                              url: list[index].pathname,
+                              namefile: list[index].originalname);
                         });
                       },
                     ),
@@ -272,7 +313,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
     );
   }
 
-///down file
+  ///down file
   Future<bool> saveFile(String url, String fileName) async {
     Directory directory;
     try {
@@ -312,10 +353,8 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
       if (await directory.exists()) {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
-              setState(() {
-
-              });
-            });
+          setState(() {});
+        });
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
@@ -342,9 +381,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
   }
 
   downloadFile({String? url, String? namefile}) async {
-    setState(() {
-
-    });
+    setState(() {});
 
     bool downloaded = await saveFile(url!, "${namefile!}");
     if (downloaded) {
@@ -354,9 +391,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
       showCancel();
       print("Problem Downloading File");
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   Widget _detailFile({Files? file}) {
@@ -512,6 +547,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
       ),
     );
   }
+
   void showCancel() {
     return showPopup(
         context: context,
@@ -540,5 +576,35 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
         },
         title: "SUCCESS",
         description: "File download successful");
+  }
+
+  void showCancelDelete() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "Delete failed");
+  }
+
+  void showSuccessDelete({String? idCourse, String? nameCourse}) {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailCoursePage(
+                        idCourse: idCourse,
+                        nameCourse: nameCourse,
+                        widgetId: 2,
+                        choosingPos: 2,
+                      )));
+        },
+        title: "SUCCESS",
+        description: "Delete successful");
   }
 }
