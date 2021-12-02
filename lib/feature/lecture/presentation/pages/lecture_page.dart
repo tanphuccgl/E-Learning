@@ -254,9 +254,9 @@ class _LecturePageState extends State<LecturePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetailLecturePage(
-                                        idLecture: data?.iId,
+                                        idLecture: data?.iId,nameLecture: data!.nameLecture,
                                         textDescription:
-                                            data?.descriptionLecture,
+                                            data.descriptionLecture,
                                         nameCourse: widget.nameCourse,
                                       idCourse:widget.idCourse
                                       )));

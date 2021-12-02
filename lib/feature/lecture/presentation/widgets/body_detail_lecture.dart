@@ -28,6 +28,7 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_inf
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/detail_lecture.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/pages/lecture_page.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 var dio = Dio();
 
@@ -36,10 +37,12 @@ class BodyDetailLecture extends StatefulWidget {
   final String? textDescription;
   final String? nameCourse;
   final String? idCourse;
+  final String? nameLecture;
 
   const BodyDetailLecture(
       {Key? key,
       this.idLecture,
+      this.nameLecture,
       this.textDescription,
       this.nameCourse,
       this.idCourse})
@@ -57,6 +60,8 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
   String? textDescription;
   List<FileUpload>? tempList;
   FilePickerResult? result;
+  String? nameLecture;
+  TextEditingController? nameLecController;
 
   @override
   void initState() {
@@ -67,6 +72,8 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
     textEditingController = TextEditingController(text: widget.textDescription);
     textDescription = '';
     tempList = [];
+    nameLecture = "";
+    nameLecController = TextEditingController(text: widget.nameLecture);
   }
 
   @override
@@ -82,7 +89,12 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
         return state.data != null
             ? Scaffold(
                 backgroundColor: Colors.white,
-                appBar: _appBar(title: state.data?.nameLecture),
+                appBar: _appBar(
+                    title: state.data?.nameLecture,
+                    controller: nameLecController,
+                    onChanged: (value) {
+                      nameLecture = value;
+                    }),
                 body: SingleChildScrollView(
                   child: Container(
                     width: size.width,
@@ -117,60 +129,97 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
                           SizedBox(
                             height: size.width / 25,
                           ),
-                          isEdit == false
-                              ? Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    accept(
-                                        color: Colors.amber,
-                                        context: context,
-                                        content: "Edit",
-                                        function: () {
-                                          setState(() {});
-                                          isEdit = !isEdit!;
-                                        }),
-                                    accept(
-                                        color: Colors.red,
-                                        context: context,
-                                        content: "Remove",
-                                        function: () {
-                                          AlertDialog2.yesAbortDialog(
-                                              context: context,
-                                              title: "Delete Lecture",
-                                              body:
-                                                  "You want to delete lecture ${state.data!.nameLecture}",
-                                              onPressed: () {
-                                                removeLecture(
-                                                    idLecture: widget.idLecture,
-                                                    failure: () =>
-                                                        showCancelDelete(),
-                                                    success: () =>
-                                                        showSuccessDelete());
-                                              });
-                                        }),
-                                  ],
-                                )
+                          appUser?.role == "teacher"
+                              ? (isEdit == false
+                                  ? Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        accept(
+                                            color: Colors.amber,
+                                            context: context,
+                                            content: "Edit",
+                                            function: () {
+                                              setState(() {});
+                                              isEdit = !isEdit!;
+                                            }),
+                                        accept(
+                                            color: Colors.red,
+                                            context: context,
+                                            content: "Remove",
+                                            function: () {
+                                              AlertDialog2.yesAbortDialog(
+                                                  context: context,
+                                                  title: "Delete Lecture",
+                                                  body:
+                                                      "You want to delete lecture ${state.data!.nameLecture}",
+                                                  onPressed: () {
+                                                    removeLecture(
+                                                        idLecture:
+                                                            widget.idLecture,
+                                                        failure: () =>
+                                                            showCancelDelete(),
+                                                        success: () =>
+                                                            showSuccessDelete());
+                                                  });
+                                            }),
+                                      ],
+                                    )
 
-                              ///   chua chinh link api
-                              : accept(
-                                  color: Colors.green,
-                                  context: context,
-                                  content: "Accept",
-                                  function: () {
-                                    setState(() {});
-                                    isEdit = false;
-                                    editLecture(
-                                        success: () => showSuccessUpdate(),
-                                        failure: () => showCancelUpdate(),
-                                        idCourse: state.data?.idCourse,
-                                        nameLecture: state.data?.nameLecture,
-                                        descriptionAnswer: textDescription,
-                                        idLecture: widget.idLecture,
-                                        fileKeep: tempList,
-                                        listFile: listFile);
-                                  }),
+                                  ///   chua chinh link api
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        accept(
+                                            color: Colors.red,
+                                            context: context,
+                                            content: "Cancel",
+                                            function: () {
+                                              setState(() {});
+                                              isEdit = false;
+                                              Navigator.pop(context);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetailLecturePage(
+                                                            idCourse:
+                                                                widget.idCourse,
+                                                            nameCourse: widget
+                                                                .nameCourse,
+                                                            idLecture: widget
+                                                                .idLecture,
+                                                            textDescription: widget
+                                                                .textDescription,
+                                                          )));
+                                            }),
+                                        accept(
+                                            color: Colors.green,
+                                            context: context,
+                                            content: "Accept",
+                                            function: () {
+                                              setState(() {});
+                                              isEdit = false;
+                                              editLecture(
+                                                  success: () =>
+                                                      showSuccessUpdate(),
+                                                  failure: () =>
+                                                      showCancelUpdate(),
+                                                  idCourse:
+                                                      state.data?.idCourse,
+                                                  nameLecture: nameLecture,
+                                                  descriptionAnswer:
+                                                      textDescription,
+                                                  idLecture: widget.idLecture,
+                                                  fileKeep: tempList,
+                                                  listFile: listFile);
+                                            }),
+                                      ],
+                                    ))
+                              : SizedBox.shrink(),
                           SizedBox(
                             height: size.width / 20,
                           ),
@@ -560,7 +609,10 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
     );
   }
 
-  PreferredSize _appBar({String? title}) {
+  PreferredSize _appBar(
+      {String? title,
+      TextEditingController? controller,
+      Function(String?)? onChanged}) {
     Size size = MediaQuery.of(context).size;
 
     return PreferredSize(
@@ -570,13 +622,31 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text(
-          title!,
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: size.width / 15),
-        ),
+        title: isEdit == false
+            ? Text(
+                title!,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.width / 15),
+              )
+            : TextField(
+                controller: controller,
+                maxLines: 1,
+                onChanged: onChanged!,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                ),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: size.width / 20,
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w700),
+              ),
         centerTitle: true,
         elevation: 0,
       ),

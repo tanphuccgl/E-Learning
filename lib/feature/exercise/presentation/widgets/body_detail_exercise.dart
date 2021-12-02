@@ -18,6 +18,8 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/open_image.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/parse_time.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
+import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/manager/get_info_answer/get_info_answer_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/pages/info_answer_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/grading_summary.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/submit_status.dart';
@@ -115,10 +117,14 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
       _controllerAllow = TextEditingController(
           text: DateFormat("yyyy-MM-dd hh:mm:ss").format(
               DateFormat("yyyy/MM/dd hh:mm").parse(widget.allowSubmission!)));
-      _controllerDue = TextEditingController(
-          text: DateFormat("yyyy-MM-dd hh:mm:ss").format(
-              DateFormat("yyyy/MM/dd hh:mm")
-                  .parse(widget.submissionDeadline!)));
+      if (widget.submissionDeadline == null) {
+        _controllerDue = TextEditingController(text: DateTime.now().toString());
+      } else {
+        _controllerDue = TextEditingController(
+            text: DateFormat("yyyy-MM-dd hh:mm:ss").format(
+                DateFormat("yyyy/MM/dd hh:mm")
+                    .parse(widget.submissionDeadline!)));
+      }
     });
   }
 
@@ -340,8 +346,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                                   idCourse:
                                                       state.data?.idCourse,
                                                   idExercise: widget.idExercise,
-                                                  titleExercise:
-                                                      state.data?.titleExercise,
+                                                  titleExercise: nameExe,
                                                   descriptionExercise:
                                                       textDescription,
                                                   submissionDeadline:
@@ -353,9 +358,22 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                             }),
                                       ],
                                     ))
-                              : accept(
+                              : (accept(
                                   context: context,
                                   function: () {
+                                    // BlocProvider(
+                                    //   create: (_) => sl<GetInformationAnswerBloc>(),
+                                    //   child:  SubmitExercisePage(
+                                    //       idExercise:
+                                    //       widget.idExercise,
+                                    //       descriptionExercise: widget.descriptionExercise,
+                                    //       submissionDeadline: widget.submissionDeadline,
+                                    //       allowSubmission: widget.allowSubmission,
+                                    //       nameExercise: widget.nameExercise,
+                                    //
+                                    //       titleExercise: state
+                                    //           .data?.titleExercise)
+                                    // );
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -363,10 +381,16 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                                 SubmitExercisePage(
                                                     idExercise:
                                                         widget.idExercise,
+                                                    descriptionExercise: widget.descriptionExercise,
+                                                    submissionDeadline: widget.submissionDeadline,
+                                                    allowSubmission: widget.allowSubmission,
+                                                    nameExercise: widget.nameExercise,
+                                                    idAnswer:state.data?.idAnswer,
+
                                                     titleExercise: state
                                                         .data?.titleExercise)));
                                   },
-                                  content: "Submit"),
+                                  content: "Submit")),
                           SizedBox(
                             height: size.width / 15,
                           ),
@@ -900,7 +924,6 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                 use24HourFormat: true,
                 locale: Locale('en', 'US'),
                 onChanged: functionDatetime,
-                initialDate: DateFormat("yyyy/MM/dd hh:mm").parse(initTime!),
                 validator: (val) {
                   setState(() => valueToValidate = val ?? '');
 

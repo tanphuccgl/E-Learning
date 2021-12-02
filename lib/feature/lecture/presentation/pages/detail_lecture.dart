@@ -11,9 +11,11 @@ class DetailLecturePage extends StatefulWidget {
   final String? textDescription;
   final String? nameCourse;
   final String? idCourse;
+  final String? nameLecture;
   static const String routeName = "/DetailLecturePage";
 
-  const DetailLecturePage({Key? key, this.idLecture, this.textDescription,this.nameCourse,this.idCourse})
+  const DetailLecturePage({Key? key, this.nameLecture,
+    this.idLecture, this.textDescription,this.nameCourse,this.idCourse})
       : super(key: key);
 
   @override
@@ -26,7 +28,7 @@ class _DetailLecturePageState extends State<DetailLecturePage> {
     return BlocProvider(
       create: (_) => sl<GetInfoLectureBloc>(),
       child: BodyDetailLecture(
-        idLecture: widget.idLecture,
+        idLecture: widget.idLecture,nameLecture: widget.nameLecture,
         textDescription: widget.textDescription,nameCourse: widget.nameCourse,idCourse:widget.idCourse
       ),
     );
