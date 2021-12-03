@@ -295,7 +295,7 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
               child: ListView(
                 children: [
                   ListFiles(
-                    list: listFile,
+                    list: listFile,scrollPhysics: NeverScrollableScrollPhysics(),
                     isUpdate: isEdit == true ? false : true,
                   ),
                   _listFile(list: list),

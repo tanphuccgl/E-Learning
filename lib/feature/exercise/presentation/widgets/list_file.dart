@@ -13,10 +13,11 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/thumbnail.dart';
 
 class ListFiles extends StatefulWidget {
   final bool? isUpdate;
+  final ScrollPhysics? scrollPhysics;
   final List<PlatformFile>? list;
 
   const ListFiles({
-    Key? key,
+    Key? key,this.scrollPhysics=null,
     this.list,
     this.isUpdate = false,
   }) : super(key: key);
@@ -33,11 +34,13 @@ class ListFilesState extends State<ListFiles> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      height: widget.list!.length > 4
+      height:
+      widget.list!.length > 4
           ? size.width / 1.4
           : widget.list!.length * size.width / 6,
+
       width: size.width,
-      child: ListView.separated(
+      child: ListView.separated(physics:widget.scrollPhysics ,
           reverse: true,
           itemBuilder: (context, index) {
             return GestureDetector(

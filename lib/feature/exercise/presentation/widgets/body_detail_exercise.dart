@@ -466,7 +466,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
               child: ListView(
                 children: [
                   ListFiles(
-                    list: listFile,
+                    list: listFile,scrollPhysics: NeverScrollableScrollPhysics(),
                     isUpdate: isEdit == true ? false : true,
                   ),
                   _listFile(list: list),
