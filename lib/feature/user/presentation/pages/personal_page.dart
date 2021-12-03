@@ -4,6 +4,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/widgets/bottom_navi_bar_cus.dart';
 import 'package:thuc_tap_tot_nghiep/feature/password/change_pw/presentation/pages/change_pw_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_info_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -53,7 +54,7 @@ class _PersonalPageState extends State<PersonalPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChangePasswordPage()));
+                            builder: (context) => ChangeInfoUserPage()));
                   }),
               _item(
                   title: "Change password",

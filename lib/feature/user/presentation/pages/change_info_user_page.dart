@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/input_title.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/data/data_source/change_info_user.dart';
+
+import 'personal_page.dart';
 
 class ChangeInfoUserPage extends StatefulWidget {
   static const String routeName = '/ChangeInfoUserPage';
+
   ChangeInfoUserPage({Key? key}) : super(key: key);
 
   @override
@@ -14,28 +19,35 @@ class ChangeInfoUserPage extends StatefulWidget {
 
 class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
   final _fullNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
+  final _addressController = TextEditingController();
   final _emailController = TextEditingController();
   final _userNameController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+
+  final _parentNameController = TextEditingController();
+  final _phoneParentController = TextEditingController();
 
   String? _fullName;
-  int? _phoneNumber;
+  String? _address;
   String? _email;
   String? _userName;
-  String? _password;
+  String? _phoneNumber;
+  String? _parentName;
+  String? _phoneParent;
+  int? _idClass;
+  String? gender;
+  String? _nameClass;
+
   String? _confirmPassword;
   bool _isChecked = false;
-  String dropdownValue = 'Man';
+  String dropdownValue = 'Male';
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBar(context: context,title: "Change Infomation"),
+      appBar: appBar(context: context, title: "Change Infomation"),
       body: SingleChildScrollView(
         child: Container(
           width: size.width,
@@ -61,9 +73,9 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
                     title: "Address",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _address = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _addressController,
                     hintText: "Input address"),
                 SizedBox(
                   height: size.width / 20,
@@ -72,31 +84,31 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
                     title: "Email",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _email = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _emailController,
                     hintText: "Input email"),
                 SizedBox(
                   height: size.width / 20,
                 ),
-                inputName(
-                    title: "Username",
-                    context: context,
-                    function: (value) {
-                      _fullName = value;
-                    },
-                    textEditingController: _fullNameController,
-                    hintText: "Input username"),
-                SizedBox(
-                  height: size.width / 20,
-                ),
+                // inputName(
+                //     title: "Username",
+                //     context: context,
+                //     function: (value) {
+                //       _fullName = value;
+                //     },
+                //     textEditingController: _fullNameController,
+                //     hintText: "Input username"),
+                // SizedBox(
+                //   height: size.width / 20,
+                // ),
                 inputName(
                     title: "Phone Number",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _phoneNumber = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _phoneNumberController,
                     hintText: "Input number"),
                 SizedBox(
                   height: size.width / 20,
@@ -105,9 +117,9 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
                     title: "Parent Name",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _parentName = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _parentNameController,
                     hintText: "Input name"),
                 SizedBox(
                   height: size.width / 20,
@@ -116,16 +128,16 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
                     title: "Phone Number Parent",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _phoneParent = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _phoneParentController,
                     hintText: "Input number"),
                 SizedBox(
                   height: size.width / 20,
                 ),
 
-
-                Row(crossAxisAlignment: CrossAxisAlignment.center,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -135,7 +147,10 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
                           color: Colors.black,
                           fontWeight: FontWeight.w600),
                     ),
-                    TextButton(onPressed: () { print("add"); },
+                    TextButton(
+                      onPressed: () {
+                        print("add");
+                      },
                       child: Text(
                         "Add",
                         style: TextStyle(
@@ -146,17 +161,46 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: size.width/20,),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _gender(context: context,function: (a){},typePointValue: "Male"),
-                //    _role(context: context,function: (a){},typePointValue: "Teacher")
-                  ],),
-                accept(function: (){},context: context,content: "Change"),
                 SizedBox(
                   height: size.width / 20,
                 ),
-
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _gender(
+                        context: context,
+                        function: (a) {
+                          gender = a;
+                        },
+                        typePointValue: "Male"),
+                    //    _role(context: context,function: (a){},typePointValue: "Teacher")
+                  ],
+                ),
+                accept(
+                    function: () {
+                      if (gender == "Male") {
+                        gender = "0";
+                      } else if (gender == "Female") {
+                        gender = "1";
+                      }
+                      changeInfoUser(
+                          fullName: _fullName,
+                          address: _address,
+                          phoneNumberParent: _phoneParent,
+                          email: _email,
+                          parentName: _parentName,
+                          phoneNumber: _phoneNumber,
+                          idClass: _idClass,
+                          gender: gender,
+                          nameClass: _nameClass,
+                          success: () => showSuccess(),
+                          failure: () => showCancel());
+                    },
+                    context: context,
+                    content: "Change"),
+                SizedBox(
+                  height: size.width / 20,
+                ),
               ],
             ),
           ),
@@ -164,7 +208,34 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
       ),
     );
   }
-  Widget _gender({BuildContext? context,String? typePointValue,Function(String?)? function}) {
+
+  void showCancel() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: " Change Info failed");
+  }
+
+  void showSuccess() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PersonalPage()));
+        },
+        title: "SUCCESS",
+        description: "  Change Info successfully");
+  }
+
+  Widget _gender(
+      {BuildContext? context,
+      String? typePointValue,
+      Function(String?)? function}) {
     Size size = MediaQuery.of(context!).size;
 
     return Container(
@@ -218,7 +289,11 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
       ),
     );
   }
-  Widget _role({BuildContext? context,String? typePointValue,Function(String?)? function}) {
+
+  Widget _role(
+      {BuildContext? context,
+      String? typePointValue,
+      Function(String?)? function}) {
     Size size = MediaQuery.of(context!).size;
 
     return Container(
@@ -273,4 +348,3 @@ class _ChangeInfoUserPageState extends State<ChangeInfoUserPage> {
     );
   }
 }
-
