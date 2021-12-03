@@ -94,7 +94,7 @@ class _ExamplePageState extends State<ExamplePage> {
       child: new Scaffold(
           backgroundColor: Colors.blueGrey,
           appBar: new AppBar(
-              title: const Text('Painter Example'),
+              title: const Text('Edit Image'),
               actions: actions,
               bottom: new PreferredSize(
                 child: new DrawBar(_controller),
@@ -123,9 +123,7 @@ class _ExamplePageState extends State<ExamplePage> {
   //Image.asset("assets/images/avatar.jpg")
 
   Future<dynamic> ShowCapturedWidget(
-
       BuildContext context, Uint8List capturedImage) {
-
     return showDialog(
       useSafeArea: false,
       context: context,
@@ -218,8 +216,8 @@ Future<String> saveImage(Uint8List bytes) async {
       .replaceAll(":", "-");
   final name = 'screenshot_$time';
   final result = await ImageGallerySaver.saveImage(bytes, name: name);
-  prefs?.setString("path", result['filePath']);
-  print("fasdf ${result['filePath']} ");
+  // prefs?.setString("path", result['filePath']);
+  // print("fasdf ${result['filePath']} ");
   return result['filePath'];
 }
 

@@ -27,6 +27,7 @@ import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/widgets/b
 import 'package:thuc_tap_tot_nghiep/feature/notifi/presentation/pages/notifi_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_screen.dart';
+import 'package:thuc_tap_tot_nghiep/feature/password/change_pw/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/forgot_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/set_new_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
@@ -83,6 +84,7 @@ class PageRoutes {
  static const String listScorePage = ListScorePage.routeName;
   static const String notifiPage = NotifiPage.routeName;
   static const String personalPage = PersonalPage.routeName;
+  static const String changePasswordPage = ChangePasswordPage.routeName;
 
 
 

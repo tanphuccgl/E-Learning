@@ -26,6 +26,7 @@ import 'package:thuc_tap_tot_nghiep/feature/list_teacher/presentations/widgets/b
 import 'package:thuc_tap_tot_nghiep/feature/notifi/presentation/pages/notifi_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/onboarding/ui/onboarding_screen.dart';
+import 'package:thuc_tap_tot_nghiep/feature/password/change_pw/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/forgot_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/set_new_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/data/models/login_data.dart';
@@ -45,6 +46,7 @@ import 'feature/exercise/presentation/pages/create_exercise_page.dart';
 import 'dart:async';
 
 import 'feature/lecture/presentation/pages/lecture_page.dart';
+
 import 'feature/user/presentation/pages/change_info_user_page.dart';
 import 'feature/user/presentation/pages/delete_user_page.dart';
 import 'feature/user/presentation/pages/personal_page.dart';
@@ -122,7 +124,7 @@ class _MyAppState extends State<MyApp> {
          PageRoutes.listScorePage: (context) => ListScorePage(),
           PageRoutes.notifiPage: (context) => NotifiPage(),
           PageRoutes.personalPage: (context) => PersonalPage(),
-
+          PageRoutes.changePasswordPage: (context) => ChangePasswordPage(),
 
 
 
