@@ -11,14 +11,19 @@ import 'Dart:ui' as ui;
 import 'package:flutter/material.Dart';
 import 'package:flutter/rendering.Dart';
 import 'package:flutter/services.Dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'Dart:io';
 import 'package:screenshot/screenshot.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:uri_to_file/uri_to_file.dart';
 
 class ExamplePage extends StatefulWidget {
+  final String? urlImage;
   static const String routeName = "/ExamplePage";
 
-  const ExamplePage({Key? key}) : super(key: key);
+  const ExamplePage({Key? key, this.urlImage}) : super(key: key);
 
   @override
   _ExamplePageState createState() => new _ExamplePageState();
@@ -79,12 +84,15 @@ class _ExamplePageState extends State<ExamplePage> {
             onPressed: _controller.clear),
         new IconButton(
             icon: new Icon(Icons.check),
-            onPressed: () => _show(_controller.finish(), context)),
+            onPressed: () {
+              return _show(_controller.finish(), context);
+            }),
       ];
     }
     return RepaintBoundary(
       key: previewContainer,
       child: new Scaffold(
+          backgroundColor: Colors.blueGrey,
           appBar: new AppBar(
               title: const Text('Painter Example'),
               actions: actions,
@@ -98,10 +106,15 @@ class _ExamplePageState extends State<ExamplePage> {
               Container(
                   width: double.infinity,
                   height: double.infinity,
-                  child: Image.asset("assets/images/avatar.jpg")),
-              Center(
-                  child: new AspectRatio(
-                      aspectRatio: 1.0, child: new Painter(_controller))),
+                  child: Image.network(widget.urlImage!)),
+
+              ///content://media/external/images/media/70
+              //child: Image.network(widget.urlImage!)),
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: Center(child: new Painter(_controller)),
+              ),
             ],
           )),
     );
@@ -110,7 +123,9 @@ class _ExamplePageState extends State<ExamplePage> {
   //Image.asset("assets/images/avatar.jpg")
 
   Future<dynamic> ShowCapturedWidget(
+
       BuildContext context, Uint8List capturedImage) {
+
     return showDialog(
       useSafeArea: false,
       context: context,
@@ -133,8 +148,23 @@ class _ExamplePageState extends State<ExamplePage> {
     Navigator.of(context)
         .push(new MaterialPageRoute(builder: (BuildContext context) {
       return new Scaffold(
+        backgroundColor: Colors.blueGrey,
         appBar: new AppBar(
           title: const Text('View your image'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.download),
+              onPressed: () async {
+                var image = await screenshotController.capture();
+
+                if (image == null) return;
+                await saveImage(image);
+
+                Navigator.pop(context);
+                Navigator.pop(context, "Save photo successfully");
+              },
+            ),
+          ],
         ),
         body: new Container(
             alignment: Alignment.center,
@@ -151,20 +181,14 @@ class _ExamplePageState extends State<ExamplePage> {
                         controller: screenshotController,
                         child: Stack(
                           children: [
-
                             Container(
                                 width: double.infinity,
                                 height: double.infinity,
-                                child: Image.asset("assets/images/avatar.jpg")),
-                            Center(child: Image.memory(snapshot.data!)),
-                            IconButton(
-                              icon: Icon(Icons.remove),
-                              onPressed: () async{
-                                var image= await screenshotController.capture();
-                                if(image==null) return;
-                                await saveImage(image);
-                              },
-                            ),
+                                child: Image.network(widget.urlImage!)),
+                            Center(
+                                child: Image.memory(
+                              snapshot.data!,
+                            )),
                           ],
                         ),
                       );
@@ -186,16 +210,16 @@ class _ExamplePageState extends State<ExamplePage> {
   }
 }
 
-
-
-Future<String> saveImage(Uint8List bytes)async{
+Future<String> saveImage(Uint8List bytes) async {
   await [Permission.storage].request();
-  final time= DateTime.now()
-  .toIso8601String()
-  .replaceAll(".", "-")
+  final time = DateTime.now()
+      .toIso8601String()
+      .replaceAll(".", "-")
       .replaceAll(":", "-");
-  final name='screenshot_$time';
-  final result= await ImageGallerySaver.saveImage(bytes,name: name);
+  final name = 'screenshot_$time';
+  final result = await ImageGallerySaver.saveImage(bytes, name: name);
+  prefs?.setString("path", result['filePath']);
+  print("fasdf ${result['filePath']} ");
   return result['filePath'];
 }
 
