@@ -18,7 +18,7 @@ Future<bool> editLecture(
     Function? failure}) async {
   print(idCourse);
   ///chua chinh link api
-  var uri = Uri.parse('$mainUrl/lecture/OpenLecture?idCourse=$idCourse');
+  var uri = Uri.parse('$mainUrl/lecture/EditLecture?idCourse=$idCourse&idLecture=$idLecture');
   var request = http.MultipartRequest('PUT', uri);
 
   request.headers["Accept"] = "application/json";
