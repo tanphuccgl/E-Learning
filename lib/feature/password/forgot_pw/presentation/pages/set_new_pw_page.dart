@@ -1,11 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
+import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/data/datasources/put_token_and_new_pw.dart';
+import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_page.dart';
 
 class SetNewPasswordPage extends StatefulWidget {
+  final String? email;
   static const String routeName = '/SetNewPasswordPage';
-  SetNewPasswordPage({Key? key}) : super(key: key);
+
+  SetNewPasswordPage({Key? key, this.email}) : super(key: key);
 
   @override
   _SetNewPasswordPageState createState() => _SetNewPasswordPageState();
@@ -16,6 +21,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
   final _codeController = TextEditingController();
   String? _newPassword;
   String? _code;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -105,12 +111,14 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                             _code = value;
                           },
                         ),
-                      ),  Container(
+                      ),
+                      Container(
                         height: size.height / 12.8,
                         child: TextFormField(
                           controller: _newPasswordController,
                           keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(labelText: 'New Password'),
+                          decoration:
+                              InputDecoration(labelText: 'New Password'),
                           onChanged: (value) {
                             _newPassword = value;
                           },
@@ -138,11 +146,18 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                                 Radius.circular(size.width / 30))),
                         child: ElevatedButton(
                             onPressed: () {
-                              if (_newPassword == null || _code==null) {
+                              if (_newPassword == null || _code == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Text('Code or New password is Invalid')));
+                                        content: Text(
+                                            'Code or New password is Invalid')));
                               } else {
+                                putTokenAndNewPw(
+                                    email: widget.email,
+                                    token: _code,
+                                    failure: () => showCancel(),
+                                    success: () => showSuccess(),
+                                    newPassword: _newPassword);
                                 // Navigator.pushNamed(
                                 //     context, PageRoutes.setNewPasswordPage);
                               }
@@ -156,5 +171,30 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
             )
           ],
         ));
+  }
+
+  void showCancel() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "Invalid code");
+  }
+
+  void showSuccess() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SignInPage()));
+        },
+        title: "SUCCESS",
+        description: "Change password successfully");
   }
 }

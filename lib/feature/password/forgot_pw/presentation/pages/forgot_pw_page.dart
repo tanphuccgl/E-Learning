@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
+import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/data/datasources/post_forgot_pw.dart';
+import 'package:thuc_tap_tot_nghiep/feature/password/forgot_pw/presentation/pages/set_new_pw_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   static const String routeName = '/ForgotPasswordPage';
@@ -133,11 +136,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                     SnackBar(
                                         content: Text('Email is Invalid')));
                               } else {
-                                Navigator.pushNamed(
-                                    context, PageRoutes.setNewPasswordPage);
+                                postForgotPw(
+                                    email: _email,
+                                    failure: () => showCancel(),
+                                    success: () => showSuccess(email: _email));
                               }
                             },
-                            child: Text("Accept")),
+                            child: Text("Continue")),
                       ),
                     ],
                   ),
@@ -146,5 +151,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             )
           ],
         ));
+  }
+
+  void showCancel() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "Can't search email");
+  }
+
+  void showSuccess({String? email}) {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>SetNewPasswordPage(email: email,)));
   }
 }
