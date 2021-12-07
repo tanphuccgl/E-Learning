@@ -80,10 +80,15 @@ import 'package:thuc_tap_tot_nghiep/feature/sign_in/domain/repositories/login_re
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/domain/usecases/get_current_user.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/domain/usecases/post_login.dart';
 import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/manager/login_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/data/data_source/get_all_student_remote.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/data/data_source/get_all_teacher_remote.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/data/repo/get_all_student_repo_impl.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/data/repo/get_all_teacher_repo_impl.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/domain/repo/get_all_student_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/domain/repo/get_all_teacher_repo.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/domain/usecase/get_all_student.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/domain/usecase/get_all_teacher.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_student/get_all_student_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_bloc.dart';
 
 final sl = GetIt.instance;
@@ -113,6 +118,7 @@ Future<void> init() async {
   sl.registerFactory(() => GetInfoLectureBloc(pr: sl()));
   sl.registerFactory(() => GetPointTeacherBloc(pr: sl()));
   sl.registerFactory(() => GetPointStudentBloc(pr: sl()));
+  sl.registerFactory(() => GetAllStudentBloc(pr: sl()));
 
 
 
@@ -138,6 +144,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetInfoLecture(sl()));
   sl.registerLazySingleton(() => GetPointTeacher(sl()));
   sl.registerLazySingleton(() => GetPointStudent(sl()));
+  sl.registerLazySingleton(() => GetAllStudent(sl()));
 
 
 
@@ -222,6 +229,11 @@ Future<void> init() async {
         getPointStudentRemoteDataSource:   sl(),
         networkInfo: sl(),
       ));
+  sl.registerLazySingleton<GetAllStudentRepository>(
+          () => GetAllStudentRepositoryImpl(
+        getAllStudentRemoteDataSource:   sl(),
+        networkInfo: sl(),
+      ));
 
 
 
@@ -263,8 +275,8 @@ Future<void> init() async {
           () => GetInfoLectureRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetPointTeacherRemoteDataSource>(
           () => GetPointTeacherRemoteDataSourceImpl(client: sl()));
-  sl.registerLazySingleton<GetPointStudentRemoteDataSource>(
-          () => GetPointStudentRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<GetAllStudentRemoteDataSource>(
+          () => GetAllStudentRemoteDataSourceImpl(client: sl()));
 
 
 
