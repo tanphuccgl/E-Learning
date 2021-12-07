@@ -78,17 +78,7 @@ class _FuncUserPageState extends State<FuncUserPage> {
                           MaterialPageRoute(
                               builder: (context) => ChangeInfoUserPage()));
                     }),
-                card(
-                    title: "Change Password",
-                    colorCard: Colors.amber,
-                    colorText: Colors.white,
-                    context: context,
-                    function: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangePwPage()));
-                    }),
+
                 card(
                     title: "Reset Password",
                     colorCard: Colors.amber,

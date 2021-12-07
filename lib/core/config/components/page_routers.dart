@@ -35,6 +35,7 @@ import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_info_
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/delete_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/get_all_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/list_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/personal_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/reset_pw_page.dart';
@@ -85,6 +86,7 @@ class PageRoutes {
   static const String notifiPage = NotifiPage.routeName;
   static const String personalPage = PersonalPage.routeName;
   static const String changePasswordPage = ChangePasswordPage.routeName;
+  static const String getAllUserPage = GetAllUserPage.routeName;
 
 
 

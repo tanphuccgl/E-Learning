@@ -34,6 +34,7 @@ import 'package:thuc_tap_tot_nghiep/feature/sign_in/presentations/pages/sign_in_
 import 'package:thuc_tap_tot_nghiep/feature/sign_up/presentation/pages/sign_up_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/func_user_page.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/get_all_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/list_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/reset_pw_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/sign_up_page.dart';
@@ -125,6 +126,7 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.notifiPage: (context) => NotifiPage(),
           PageRoutes.personalPage: (context) => PersonalPage(),
           PageRoutes.changePasswordPage: (context) => ChangePasswordPage(),
+          PageRoutes.getAllUserPage: (context) => GetAllUserPage(),
 
 
 

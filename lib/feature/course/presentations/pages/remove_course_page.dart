@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog2.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/remove_course.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_couse_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_course.dart';
@@ -26,29 +28,32 @@ class RemoveCoursePage extends StatefulWidget {
 class RemoveCoursePageState extends State<RemoveCoursePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetCourseBloc, GetCourseState>(
-        builder: (context, state) {
-      if (state is Empty) {
-        BlocProvider.of<GetCourseBloc>(context)
-            .add(GetCourseEventE(idAccount: "", keySearchNameCourse: ""));
-      } else if (state is Loaded) {
-        return Scaffold(
-            appBar: appBar(context: context, title: "Remove Course"),
-            body: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                child: _list(list: state.data),
-              ),
-            ));
-      } else if (state is Loading) {
-        return SpinkitLoading();
-      } else if (state is Error) {
-        return Center(
-          child: Text("Lỗi hệ thống"),
-        );
-      }
-      return Container();
-    });
+    return BlocProvider(
+      create: (_) => sl<GetCourseBloc>(),
+      child: BlocBuilder<GetCourseBloc, GetCourseState>(
+          builder: (context, state) {
+        if (state is Empty) {
+          BlocProvider.of<GetCourseBloc>(context)
+              .add(GetCourseEventE(idAccount: "", keySearchNameCourse: ""));
+        } else if (state is Loaded) {
+          return Scaffold(
+              appBar: appBar(context: context, title: "Remove Course"),
+              body: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: SingleChildScrollView(
+                  child: _list(list: state.data),
+                ),
+              ));
+        } else if (state is Loading) {
+          return SpinkitLoading();
+        } else if (state is Error) {
+          return Center(
+            child: Text("Lỗi hệ thống"),
+          );
+        }
+        return Container();
+      }),
+    );
   }
 
   Widget _list({List<GetCourseData>? list}) {

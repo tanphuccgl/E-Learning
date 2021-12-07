@@ -4,10 +4,12 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/card_widget.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/get_all_user_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/widgets/delete_teacher.dart';
 
 class ListUserPage extends StatefulWidget {
-  static const String routeName="/ListUserPage";
+  static const String routeName = "/ListUserPage";
+
   const ListUserPage({Key? key}) : super(key: key);
 
   @override
@@ -17,9 +19,7 @@ class ListUserPage extends StatefulWidget {
 class _ListUserPageState extends State<ListUserPage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(context: context, title: "List Account"),
@@ -42,25 +42,28 @@ class _ListUserPageState extends State<ListUserPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => BlocProvider(
-                              create: (_) => sl<GetAllTeacherBloc>(),
-                              child: DeleteTeacherPage(title: "List Teacher"),
-                            )));
-                  }), card(
+                                  create: (_) => sl<GetAllTeacherBloc>(),
+                                  child: GetAllUserPage(
+                                    teacherPage: true,
+                                  ),
+                                )));
+                  }),
+              card(
                   title: "List Student",
                   colorCard: Colors.lightBlueAccent,
                   colorText: Colors.white,
                   context: context,
-                  function: ()
-                  {
+                  function: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => BlocProvider(
-                              create: (_) => sl<GetAllTeacherBloc>(),
-                              child: DeleteTeacherPage(title: "List Student"),
-                            )));
+                                  create: (_) => sl<GetAllTeacherBloc>(),
+                                  child: GetAllUserPage(
+                                    teacherPage: false,
+                                  ),
+                                )));
                   }),
-
             ],
           ),
         ),
