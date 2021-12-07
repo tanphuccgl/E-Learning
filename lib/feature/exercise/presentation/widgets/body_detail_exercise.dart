@@ -97,23 +97,20 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
     super.initState();
     nameExeController = TextEditingController(text: widget.nameExercise);
     nameExe = "";
-
     listFile = [];
     isEdit = false;
     textEditingController =
         TextEditingController(text: widget.descriptionExercise);
     textDescription = '';
     tempList = [];
-
     isClick = true;
     initializeDateFormatting("en", null);
     isSwitchedAllow = false;
     isSwitchedDue = false;
     Intl.defaultLocale = 'en_US';
     setState(() {
-      _valueChangedAallow = '';
+      _valueChangedAallow = "";
       _valueChangedDue = '';
-
       _controllerAllow = TextEditingController(
           text: DateFormat("yyyy-MM-dd hh:mm:ss").format(
               DateFormat("yyyy/MM/dd hh:mm").parse(widget.allowSubmission!)));
@@ -142,6 +139,8 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                 backgroundColor: Colors.white,
                 appBar: _appBar(
                     title: state.data?.titleExercise,
+                    idCourse: state.data?.idCourse,
+                    nameCourse: state.data?.nameCourse,
                     onChanged: (value) {
                       nameExe = value;
                     },
@@ -311,7 +310,6 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                             color: Colors.red,
                                             function: () {
                                               setState(() {});
-                                              isEdit = false;
                                               Navigator.pop(context);
                                               Navigator.push(
                                                   context,
@@ -337,7 +335,7 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                             content: "Accept",
                                             function: () {
                                               setState(() {});
-                                              isEdit = false;
+                                              print("1 ${_valueChangedAallow}");
                                               editExercise(
                                                   success: () =>
                                                       showSuccessUpdate(),
@@ -349,10 +347,25 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                                   titleExercise: nameExe,
                                                   descriptionExercise:
                                                       textDescription,
-                                                  submissionDeadline:
-                                                      _valueChangedDue,
-                                                  allowSubmission:
-                                                      _valueChangedAallow,
+                                                  allowSubmission: isSwitchedAllow == true
+                                                      ? (_valueChangedAallow == ""
+                                                          ? DateTime.now()
+                                                              .toString()
+                                                          : DateFormat("yyyy/MM/dd hh:mm").format(
+                                                              DateFormat("yyyy-MM-dd hh:mm")
+                                                                  .parse(
+                                                                      _valueChangedAallow!)))
+                                                      : DateFormat("yyyy-MM-dd hh:mm:ss").format(
+                                                          DateFormat("yyyy/MM/dd hh:mm")
+                                                              .parse(widget
+                                                                  .allowSubmission!)),
+                                                  submissionDeadline: isSwitchedDue == true
+                                                      ? (_valueChangedDue == ""
+                                                          ? DateTime.now()
+                                                              .toString()
+                                                          : DateFormat("yyyy/MM/dd hh:mm")
+                                                              .format(DateFormat("yyyy-MM-dd hh:mm").parse(_valueChangedDue!)))
+                                                      : null,
                                                   fileKeep: tempList,
                                                   listFile: listFile);
                                             }),
@@ -381,12 +394,16 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                                                 SubmitExercisePage(
                                                     idExercise:
                                                         widget.idExercise,
-                                                    descriptionExercise: widget.descriptionExercise,
-                                                    submissionDeadline: widget.submissionDeadline,
-                                                    allowSubmission: widget.allowSubmission,
-                                                    nameExercise: widget.nameExercise,
-                                                    idAnswer:state.data?.idAnswer,
-
+                                                    descriptionExercise: widget
+                                                        .descriptionExercise,
+                                                    submissionDeadline: widget
+                                                        .submissionDeadline,
+                                                    allowSubmission:
+                                                        widget.allowSubmission,
+                                                    nameExercise:
+                                                        widget.nameExercise,
+                                                    idAnswer:
+                                                        state.data?.idAnswer,
                                                     titleExercise: state
                                                         .data?.titleExercise)));
                                   },
@@ -460,13 +477,12 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
             ),
             Container(
               width: size.width,
-              height: list!.length + listFile!.length > 4
-                  ? size.width / 1.4
-                  : list.length * size.width / 6,
+              height: (list!.length + listFile!.length) * size.width / 6,
               child: ListView(
                 children: [
                   ListFiles(
-                    list: listFile,scrollPhysics: NeverScrollableScrollPhysics(),
+                    list: listFile,
+                    scrollPhysics: NeverScrollableScrollPhysics(),
                     isUpdate: isEdit == true ? false : true,
                   ),
                   _listFile(list: list),
@@ -791,13 +807,29 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
   PreferredSize _appBar(
       {String? title,
       TextEditingController? controller,
-      Function(String?)? onChanged}) {
+      Function(String?)? onChanged,
+      String? idCourse,
+      String? nameCourse}) {
     Size size = MediaQuery.of(context).size;
 
     return PreferredSize(
       preferredSize: Size.fromHeight(size.width / 8),
       child: AppBar(
         backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailCoursePage(
+                          choosingPos: 2,
+                          widgetId: 2,
+                          nameCourse: nameCourse,
+                          idCourse: idCourse,
+                        )));
+          },
+        ),
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
@@ -966,8 +998,18 @@ class _BodyDetailExerciseState extends State<BodyDetailExercise> {
                   builder: (context) => DetailExercisePage(
                         idExercise: widget.idExercise,
                         descriptionExercise: textDescription,
-                        allowSubmission: _valueChangedAallow,
-                        submissionDeadline: _valueChangedDue,
+                        allowSubmission: _valueChangedAallow == ""
+                            ? DateFormat("yyyy/MM/dd hh:mm").format(
+                                DateFormat("yyyy-MM-dd hh:mm:ss")
+                                    .parse(DateTime.now().toString()))
+                            : DateFormat("yyyy/MM/dd hh:mm").format(
+                                DateFormat("yyyy-MM-dd hh:mm")
+                                    .parse(_valueChangedAallow!)),
+                        submissionDeadline: _valueChangedDue == ""
+                            ? null
+                            : DateFormat("yyyy/MM/dd hh:mm").format(
+                                DateFormat("yyyy-MM-dd hh:mm")
+                                    .parse(_valueChangedDue!)),
                       )));
         },
         title: "SUCCESS",

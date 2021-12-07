@@ -38,8 +38,7 @@ class GetAllLectureRemoteDataSourceImpl implements GetAllLectureRemoteDataSource
     );
 
     log("Get GetAllLectureResponse: " +
-        '$mainUrl/lecture/GetAllLectureOfCourse?idCourse=$idCourse');
-    log("Response Json GetAllLectureResponse: ${json.decode(response.body)}");
+        '${response.statusCode}');
 
     if (response.statusCode == 200) {
       var success = GetAllLectureResponse.fromJson(json.decode(response.body));

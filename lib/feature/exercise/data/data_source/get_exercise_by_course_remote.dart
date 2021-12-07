@@ -29,11 +29,9 @@ class GetExerciseByCourseRemoteDataSourceImpl implements GetExerciseByCourseRemo
         "Accept": "application/json",
         "content-type": "application/json" ,
         "auth-token": "${appUser?.token}",
-// k co header la failed 415
       },
     );
-    log("Get GetExerciseByCourse: " + "$mainUrl/exercise/GetExerciseByCourse/$idCourse");
-    log("Response Json GetExerciseByCourse: ${json.decode(response!.body)}");
+    log("Get GetExerciseByCourse: " + "${response!.statusCode}");
 
     if (response.statusCode == 200) {
       var success =

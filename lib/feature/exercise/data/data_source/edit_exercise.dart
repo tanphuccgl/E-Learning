@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/core/error/exceptions.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
@@ -22,26 +23,12 @@ Future<bool> editExercise(
     List<PlatformFile>? listFile,
     Function? success,
     Function? failure}) async {
-  print("3 $descriptionExercise ");
-  print("to $submissionDeadline");
-
-  // print("file ${listFile!.first}");
-  //print("filekeep  ${fileKeep!.toList()}");
-  print("id courser $idCourse");
-
-  ///chua chinh link api
   var uri = Uri.parse('$mainUrl/exercise/EditExercise');
   var request = http.MultipartRequest('PUT', uri);
 
-  /// warning
-  var ab = json.encode(fileKeep);
-  // log("haha $ab");
-  //  request.fields["fileKeep"] = ab;
-  // log("hahuu ${ request.fields["fileKeep"]}");
-
-  for (var item in fileKeep!) {
-    request.fields["fileKeep[0]"] = "${item.filename!}";
-    print("hihi ${request.fields["fileKeep[0]"]}");
+  for (int i = 0; i < fileKeep!.length; i++) {
+    request.fields["fileKeep[$i]"] = "${fileKeep[i].filename!}";
+    print("hihi ${request.fields["fileKeep[$i]"]}");
   }
 
   request.headers["Accept"] = "application/json";
@@ -52,13 +39,18 @@ Future<bool> editExercise(
 
   request.fields["titleExercise"] = "$titleExercise";
   request.fields["idExercise"] = "$idExercise";
-  print("aa ${request.fields["idExercise"]}");
 
   if (allowSubmission != null) {
     request.fields["allowSubmission"] = "$allowSubmission";
+  } else {
+    request.fields["allowSubmission"] =
+        "${DateFormat("yyyy/MM/dd hh:mm").format(DateFormat("yyyy-MM-dd hh:mm:ss").parse(DateTime.now().toString()))}";
   }
+
   if (submissionDeadline != null) {
     request.fields["submissionDeadline"] = "$submissionDeadline";
+  } else {
+    request.fields["submissionDeadline"] = "null";
   }
 
   if (descriptionExercise != null) {
