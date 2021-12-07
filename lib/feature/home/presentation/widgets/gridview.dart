@@ -18,7 +18,6 @@ class GridViewWidget extends StatefulWidget {
 class _GridViewWidgetState extends State<GridViewWidget> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<GetDashboardBloc, GetDashboardState>(
       builder: (context, state) {
         if (state is Empty) {
@@ -42,7 +41,7 @@ class _GridViewWidgetState extends State<GridViewWidget> {
 
     return Container(
       width: size.width,
-      height: size.width / 0.5,
+      height: size.width / 0.7,
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overscroll) {
           overscroll.disallowGlow();
@@ -98,16 +97,22 @@ class _GridViewWidgetState extends State<GridViewWidget> {
       width: size.width / 5,
       height: size.width / 5,
       decoration: BoxDecoration(
-        color: color,boxShadow:
-        [BoxShadow(color: color!,offset: Offset(0,0),blurRadius: 10)],
+        color: color,
+        boxShadow: [
+          BoxShadow(color: color!, offset: Offset(0, 0), blurRadius: 10)
+        ],
         borderRadius: BorderRadius.all(Radius.circular(size.width / 20)),
       ),
       child: Padding(
-        padding: EdgeInsets.all(size.width / 20),
+        padding: EdgeInsets.all(size.width / 25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(child: image!,width: size.width/12,height: size.height/12,),
+            Container(
+              child: image!,
+              width: size.width / 12,
+              height: size.height / 12,
+            ),
             Text(
               title!,
               style: TextStyle(

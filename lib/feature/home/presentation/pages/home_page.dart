@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       header(context: context, name: appUser?.fullName),
+                      SizedBox(height: size.width/15,),
                       buildBody(context),
                     ],
                   ),
