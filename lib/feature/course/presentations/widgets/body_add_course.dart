@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/add_course_remote.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/presentations/pages/func_course_page.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/data/models/get_all_teacher_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_bloc.dart';
@@ -163,15 +164,12 @@ class _BodyAddCourseState extends State<BodyAddCourse> {
         function: () {
           Navigator.pop(context);
           Navigator.pop(context);
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => DetailCoursePage(
-          //           idCourse: widget.idCourse,
-          //           nameCourse: widget.nameCourse,
-          //           widgetId: 2,
-          //           choosingPos: 2,
-          //         )));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FuncCoursePage(
+
+                  )));
         },
         title: "SUCCESS",
         description: "Successful create course");

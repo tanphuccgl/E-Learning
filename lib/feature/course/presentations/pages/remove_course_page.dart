@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog2.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
+import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/remove_course.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_couse_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_course.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_bloc.dart';
@@ -10,14 +13,6 @@ import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_cou
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
-
-class Item extends GetCourseData {
-  Item({
-    this.isSelected,
-  });
-
-  bool? isSelected;
-}
 
 class RemoveCoursePage extends StatefulWidget {
   static const String routeName = "/RemoveCoursePage";
@@ -29,122 +24,6 @@ class RemoveCoursePage extends StatefulWidget {
 }
 
 class RemoveCoursePageState extends State<RemoveCoursePage> {
-  List<Item> _items = [];
-  int _sortColumnIndex = 0;
-  bool _sortAscending = true;
-  List a = [];
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   setState(() {
-  //     _items = _generateItems();
-  //   });
-  // }
-
-  List<Item> _generateItems({List<GetCourseData>? list}) {
-    return List.generate(list!.length, (int index) {
-      return Item(
-        isSelected: false,
-      );
-    });
-  }
-
-  void updateSort(int columnIndex, bool ascending) {
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = ascending;
-    });
-  }
-
-  List<DataColumn> _createColumns() {
-    return [
-      DataColumn(
-        label: const Text('No'),
-        numeric: false, // Deliberately set to false to avoid right alignment.
-      ),
-      DataColumn(
-        label: const Text('Name Course'),
-        numeric: false,
-        tooltip: 'Name of the item',
-        onSort: (int columnIndex, bool ascending) {
-          if (ascending) {
-            _items.sort((item1, item2) =>
-                item1.nameCourse!.compareTo(item2.nameCourse!));
-          } else {
-            _items.sort((item1, item2) =>
-                item2.nameCourse!.compareTo(item1.nameCourse!));
-          }
-
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-          });
-        },
-      ),
-      DataColumn(
-        label: const Text('Teacher'),
-        numeric: false, // Deliberately set to false to avoid right alignment.
-        tooltip: 'Price of the item',
-        onSort: (int columnIndex, bool ascending) {
-          if (ascending) {
-            _items.sort(
-                (item1, item2) => item1.fullName!.compareTo(item2.fullName!));
-          } else {
-            _items.sort(
-                (item1, item2) => item2.fullName!.compareTo(item1.fullName!));
-          }
-
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-          });
-        },
-      ),
-      // DataColumn(
-      //   label: const Text('Description'),
-      //   numeric: false,
-      //   tooltip: 'Description of the item',
-      // ),
-    ];
-  }
-
-  // DataRow _createRow() {
-  //   return DataRow(
-  //     // index: item.id, // for DataRow.byIndex
-  //     key: ValueKey(item.iId),
-  //     selected: item.isSelected,
-  //     onSelectChanged: (bool? isSelected) {
-  //       if (isSelected != null) {
-  //         item.isSelected = isSelected;
-  //
-  //         setState(() {});
-  //       }
-  //     },
-  //     color: MaterialStateColor.resolveWith((Set<MaterialState> states) =>
-  //         states.contains(MaterialState.selected)
-  //             ? Colors.red
-  //             : Color.fromARGB(100, 215, 217, 219)),
-  //     cells: [
-  //       DataCell(
-  //         Text(item.iId.toString()),
-  //       ),
-  //       DataCell(
-  //         Text(item!.fullName!),
-  //         placeholder: false,
-  //         showEditIcon: true,
-  //         onTap: () {
-  //           print('onTap');
-  //         },
-  //       ),
-  //       DataCell(Text(item!.fullName!)),
-  //       // DataCell(
-  //       //   Text(item.description),
-  //       // ),
-  //     ],
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetCourseBloc, GetCourseState>(
@@ -153,94 +32,12 @@ class RemoveCoursePageState extends State<RemoveCoursePage> {
         BlocProvider.of<GetCourseBloc>(context)
             .add(GetCourseEventE(idAccount: "", keySearchNameCourse: ""));
       } else if (state is Loaded) {
-        for (var item in state.data!) {
-          final Map fieldsMapOne = {
-            'fullName': "${item.fullName}",
-            'nameCourse': "${item.nameCourse}",
-            'createDate': "${item.createDate}",
-            'role': "${item.role}",
-            'idAccount': "${item.idAccount}",
-            'idCourse': "${item.idCourse}",
-            'deleted': "${item.deleted}",
-            'iId': "${item.iId}",
-            'isSelected': false,
-          };
-          a = [...a, fieldsMapOne];
-        }
-
         return Scaffold(
             appBar: appBar(context: context, title: "Remove Course"),
             body: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: SingleChildScrollView(
-                child: DataTable(
-                  sortColumnIndex: _sortColumnIndex,
-                  sortAscending: _sortAscending,
-                  columnSpacing: 0,
-                  dividerThickness: 5,
-                  onSelectAll: (bool? isSelected) {
-
-                      isSelected = false;
-                      a.forEach((item) {
-                        item['isSelected'] = isSelected;
-                      });
-                    
-                    print(isSelected);
-                  },
-                  dataRowColor: MaterialStateColor.resolveWith(
-                      (Set<MaterialState> states) =>
-                          states.contains(MaterialState.selected)
-                              ? Colors.blue
-                              : Color.fromARGB(100, 215, 217, 219)),
-                  dataRowHeight: 80,
-                  dataTextStyle: const TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black),
-                  headingRowColor: MaterialStateColor.resolveWith(
-                      (states) => Colors.lightBlueAccent),
-                  headingRowHeight: 80,
-                  headingTextStyle: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                  horizontalMargin: 10,
-                  showBottomBorder: true,
-                  showCheckboxColumn: true,
-                  columns: _createColumns(),
-                  rows: a.map((item) {
-                    return DataRow(
-                      // index: item.id, // for DataRow.byIndex
-
-                      selected: item['isSelected'],
-                      onSelectChanged: (bool? isSelected) {
-                        if (isSelected != null) {
-                          item['isSelected'] = isSelected;
-
-                          setState(() {});
-                        }
-                      },
-                      color: MaterialStateColor.resolveWith(
-                          (Set<MaterialState> states) =>
-                              states.contains(MaterialState.selected)
-                                  ? Colors.red
-                                  : Color.fromARGB(100, 215, 217, 219)),
-                      cells: [
-                        DataCell(
-                          Text(item['iId']),
-                        ),
-                        DataCell(
-                          Text(item['nameCourse']),
-                          placeholder: false,
-                          showEditIcon: true,
-                          onTap: () {
-                            print('onTap');
-                          },
-                        ),
-                        DataCell(Text(item['fullName'])),
-                        // DataCell(
-                        //   Text(item.description),
-                        // ),
-                      ],
-                    );
-                  }).toList(),
-                ),
+                child: _list(list: state.data),
               ),
             ));
       } else if (state is Loading) {
@@ -252,5 +49,129 @@ class RemoveCoursePageState extends State<RemoveCoursePage> {
       }
       return Container();
     });
+  }
+
+  Widget _list({List<GetCourseData>? list}) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      width: size.width,
+      height: size.height,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: size.width / 25,
+          right: size.width / 25,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: size.width,
+              height: size.width / 7,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("No"),
+                  Text("Name Course"),
+                  Text("Teacher"),
+                  Text("Remove Class")
+                ],
+              ),
+            ),
+            Container(
+              width: size.width,
+              height: size.width / 0.65,
+              child: NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (overscroll) {
+                  overscroll.disallowGlow();
+                  return true;
+                },
+                child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      return _item(
+                          data: list?[index],
+                          number: index + 1,
+                          onPressed: () {
+                            AlertDialog2.yesAbortDialog(
+                                context: context,
+                                title: "REMOVE COURSE",
+                                body:
+                                    "Are you sure you want to delete course ${list?[index].nameCourse}?",
+                                onPressed: () {
+                                  removeCourse(
+                                      idCourse:
+                                          list?[index].idCourse.toString(),
+                                      failure: () => showCancelDelete(),
+                                      success: () => showSuccessDelete());
+                                });
+                          });
+                    },
+                    separatorBuilder: (context, index) => Divider(
+                          color: Colors.black,
+                        ),
+                    itemCount: list!.length),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void showCancelDelete() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "There are students in this class");
+  }
+
+  void showSuccessDelete() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => RemoveCoursePage()));
+        },
+        title: "SUCCESS",
+        description: "Delete successful");
+  }
+
+  Widget _item({GetCourseData? data, int? number, Function()? onPressed}) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      width: size.width,
+      height: size.width / 8,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("$number"),
+          Container(
+            child: Text(data!.nameCourse!),
+            width: size.width / 4,
+          ),
+          Container(
+            child: Text(data.fullName!),
+            width: size.width / 10,
+          ),
+          Container(
+            child: IconButton(
+              onPressed: onPressed,
+              icon: Icon(Icons.highlight_remove),
+            ),
+            width: size.width / 5,
+          )
+        ],
+      ),
+    );
   }
 }

@@ -60,17 +60,17 @@ class _FuncCoursePageState extends State<FuncCoursePage> {
                           MaterialPageRoute(
                               builder: (context) => AddCoursePage()));
                     }),
-                card(
-                    title: "Edit Course",
-                    colorCard: Colors.amber,
-                    colorText: Colors.white,
-                    context: context,
-                    function: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditCoursePage()));
-                    }),
+                // card(
+                //     title: "Edit Course",
+                //     colorCard: Colors.amber,
+                //     colorText: Colors.white,
+                //     context: context,
+                //     function: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => EditCoursePage()));
+                //     }),
                 card(
                     title: "Remove Course",
                     colorCard: Colors.red,
