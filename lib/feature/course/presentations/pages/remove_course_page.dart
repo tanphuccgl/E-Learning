@@ -34,7 +34,7 @@ class RemoveCoursePageState extends State<RemoveCoursePage> {
           builder: (context, state) {
         if (state is Empty) {
           BlocProvider.of<GetCourseBloc>(context)
-              .add(GetCourseEventE(idAccount: "", keySearchNameCourse: ""));
+              .add(GetCourseEventE(idAccount: "", keySearchNameCourse: "ForAdmin"));
         } else if (state is Loaded) {
           return Scaffold(
               appBar: appBar(context: context, title: "Remove Course"),
@@ -132,7 +132,7 @@ class RemoveCoursePageState extends State<RemoveCoursePage> {
           Navigator.pop(context);
         },
         title: "ERROR",
-        description: "There are students in this class");
+        description: "Course in progress");
   }
 
   void showSuccessDelete() {

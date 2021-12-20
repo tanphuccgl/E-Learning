@@ -94,7 +94,7 @@ class _ExercisePageState extends State<ExercisePage> {
             list!.isNotEmpty
                 ? Container(
                     width: size.width - size.width / 20,
-                    height: size.width / 0.75,
+                    height: size.width / 0.8,
                     child: Padding(
                       padding: EdgeInsets.only(top: size.width / 20),
                       child: ListView.builder(

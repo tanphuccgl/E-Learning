@@ -12,7 +12,7 @@ Future<bool> removeCourse (
     {String? idCourse  , Function? success, Function? failure}) async {
 
   final response = await client?.delete(
-    Uri.parse('$mainUrl/course/DeleteCourse/$idCourse '),
+    Uri.parse('$mainUrl/course/DeleteCourse/$idCourse'),
     headers: {
       "Accept": "application/json",
       "content-type": "application/json",

@@ -14,19 +14,15 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _fullNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
+
   final _emailController = TextEditingController();
   final _userNameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
 
   String? _fullName;
-  int? _phoneNumber;
   String? _email;
   String? _userName;
   String? _password;
-  String? _confirmPassword;
   bool _isChecked = false;
   String dropdownValue = 'Man';
 
@@ -57,24 +53,24 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   height: size.width / 20,
                 ),
-                inputName(
-                    title: "Address",
-                    context: context,
-                    function: (value) {
-                      _fullName = value;
-                    },
-                    textEditingController: _fullNameController,
-                    hintText: "Input address"),
-                SizedBox(
-                  height: size.width / 20,
-                ),
+                // inputName(
+                //     title: "Address",
+                //     context: context,
+                //     function: (value) {
+                //       _fullName = value;
+                //     },
+                //     textEditingController: _fullNameController,
+                //     hintText: "Input address"),
+                // SizedBox(
+                //   height: size.width / 20,
+                // ),
                 inputName(
                     title: "Email",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _email = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _emailController,
                     hintText: "Input email"),
                 SizedBox(
                   height: size.width / 20,
@@ -83,79 +79,79 @@ class _SignUpPageState extends State<SignUpPage> {
                     title: "Username",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _userName = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _userNameController,
                     hintText: "Input username"),
                 SizedBox(
                   height: size.width / 20,
                 ),
-                inputName(
-                    title: "Phone Number",
-                    context: context,
-                    function: (value) {
-                      _fullName = value;
-                    },
-                    textEditingController: _fullNameController,
-                    hintText: "Input number"),
-                SizedBox(
-                  height: size.width / 20,
-                ),
-                inputName(
-                    title: "Parent Name",
-                    context: context,
-                    function: (value) {
-                      _fullName = value;
-                    },
-                    textEditingController: _fullNameController,
-                    hintText: "Input name"),
-                SizedBox(
-                  height: size.width / 20,
-                ),
-                inputName(
-                    title: "Phone Number Parent",
-                    context: context,
-                    function: (value) {
-                      _fullName = value;
-                    },
-                    textEditingController: _fullNameController,
-                    hintText: "Input number"),
-                SizedBox(
-                  height: size.width / 20,
-                ),
+                // inputName(
+                //     title: "Phone Number",
+                //     context: context,
+                //     function: (value) {
+                //       _fullName = value;
+                //     },
+                //     textEditingController: _fullNameController,
+                //     hintText: "Input number"),
+                // SizedBox(
+                //   height: size.width / 20,
+                // ),
+                // inputName(
+                //     title: "Parent Name",
+                //     context: context,
+                //     function: (value) {
+                //       _fullName = value;
+                //     },
+                //     textEditingController: _fullNameController,
+                //     hintText: "Input name"),
+                // SizedBox(
+                //   height: size.width / 20,
+                // ),
+                // inputName(
+                //     title: "Phone Number Parent",
+                //     context: context,
+                //     function: (value) {
+                //       _fullName = value;
+                //     },
+                //     textEditingController: _fullNameController,
+                //     hintText: "Input number"),
+                // SizedBox(
+                //   height: size.width / 20,
+                // ),
                 inputName(
                     title: "Password",
                     context: context,
                     function: (value) {
-                      _fullName = value;
+                      _password = value;
                     },
-                    textEditingController: _fullNameController,
+                    textEditingController: _passwordController,
                     hintText: "Input password"),
                 SizedBox(
                   height: size.width / 20,
                 ),
-                Row(crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Choose class",
-                      style: TextStyle(
-                          fontSize: size.width / 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    TextButton(onPressed: () { print("add"); },
-                    child: Text(
-                      "Add",
-                      style: TextStyle(
-                          fontSize: size.width / 25,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: size.width/20,),
+                // Row(crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Text(
+                //       "Choose class",
+                //       style: TextStyle(
+                //           fontSize: size.width / 20,
+                //           color: Colors.black,
+                //           fontWeight: FontWeight.w600),
+                //     ),
+                //     TextButton(onPressed: () { print("add"); },
+                //     child: Text(
+                //       "Add",
+                //       style: TextStyle(
+                //           fontSize: size.width / 25,
+                //           color: Colors.blue,
+                //           fontWeight: FontWeight.w600),
+                //     ),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(height: size.width/20,),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                   _gender(context: context,function: (a){},typePointValue: "Male"),

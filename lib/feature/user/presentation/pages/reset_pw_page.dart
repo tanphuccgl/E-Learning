@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/input_title.dart';
+import 'package:thuc_tap_tot_nghiep/feature/password/reset_pw/data/datasources/put_reset_pw.dart';
 
 class ResetPwPage extends StatefulWidget {
   static const String routeName= "/ResetPwPage";
@@ -48,7 +49,9 @@ class _ResetPwPageState extends State<ResetPwPage> {
                 height: size.width / 20,
               ),
 
-              accept(function: () {}, context: context, content: "Reset"),
+              accept(function: () {
+
+              }, context: context, content: "Reset"),
 
 
             ],

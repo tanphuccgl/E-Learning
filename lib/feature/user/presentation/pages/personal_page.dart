@@ -22,7 +22,7 @@ class _PersonalPageState extends State<PersonalPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(
-        index: 2,
+        index: appUser?.role == "admin" ? 2 :1,
       ),
       body: Container(
         width: size.width,
@@ -48,14 +48,14 @@ class _PersonalPageState extends State<PersonalPage> {
               SizedBox(
                 height: size.width / 20,
               ),
-              _item(
-                  title: "Infomation",
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChangeInfoUserPage()));
-                  }),
+              // _item(
+              //     title: "Infomation",
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => ChangeInfoUserPage()));
+              //     }),
               _item(
                   title: "Change password",
                   onPressed: () {

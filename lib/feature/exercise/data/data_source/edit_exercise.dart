@@ -28,14 +28,12 @@ Future<bool> editExercise(
 
   for (int i = 0; i < fileKeep!.length; i++) {
     request.fields["fileKeep[$i]"] = "${fileKeep[i].filename!}";
-    print("hihi ${request.fields["fileKeep[$i]"]}");
   }
 
   request.headers["Accept"] = "application/json";
   request.headers["auth-token"] = "${appUser?.token}";
   request.headers["Content-Type"] = "multipart/form-data";
 
-  // request.headers["Content-Type"] = "application/json";
 
   request.fields["titleExercise"] = "$titleExercise";
   request.fields["idExercise"] = "$idExercise";

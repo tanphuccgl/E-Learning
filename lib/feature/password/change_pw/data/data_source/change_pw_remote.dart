@@ -14,7 +14,7 @@ Future<bool> changePassword(
     String? newpassword,
     Function? success,
     Function? failure}) async {
-  var body = jsonEncode({'password': password, 'newpassword': newpassword});
+  var body = jsonEncode({'password': password, 'newpassword': newpassword,"idAccount":appUser?.iId});
   final response =
       await client?.put(Uri.parse('$mainUrl/account/ChangePassword'),
           headers: {

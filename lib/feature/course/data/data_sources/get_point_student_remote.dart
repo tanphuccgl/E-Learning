@@ -42,7 +42,7 @@ class GetPointStudentRemoteDataSourceImpl
     );
 
     log("Get GetPointStudentResponse: " +
-        '$mainUrl/course/GetPointCourseForStudent?idCourse=$idCourse&idAccount=4');
+        '$mainUrl/course/GetPointStudent?idCourse=$idCourse&idAccount=$idAccount');
     log("Response Json GetPointStudentResponse: ${json.decode(response.body)}");
 
     if (response.statusCode == 200) {

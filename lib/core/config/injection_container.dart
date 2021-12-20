@@ -275,6 +275,8 @@ Future<void> init() async {
           () => GetInfoLectureRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetPointTeacherRemoteDataSource>(
           () => GetPointTeacherRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<GetPointStudentRemoteDataSource>(
+          () => GetPointStudentRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetAllStudentRemoteDataSource>(
           () => GetAllStudentRemoteDataSourceImpl(client: sl()));
 

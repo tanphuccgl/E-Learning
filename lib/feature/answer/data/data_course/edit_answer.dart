@@ -18,7 +18,7 @@ Future<bool> editAnswer(
       Function? failure}) async {
 
   ///chua chinh link api
-  var uri = Uri.parse('$mainUrl/answer/EditAnswer/$idAnswer');
+  var uri = Uri.parse('$mainUrl/answer/EditAnswer');
   var request = http.MultipartRequest('PUT', uri);
 
   request.headers["Accept"] = "application/json";
@@ -32,8 +32,9 @@ Future<bool> editAnswer(
   if (descriptionAnswer != null) {
     request.fields["descriptionAnswer"] = "$descriptionAnswer";
   }
-  /// warning
-  request.fields["fileKeep"] = "$fileKeep";
+  for (int i = 0; i < fileKeep!.length; i++) {
+    request.fields["fileKeep[$i]"] = "${fileKeep[i].filename!}";
+  }
 
   request.fields["files"] = "files";
   request.fields['idExercise'] = '$idExercise';
@@ -41,11 +42,6 @@ Future<bool> editAnswer(
     var file = await http.MultipartFile.fromPath("files", item.path!);
     request.files.add(file);
   }
-  // for (var item in listFile!) {
-  //   var file = await http.MultipartFile.fromPath("fileKeep", item.path!);
-  //   request.files.add(file);
-  // }
-
   var response = await request.send();
   var a = await response.stream.toBytes();
   var b = String.fromCharCodes(a);

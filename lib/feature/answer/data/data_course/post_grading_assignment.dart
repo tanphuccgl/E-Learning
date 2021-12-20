@@ -9,16 +9,15 @@ http.Client? client = http.Client();
 Future<bool> postGradingAssignment(
     {String? feedbackFromTeacher,
     int? idAnswer,
-    double? studyPoint,
+    var studyPoint,
     List<PlatformFile>? listFile,
     Function? success,
     Function? failure}) async {
-  print(idAnswer);
+
   print(studyPoint);
-  print(feedbackFromTeacher);
 
   var uri = Uri.parse(
-      '$mainUrl/answer/GradingAssignment?studyPoint=$studyPoint&idAnswer=$idAnswer');
+      '$mainUrl/answer/GradingAssignment');
   var request = http.MultipartRequest('POST', uri);
 
   request.headers["Accept"] = "application/json";

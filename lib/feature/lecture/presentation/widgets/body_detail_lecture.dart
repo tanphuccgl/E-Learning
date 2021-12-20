@@ -289,13 +289,12 @@ class _BodyDetailLectureState extends State<BodyDetailLecture> {
             ),
             Container(
               width: size.width,
-              height: list!.length + listFile!.length > 4
-                  ? size.width / 1.4
-                  : list.length * size.width / 6,
+              height: (list!.length + listFile!.length) * size.width / 6,
               child: ListView(
                 children: [
                   ListFiles(
-                    list: listFile,scrollPhysics: NeverScrollableScrollPhysics(),
+                    list: listFile,
+                    scrollPhysics: NeverScrollableScrollPhysics(),
                     isUpdate: isEdit == true ? false : true,
                   ),
                   _listFile(list: list),

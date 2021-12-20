@@ -67,59 +67,50 @@ class _FuncUserPageState extends State<FuncUserPage> {
                           MaterialPageRoute(
                               builder: (context) => SignUpPage()));
                     }),
-                card(
-                    title: "Change Information",
-                    colorCard: Colors.amber,
-                    colorText: Colors.white,
-                    context: context,
-                    function: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangeInfoUserPage()));
-                    }),
+                // card(
+                //     title: "Change Information",
+                //     colorCard: Colors.amber,
+                //     colorText: Colors.white,
+                //     context: context,
+                //     function: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => ChangeInfoUserPage()));
+                //     }),
 
-                card(
-                    title: "Reset Password",
-                    colorCard: Colors.amber,
-                    colorText: Colors.white,
-                    context: context,
-                    function: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResetPwPage()));
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => BlocProvider(
-                      //           create: (_) => sl<GetCourseBloc>(),
-                      //           child: RemoveCoursePage(),
-                      //         )));
-                    }),
-                card(
-                    title: "Delete Account",
-                    colorCard: Colors.red,
-                    colorText: Colors.white,
-                    context: context,
-                    function: () {
+                // card(
+                //     title: "Reset Password",
+                //     colorCard: Colors.amber,
+                //     colorText: Colors.white,
+                //     context: context,
+                //     function: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => ResetPwPage()));
+                //
+                //     }),
+                // card(
+                //     title: "Delete Account",
+                //     colorCard: Colors.red,
+                //     colorText: Colors.white,
+                //     context: context,
+                //     function: () {
+                //
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => DeleteUserPage()));
+                //       // Navigator.push(
+                //       //     context,
+                //       //     MaterialPageRoute(
+                //       //         builder: (context) => BlocProvider(
+                //       //           create: (_) => sl<GetCourseBloc>(),
+                //       //           child: DeleteUserPage(),
+                //       //         )));
+                //     }),
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DeleteUserPage()));
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => BlocProvider(
-                      //           create: (_) => sl<GetCourseBloc>(),
-                      //           child: DeleteUserPage(),
-                      //         )));
-                    }),
-                // _card(title: "Course"),
-                // _card(title: "Course"),
-                // _card(title: "Course"),
-                // _card(title: "Course"),
               ],
             ),
           )),

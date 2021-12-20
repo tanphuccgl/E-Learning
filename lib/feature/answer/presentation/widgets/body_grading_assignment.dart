@@ -51,7 +51,9 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
   List<bool> _isSelected = [true, false];
   List<PlatformFile>? listFile;
   List<FileUpload>? listFileUpdate;
+  List<String> lv = ["Đạt", "Không Đạt"];
 
+  String? dropdownValue="" ;
   FilePickerResult? result;
 
   @override
@@ -64,6 +66,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
     cmtController = TextEditingController();
     listFile = [];
     listFileUpdate = [];
+    prefs?.remove("textPoint",);
   }
 
   @override
@@ -97,6 +100,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                         point: state.swagger?.data?.studyPoint != null
                             ? state.swagger?.data?.studyPoint
                             : point,
+                        isTextPoint: state.swagger?.data?.isTextPoint!,
                         cmt: state.swagger?.data?.feedbackFromTeacher != null
                             ? state.swagger?.data?.feedbackFromTeacher
                             : cmt),
@@ -170,7 +174,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                             ),
                             context: context,
                             function: () {}),
-                        accept(
+                        state.swagger?.data?.isTextPoint==0?     accept(
                             content: "Accept",
                             context: context,
                             function: () {
@@ -184,7 +188,28 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                               } else {
                                 postGradingAssignment(
                                     idAnswer: widget.idAnswer,
-                                    studyPoint: point,
+                                    studyPoint:point,
+                                    feedbackFromTeacher: cmt,
+                                    success: () => showSuccess(),
+                                    failure: () => showCancel(),
+                                    listFile: listFile);
+                              }
+                            }):
+                        accept(
+                            content: "Accept",
+                            context: context,
+                            function: () {
+                              ///check nhập tên bài tập
+                              if (dropdownValue == "" ||
+                                  dropdownValue == null) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text("Input Score"),
+                                ));
+                              } else {
+                                postGradingAssignment(
+                                    idAnswer: widget.idAnswer,
+                                    studyPoint:  dropdownValue=="Đạt"? 1:0,
                                     feedbackFromTeacher: cmt,
                                     success: () => showSuccess(),
                                     failure: () => showCancel(),
@@ -385,22 +410,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                           duration: Duration(seconds: 3),
                         ));
 
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => ExamplePage(urlImage: "${list[index].pathname}",
-                  //
-                  //       )),
-                  // );
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => OpenImage(
-                  //             url: list[index].pathname,
-                  //             file: null,
-                  //             originalname: list[index].originalname,
-                  //           )),
-                  // );
+
                 },
                 child: Container(
                   width: size.width,
@@ -649,48 +659,117 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
     );
   }
 
+  Widget _textPoint() {
+    dropdownValue="Đạt";
+    prefs?.setString("textPoint", dropdownValue!);
+    return StatefulBuilder(
+        builder: (context, setState) => DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                  print(dropdownValue);
+                  prefs?.setString("textPoint", dropdownValue!);
+                });
+              },
+              items: <String>["Đạt", "Không đạt"]
+                  .map<DropdownMenuItem<String>>((value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text("${value}"),
+                );
+              }).toList(),
+            ));
+  }
+
   //String? feedback, TextEditingController? textEditingController
-  Widget framesGrade({double? point, String? cmt}) {
+  Widget framesGrade({double? point, String? cmt, int? isTextPoint}) {
+
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
       height: size.width / 3.5,
       child: Row(
         children: [
-          GestureDetector(
-            onTap: () {
-              showDialogPoint();
-            },
-            child: Container(
-              width: size.width / 3.4,
-              height: size.width / 3.5,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Align(
-                        child: Text("Point"),
-                        alignment: Alignment.topCenter,
-                      ),
-                      SizedBox(
-                        height: size.width / 35,
-                      ),
-                      Center(
-                        child: Text(
-                          point == null ? "" : "$point",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                              fontSize: size.width / 10),
-                        ),
-                      )
-                    ],
-                  )),
-            ),
-          ),
+          isTextPoint == 1
+              ? GestureDetector(
+                  onTap: () {
+
+                    showDialogTextPoint();
+                  },
+                  child: Container(
+                    width: size.width / 3.4,
+                    height: size.width / 3.5,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 2),
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Align(
+                              child: Text("Point"),
+                              alignment: Alignment.topCenter,
+                            ),
+                            SizedBox(
+                              height: size.width / 35,
+                            ),
+                            Center(
+                              child: Text(
+                                prefs?.getString("textPoint")==null?
+                             "":  "${ prefs?.getString("textPoint")}",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: size.width / 20),
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
+                )
+              : GestureDetector(
+                  onTap: () {
+                    showDialogPoint();
+                  },
+                  child: Container(
+                    width: size.width / 3.4,
+                    height: size.width / 3.5,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 2),
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Align(
+                              child: Text("Point"),
+                              alignment: Alignment.topCenter,
+                            ),
+                            SizedBox(
+                              height: size.width / 35,
+                            ),
+                            Center(
+                              child: Text(
+                                point == null ? "" : "$point",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: size.width / 10),
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
+                ),
           GestureDetector(
             onTap: () {
               showDialogCmt();
@@ -847,6 +926,39 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                 } else {
                   Navigator.pop(context);
                 }
+              },
+              child: Text('Send'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showDialogTextPoint() {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          title: Text('Score'),
+          content: _textPoint(),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Send them to your email maybe?
+
+
+setState(() {
+
+});
+                  Navigator.pop(context);
+
               },
               child: Text('Send'),
             ),

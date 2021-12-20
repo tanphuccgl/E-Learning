@@ -86,8 +86,9 @@ class _ListScorePageState extends State<ListScorePage> {
                                   nameExe: state.data?[index].titleExercise,
                                   score: state.data?[index].studyPoint == null
                                       ? ""
-                                      : state.data?[index].studyPoint
-                                          .toString(),
+                                      : (state.data?[index].studyPoint
+                                          .toString()),
+                                  isTextPoint: state.data?[index].isTextPoint,
                                   count: (index + 1).toString());
                             },
                             separatorBuilder: (context, index) => Divider(),
@@ -107,7 +108,8 @@ class _ListScorePageState extends State<ListScorePage> {
     });
   }
 
-  Widget _item({String? count, String? nameExe, String? score}) {
+  Widget _item(
+      {String? count, String? nameExe, String? score, int? isTextPoint}) {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
@@ -123,7 +125,9 @@ class _ListScorePageState extends State<ListScorePage> {
           SizedBox(
             width: size.width / 4,
           ),
-          Text(score!),
+          isTextPoint == 0
+              ? Text(score!)
+              : Text(score == "0" ? "Không đạt" : "Đạt"),
         ],
       ),
     );

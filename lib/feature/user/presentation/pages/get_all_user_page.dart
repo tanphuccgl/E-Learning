@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/spinkit.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/injection_container.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
+import 'package:thuc_tap_tot_nghiep/feature/password/reset_pw/data/datasources/put_reset_pw.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/data/models/get_all_studen_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/data/models/get_all_teacher_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_student/get_all_student_bloc.dart';
@@ -11,6 +13,7 @@ import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_st
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_bloc.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_state.dart';
+import 'package:thuc_tap_tot_nghiep/main.dart';
 
 class GetAllUserPage extends StatefulWidget {
   final bool? teacherPage;
@@ -67,7 +70,7 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
                     .add(GetAllStudentE());
               } else if (state is Loaded1) {
                 return Scaffold(
-                    appBar: appBar(context: context, title: "List Teacher"),
+                    appBar: appBar(context: context, title: "List Student"),
                     body: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: SingleChildScrollView(
@@ -110,6 +113,7 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
                   Text("No"),
                   Text("Username"),
                   Text("Full Name"),
+                  Text("Reset Pass"),
                 ],
               ),
             ),
@@ -125,6 +129,10 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
                     itemBuilder: (context, index) {
                       return _item(
                         data: list?[index],
+                        onPressed: () => putResetPw(
+                            idAccount: list?[index].iId,
+                            failure: () => showCancelReset,
+                            success: () => showSuccessReset()),
                         number: index + 1,
                       );
                     },
@@ -140,7 +148,7 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
     );
   }
 
-  Widget _item({GetAllTeacherData? data, int? number}) {
+  Widget _item({GetAllTeacherData? data, int? number, Function()? onPressed}) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -157,6 +165,13 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
           ),
           Container(
             child: Text(data.fullName!),
+            width: size.width / 10,
+          ),
+          Container(
+            child: IconButton(
+              icon: Icon(Icons.restart_alt),
+              onPressed: onPressed,
+            ),
             width: size.width / 10,
           ),
         ],
@@ -188,6 +203,7 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
                   Text("No"),
                   Text("Username"),
                   Text("Full Name"),
+                  Text("Reset Pass"),
                 ],
               ),
             ),
@@ -204,6 +220,10 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
                       return _item1(
                         data: list?[index],
                         number: index + 1,
+                        onPressed: () => putResetPw(
+                            idAccount: list?[index].iId,
+                            failure: () => showCancelReset,
+                            success: () => showSuccessReset()),
                       );
                     },
                     separatorBuilder: (context, index) => Divider(
@@ -218,7 +238,7 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
     );
   }
 
-  Widget _item1({GetAllStudentData? data, int? number}) {
+  Widget _item1({GetAllStudentData? data, int? number, Function()? onPressed}) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -237,8 +257,41 @@ class _GetAllUserPageState extends State<GetAllUserPage> {
             child: Text(data.fullName!),
             width: size.width / 10,
           ),
+          Container(
+            child: IconButton(
+              icon: Icon(Icons.restart_alt),
+              onPressed: onPressed,
+            ),
+            width: size.width / 10,
+          ),
         ],
       ),
     );
+  }
+
+  void showCancelReset() {
+    return showPopup(
+        context: context,
+        function: () {
+          Navigator.pop(context);
+        },
+        title: "ERROR",
+        description: "Password reset failed");
+  }
+
+  void showSuccessReset() {
+    return showPopup(
+        context: context,
+        function: () {
+          // Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => SignInPage()));
+        },
+        title: "SUCCESS",
+        description:
+            "New password: ${prefs?.getString("resetpw")}\nReset password successfully");
   }
 }

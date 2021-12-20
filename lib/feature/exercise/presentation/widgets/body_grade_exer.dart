@@ -87,6 +87,7 @@ class _BodyGradeExeState extends State<BodyGradeExe> {
                             child: point(
                                 createDate: list[index].createDate,
                                 data: list[index],
+                                isTextPoint: list[index].isTextPoint,
                                 point: list[index].studyPoint.toString()),
                           ),
                         ),
@@ -112,7 +113,10 @@ class _BodyGradeExeState extends State<BodyGradeExe> {
   }
 
   Widget point(
-      {String? point, String? createDate, GetGradeExerciseData? data}) {
+      {var point,
+      String? createDate,
+      GetGradeExerciseData? data,
+      int? isTextPoint}) {
     Size size = MediaQuery.of(context).size;
 
     if (point == null && createDate == null) {
@@ -123,7 +127,7 @@ class _BodyGradeExeState extends State<BodyGradeExe> {
             fontWeight: FontWeight.normal,
             fontSize: size.width / 30),
       );
-    } else if (createDate != null && point=="null") {
+    } else if (createDate != null && point == "null") {
       return TextButton(
           onPressed: () {
             Navigator.push(
@@ -145,31 +149,36 @@ class _BodyGradeExeState extends State<BodyGradeExe> {
                 fontWeight: FontWeight.normal,
                 fontSize: size.width / 33),
           ));
-    } else if ( point != "null") {
-      return
-
-        TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => GradingAssignmentPage(
-                        isTextPoint: widget.isTextPoint,
-                        idAnswer: data?.idAnswer,
-                        idAccount: data?.idAccount,
-                        data: data,
-                        nameStudent: data?.fullName,
-                        createDate: data?.createDate,
-                      )));
-            },
-            child: Text(
-              point!,
-              style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.normal,
-                  fontSize: size.width / 30),
-            ));
-
+    } else if (point != "null") {
+      return TextButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => GradingAssignmentPage(
+                          isTextPoint: widget.isTextPoint,
+                          idAnswer: data?.idAnswer,
+                          idAccount: data?.idAccount,
+                          data: data,
+                          nameStudent: data?.fullName,
+                          createDate: data?.createDate,
+                        )));
+          },
+          child: isTextPoint == 0
+              ? Text(
+                  point!,
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.normal,
+                      fontSize: size.width / 30),
+                )
+              : Text(
+                  point == "0" ? "Không đạt" : "Đạt",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.normal,
+                      fontSize: size.width / 30),
+                ));
     } else if (point == "null") {
       return Text(
         "",

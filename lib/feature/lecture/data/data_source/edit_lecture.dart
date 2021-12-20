@@ -21,6 +21,11 @@ Future<bool> editLecture(
   var uri = Uri.parse('$mainUrl/lecture/EditLecture?idCourse=$idCourse&idLecture=$idLecture');
   var request = http.MultipartRequest('PUT', uri);
 
+
+  for (int i = 0; i < fileKeep!.length; i++) {
+    request.fields["fileKeep[$i]"] = "${fileKeep[i].filename!}";
+  }
+
   request.headers["Accept"] = "application/json";
   request.headers["auth-token"] = "${appUser?.token}";
   request.headers["Content-Type"] = "multipart/form-data";
@@ -33,8 +38,7 @@ Future<bool> editLecture(
   if (descriptionAnswer != null) {
     request.fields["descriptionAnswer"] = "$descriptionAnswer";
   }
-  /// warning
-  request.fields["fileKeep"] = "$fileKeep";
+
 
   request.fields["files"] = "files";
   request.fields['idCourse'] = '$idCourse';

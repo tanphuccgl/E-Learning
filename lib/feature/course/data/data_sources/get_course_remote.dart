@@ -30,11 +30,11 @@ class GetCourseRemoteDataSourceImpl implements GetCourseRemoteDataSource {
       headers: {
         "Accept": "application/json",
         "content-type": "application/json" // k co header la failed 415
-        //'Content-Type': 'application/x-www-form-urlencoded'
       },
     );
-
+    log("url : $mainUrl/course/GetCourse$keySearchNameCourse$idAccount");
     log("Get GetCourseResponse: " + "${response.statusCode}");
+    log("Get GetCourseResponse: " + "${json.decode(response.body)}");
 
     if (response.statusCode == 200) {
       var success = GetCourseResponse.fromJson(json.decode(response.body));

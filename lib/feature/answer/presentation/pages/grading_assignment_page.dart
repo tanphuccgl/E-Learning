@@ -7,7 +7,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_grade_exerc
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 
 class GradingAssignmentPage extends StatefulWidget {
-  final int? isTextPoint;
+  final  isTextPoint;
   final int? idAccount;
   final int? idAnswer;
   final GetGradeExerciseData? data;

@@ -61,7 +61,7 @@ class _SubmitExercisePageState extends State<SubmitExercisePage> {
 
   FilePickerResult? result;
   List<PlatformFile>? listFile;
-
+  bool? enabled;
   bool? isEdit;
   List<FileUpload>? tempList;
 
@@ -73,6 +73,7 @@ class _SubmitExercisePageState extends State<SubmitExercisePage> {
     setState(() {
       _controllerDescription = TextEditingController();
     });
+    enabled = false;
     listFile = [];
     tempList = [];
     isEdit = false;
@@ -81,275 +82,234 @@ class _SubmitExercisePageState extends State<SubmitExercisePage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: appBar(context: context, title: widget.titleExercise),
-        body: widget.idAnswer != null
-            ? BlocProvider(
-                create: (_) => sl<GetInformationAnswerBloc>(),
-                child: BlocBuilder<GetInformationAnswerBloc,
-                    GetInformationAnswerState>(builder: (context, state) {
-                  if (state is Empty) {
-                    BlocProvider.of<GetInformationAnswerBloc>(context).add(
-                      GetInformationAnswerEventE(
-                          idAccount: appUser?.iId, idAnswer: widget.idAnswer),
-                    );
-                  } else if (state is Loaded) {
-                    tempList = state.swagger!.data?.fileUpload!;
+        body: widget.idAnswer != null ? _build() : _initSubmit());
+  }
 
-                    Size size = MediaQuery.of(context).size;
-                    _controllerDescription = TextEditingController(
-                        text: state.swagger!.data!.descriptionAnswer);
+  Widget _initSubmit() {
+    Size size = MediaQuery.of(context).size;
 
-                    return state.swagger != null
-                        ? SingleChildScrollView(
-                            child: Container(
-                              width: size.width,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: size.width / 25,
-                                    right: size.width / 25,
-                                    top: size.width / 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    inputDescription(
-                                        title: "Online text",
-                                        context: context,
-                                        function: (value) {
-                                          description = value;
-                                        },
-                                        textEditingController:
-                                            _controllerDescription),
-                                    SizedBox(
-                                      height: size.width / 15,
-                                    ),
+    return SingleChildScrollView(
+      child: Container(
+        width: size.width,
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: size.width / 25,
+              right: size.width / 25,
+              top: size.width / 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              inputDescription(
+                  title: "Online text",
+                  context: context,
+                  function: (value) {
+                    description = value;
+                  },
+                  textEditingController: _controllerDescription),
+              SizedBox(
+                height: size.width / 15,
+              ),
 
-                                    _uploadedFile(
-                                        list: tempList,
-                                        title:
-                                            "Additional files (${state.swagger!.data?.fileUpload?.length})"),
-                                    SizedBox(
-                                      height: size.width / 25,
-                                    ),
-                                    // /// pick file từ máy
-                                    // chooseFile(
-                                    //     title: "Additional files",
-                                    //     function: () async {
-                                    //       result = await FilePicker.platform
-                                    //           .pickFiles(allowMultiple: true);
-                                    //       List<PlatformFile>? listFile1 = [];
-                                    //
-                                    //       if (result != null) {
-                                    //         setState(() {
-                                    //           listFile1 = result!.files;
-                                    //         });
-                                    //
-                                    //         listFile!.addAll(listFile1!);
-                                    //
-                                    //         /// duyệt mảng chỉ show 1-1
-                                    //         listFile = LinkedHashSet<
-                                    //                     PlatformFile>.from(
-                                    //                 listFile!)
-                                    //             .toList();
-                                    //       } else {
-                                    //         // User canceled the picker
-                                    //       }
-                                    //     },
-                                    //     context: context),
-                                    //
-                                    // /// show những file được chọn
-                                    // ListFiles(
-                                    //   list: listFile,
-                                    // ),
+              /// pick file từ máy
+              chooseFile(
+                  title: "Additional files",
+                  function: () async {
+                    result = await FilePicker.platform
+                        .pickFiles(allowMultiple: true);
+                    List<PlatformFile>? listFile1 = [];
 
-                                    /// nút xac nhận
-                                    (isEdit == false
-                                        ? Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              accept(
-                                                  content: "Edit",
-                                                  color: Colors.amber,
-                                                  context: context,
-                                                  function: () {
-                                                    setState(() {});
-                                                    isEdit = !isEdit!;
-                                                  }),
-                                              accept(
-                                                  content: "Remove",
-                                                  color: Colors.red,
-                                                  context: context,
-                                                  function: () {
-                                                    AlertDialog2.yesAbortDialog(
-                                                        onPressed: () {
-                                                          removeAnswer(
-                                                              idAnswer: widget
-                                                                  .idAnswer,
-                                                              failure: () =>
-                                                                  showCancelDelete(),
-                                                              success: () =>
-                                                                  showSuccessDelete());
-                                                        },
-                                                        title: "Delete answer",
-                                                        body:
-                                                            "Are you sure you want to remove the submission data?",
-                                                        context: context);
-                                                  }),
-                                            ],
-                                          )
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              accept(
-                                                  color: Colors.red,
-                                                  context: context,
-                                                  content: "Cancel",
-                                                  function: () {
-                                                    setState(() {});
-                                                    isEdit = false;
-                                                    Navigator.pop(context);
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                SubmitExercisePage(
-                                                                  idExercise: widget
-                                                                      .idExercise,
-                                                                  descriptionExercise:
-                                                                      widget
-                                                                          .descriptionExercise,
-                                                                  submissionDeadline:
-                                                                      widget
-                                                                          .submissionDeadline,
-                                                                  allowSubmission:
-                                                                      widget
-                                                                          .allowSubmission,
-                                                                  nameExercise:
-                                                                      widget
-                                                                          .nameExercise,
-                                                                  titleExercise:
-                                                                      widget
-                                                                          .titleExercise,
-                                                                  idAnswer: widget
-                                                                      .idAnswer,
-                                                                )));
-                                                  }),
-                                              accept(
-                                                  color: Colors.green,
-                                                  context: context,
-                                                  content: "Accept",
-                                                  function: () {
-                                                    setState(() {});
-                                                    isEdit = false;
-                                                    editAnswer(
-                                                      idExercise:
-                                                          widget.idExercise,
-                                                      idAnswer: widget.idAnswer,
-                                                      descriptionAnswer:
-                                                          description,
-                                                      listFile: listFile,
-                                                      fileKeep: tempList,
-                                                      success: () =>
-                                                          showSuccessUpdate(),
-                                                      failure: () =>
-                                                          showCancelUpdate(),
-                                                    );
-                                                  }),
-                                            ],
-                                          )),
-                                    SizedBox(
-                                      height: size.width / 25,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        : Center(child: Text("Invail exercise"));
-                  } else if (state is Loading) {
-                    return SpinkitLoading();
-                  } else if (state is Error) {
-                    return Center(
-                      child: Text("Lỗi hệ thống"),
-                    );
-                  }
-                  return Container();
-                }))
-            : SingleChildScrollView(
-                child: Container(
-                  width: size.width,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width / 25,
-                        right: size.width / 25,
-                        top: size.width / 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    if (result != null) {
+                      setState(() {
+                        listFile1 = result!.files;
+                      });
+
+                      listFile!.addAll(listFile1!);
+
+                      /// duyệt mảng chỉ show 1-1
+                      listFile =
+                          LinkedHashSet<PlatformFile>.from(listFile!).toList();
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
+                  context: context),
+
+              /// show những file được chọn
+              ListFiles(
+                list: listFile,
+              ),
+
+              /// nút xac nhận
+              accept(
+                  content: "Accept",
+                  context: context,
+                  function: () {
+                    /// gọi api thêm bài tập
+                    addAnswer(
+                        idExercise: widget.idExercise,
+                        descriptionAnswer: description,
+                        success: () => showSuccess(),
+                        failure: () => showCancel(),
+                        listFile: listFile);
+                    // }
+                  }),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _build() {
+    return BlocProvider(
+        create: (_) => sl<GetInformationAnswerBloc>(),
+        child: BlocBuilder<GetInformationAnswerBloc, GetInformationAnswerState>(
+            builder: (context, state) {
+          if (state is Empty) {
+            BlocProvider.of<GetInformationAnswerBloc>(context).add(
+              GetInformationAnswerEventE(
+                  idAccount: appUser?.iId, idAnswer: widget.idAnswer),
+            );
+          } else if (state is Loaded) {
+            tempList = state.swagger!.data?.fileUpload!;
+
+            _controllerDescription = TextEditingController(
+                text: state.swagger!.data!.descriptionAnswer);
+
+            return state.swagger != null
+                ? _buildBody(length: state.swagger!.data?.fileUpload?.length)
+                : Center(child: Text("Invail exercise"));
+          } else if (state is Loading) {
+            return SpinkitLoading();
+          } else if (state is Error) {
+            return Center(
+              child: Text("Lỗi hệ thống"),
+            );
+          }
+          return Container();
+        }));
+  }
+
+  Widget _buildBody({int? length}) {
+    Size size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Container(
+        width: size.width,
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: size.width / 25,
+              right: size.width / 25,
+              top: size.width / 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              inputDescription(
+                  title: "Online text",
+                  context: context,
+                  enabled: isEdit == true ? true : false,
+                  function: (value) {
+                    description = value;
+                  },
+                  textEditingController: _controllerDescription),
+              SizedBox(
+                height: size.width / 15,
+              ),
+
+              _uploadedFile(
+                  list: tempList, title: "Additional files ($length})"),
+              SizedBox(
+                height: size.width / 25,
+              ),
+
+              /// nút xac nhận
+              (isEdit == false
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        inputDescription(
-                            title: "Online text",
-                            context: context,
-                            function: (value) {
-                              description = value;
-                            },
-                            textEditingController: _controllerDescription),
-                        SizedBox(
-                          height: size.width / 15,
-                        ),
-
-                        /// pick file từ máy
-                        chooseFile(
-                            title: "Additional files",
-                            function: () async {
-                              result = await FilePicker.platform
-                                  .pickFiles(allowMultiple: true);
-                              List<PlatformFile>? listFile1 = [];
-
-                              if (result != null) {
-                                setState(() {
-                                  listFile1 = result!.files;
-                                });
-
-                                listFile!.addAll(listFile1!);
-
-                                /// duyệt mảng chỉ show 1-1
-                                listFile =
-                                    LinkedHashSet<PlatformFile>.from(listFile!)
-                                        .toList();
-                              } else {
-                                // User canceled the picker
-                              }
-                            },
-                            context: context),
-
-                        /// show những file được chọn
-                        ListFiles(
-                          list: listFile,
-                        ),
-
-                        /// nút xac nhận
                         accept(
-                            content: "Accept",
+                            content: "Edit",
+                            color: Colors.amber,
                             context: context,
                             function: () {
-                              /// gọi api thêm bài tập
-                              addAnswer(
-                                  idExercise: widget.idExercise,
-                                  descriptionAnswer: description,
-                                  success: () => showSuccess(),
-                                  failure: () => showCancel(),
-                                  listFile: listFile);
-                              // }
+                              setState(() {});
+                              isEdit = !isEdit!;
+                            }),
+                        accept(
+                            content: "Remove",
+                            color: Colors.red,
+                            context: context,
+                            function: () {
+                              AlertDialog2.yesAbortDialog(
+                                  onPressed: () {
+                                    removeAnswer(
+                                        idAnswer: widget.idAnswer,
+                                        failure: () => showCancelDelete(),
+                                        success: () => showSuccessDelete());
+                                  },
+                                  title: "Delete answer",
+                                  body:
+                                      "Are you sure you want to remove the submission data?",
+                                  context: context);
                             }),
                       ],
-                    ),
-                  ),
-                ),
-              ));
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        accept(
+                            color: Colors.red,
+                            context: context,
+                            content: "Cancel",
+                            function: () {
+                              setState(() {});
+                              isEdit = false;
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SubmitExercisePage(
+                                            idExercise: widget.idExercise,
+                                            descriptionExercise:
+                                                widget.descriptionExercise,
+                                            submissionDeadline:
+                                                widget.submissionDeadline,
+                                            allowSubmission:
+                                                widget.allowSubmission,
+                                            nameExercise: widget.nameExercise,
+                                            titleExercise: widget.titleExercise,
+                                            idAnswer: widget.idAnswer,
+                                          )));
+                            }),
+                        accept(
+                            color: Colors.green,
+                            context: context,
+                            content: "Accept",
+                            function: () {
+                              setState(() {});
+                              isEdit = false;
+                              editAnswer(
+                                idExercise: widget.idExercise,
+                                idAnswer: widget.idAnswer,
+                                descriptionAnswer: description,
+                                listFile: listFile,
+                                fileKeep: tempList,
+                                success: () => showSuccessUpdate(),
+                                failure: () => showCancelUpdate(),
+                              );
+                            }),
+                      ],
+                    )),
+              SizedBox(
+                height: size.width / 25,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void showCancel() {
@@ -461,9 +421,7 @@ class _SubmitExercisePageState extends State<SubmitExercisePage> {
             ),
             Container(
               width: size.width,
-              height: list!.length + listFile!.length > 4
-                  ? size.width / 1.4
-                  : list.length * size.width / 6,
+              height: (list!.length + listFile!.length) * size.width / 6,
               child: ListView(
                 children: [
                   ListFiles(
