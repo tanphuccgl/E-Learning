@@ -74,7 +74,9 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
           elevation: 0,
         ),
       ),
-      body: Container(height: size.height-size.width/7,width: size.width,
+      body: Container(
+        height: size.height - size.width / 7,
+        width: size.width,
         child: Column(children: [
           Container(
             child: TitleHeader(
@@ -86,7 +88,9 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
               choosingPos1: widget.choosingPos,
             ),
           ),
-          Container(height: size.height-size.width/7-size.width/5,width: size.width,
+          Container(
+              height: size.height - size.width / 7 - size.width / 5,
+              width: size.width,
               child: getWidgetById(curentWidgetId)),
         ]),
       ),
@@ -99,7 +103,8 @@ class _DetailCoursePageState extends State<DetailCoursePage> {
         return BlocProvider(
           create: (_) => sl<GetAllLectureBloc>(),
           child: LecturePage(
-            idCourse: widget.idCourse,nameCourse: widget.nameCourse,
+            idCourse: widget.idCourse,
+            nameCourse: widget.nameCourse,
           ),
         );
 

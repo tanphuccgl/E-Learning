@@ -8,8 +8,8 @@ abstract class GetMemberInCourseEvent extends Equatable {
 }
 
 class GetMemberInCourseEventE extends GetMemberInCourseEvent {
-  final String? idCourse ;
+  final String? idCourse;
   final String? keySearchName;
 
-  GetMemberInCourseEventE({this.idCourse , this.keySearchName});
+  GetMemberInCourseEventE({this.idCourse, this.keySearchName});
 }

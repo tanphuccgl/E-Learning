@@ -9,9 +9,6 @@ import 'package:thuc_tap_tot_nghiep/feature/home/domain/usecase/get_dashboard.da
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/manager/get_dashboard/get_dashboard_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/home/presentation/manager/get_dashboard/get_dashboard_state.dart';
 
-
-
-
 class GetDashboardBloc extends Bloc<GetDashboardEvent, GetDashboardState> {
   final GetDashboard? getGetDashboard;
 
@@ -35,8 +32,8 @@ class GetDashboardBloc extends Bloc<GetDashboardEvent, GetDashboardState> {
   Stream<GetDashboardState> _eitherLoadedOrErrorState(
       Either<Failure, GetDashboardResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

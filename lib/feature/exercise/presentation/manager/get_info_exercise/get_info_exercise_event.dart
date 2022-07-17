@@ -8,8 +8,7 @@ abstract class GetInfoExerciseEvent extends Equatable {
 }
 
 class GetInfoExerciseEventE extends GetInfoExerciseEvent {
-  final int? idExercise   ;
+  final int? idExercise;
 
-
-  GetInfoExerciseEventE({this.idExercise   });
+  GetInfoExerciseEventE({this.idExercise});
 }

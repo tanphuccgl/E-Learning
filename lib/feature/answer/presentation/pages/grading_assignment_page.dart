@@ -7,7 +7,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_grade_exerc
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar_custom.dart';
 
 class GradingAssignmentPage extends StatefulWidget {
-  final  isTextPoint;
+  final isTextPoint;
   final int? idAccount;
   final int? idAnswer;
   final GetGradeExerciseData? data;
@@ -63,7 +63,6 @@ class _GradingAssignmentPageState extends State<GradingAssignmentPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: appBar(context: context, title: "Grading Assignment"),
       floatingActionButton: _showBackToTopButton == false

@@ -3,7 +3,7 @@ import 'package:thuc_tap_tot_nghiep/core/config/components/page_routers.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/constants.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
-Widget header({BuildContext? context,String? name}) {
+Widget header({BuildContext? context, String? name}) {
   Size size = MediaQuery.of(context!).size;
 
   return Row(
@@ -13,25 +13,26 @@ Widget header({BuildContext? context,String? name}) {
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _imageUser(image: 'assets/images/avatar.jpg',context: context),
+          _imageUser(image: 'assets/images/avatar.jpg', context: context),
           SizedBox(
             width: size.width / 20,
           ),
-          _nameUser(name: name,context: context)
+          _nameUser(name: name, context: context)
         ],
       ),
       _noti(context: context),
     ],
   );
 }
+
 Widget _noti({BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
 
   return GestureDetector(
     onTap: () {
       prefs!.setString(SAVE_LOGIN_RESPONSE, '');
-      Navigator.pushNamedAndRemoveUntil(context, PageRoutes.signInPage,
-              (Route<dynamic> route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, PageRoutes.signInPage, (Route<dynamic> route) => false);
     },
     child: Container(
       height: size.width / 10,
@@ -40,13 +41,14 @@ Widget _noti({BuildContext? context}) {
           color: Colors.blueGrey.shade50.withOpacity(0.6),
           borderRadius: BorderRadius.all(Radius.circular(size.width / 30))),
       child: Icon(
-        Icons.notifications,color: Colors.amber,
+        Icons.notifications,
+        color: Colors.amber,
       ),
     ),
   );
 }
 
-Widget _nameUser({String? name,BuildContext? context}) {
+Widget _nameUser({String? name, BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
 
   return Container(
@@ -74,7 +76,7 @@ Widget _nameUser({String? name,BuildContext? context}) {
   );
 }
 
-Widget _imageUser({@required String? image,BuildContext? context}) {
+Widget _imageUser({@required String? image, BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
 
   return Container(

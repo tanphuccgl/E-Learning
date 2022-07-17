@@ -9,14 +9,12 @@ http.Client? client = http.Client();
 
 Future<bool> editAnswer(
     {int? idAnswer,
-      int? idExercise ,
-
-      String? descriptionAnswer,
-      List<FileUpload>? fileKeep,
-      List<PlatformFile>? listFile,
-      Function? success,
-      Function? failure}) async {
-
+    int? idExercise,
+    String? descriptionAnswer,
+    List<FileUpload>? fileKeep,
+    List<PlatformFile>? listFile,
+    Function? success,
+    Function? failure}) async {
   ///chua chinh link api
   var uri = Uri.parse('$mainUrl/answer/EditAnswer');
   var request = http.MultipartRequest('PUT', uri);
@@ -26,8 +24,6 @@ Future<bool> editAnswer(
   request.headers["Content-Type"] = "multipart/form-data";
 
   request.fields["idAnswer"] = "$idAnswer";
-
-
 
   if (descriptionAnswer != null) {
     request.fields["descriptionAnswer"] = "$descriptionAnswer";
@@ -45,7 +41,7 @@ Future<bool> editAnswer(
   var response = await request.send();
   var a = await response.stream.toBytes();
   var b = String.fromCharCodes(a);
-  print("edit answer ${b}");
+  print("edit answer $b");
   print("edit answer ${response.request}");
 
   if (response.statusCode == 200) {

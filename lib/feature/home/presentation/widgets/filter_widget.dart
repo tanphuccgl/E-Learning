@@ -8,11 +8,12 @@ Widget filter({BuildContext? context}) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _searchBar(context: context),
-     //   _sort(context: context),
+        //   _sort(context: context),
       ],
     ),
   );
 }
+
 ///sắp xếp theo
 Widget _sort({BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
@@ -28,7 +29,7 @@ Widget _sort({BuildContext? context}) {
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.all(Radius.circular(size.width / 30))),
       child: Icon(
-        Icons.sort ,
+        Icons.sort,
       ),
     ),
   );
@@ -63,7 +64,10 @@ Widget _searchBar({BuildContext? context}) {
           ),
           Text(
             "Find course",
-            style: TextStyle(color: Colors.black, fontSize: size.width / 20,fontWeight: FontWeight.w400),
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: size.width / 20,
+                fontWeight: FontWeight.w400),
           )
         ],
       ));

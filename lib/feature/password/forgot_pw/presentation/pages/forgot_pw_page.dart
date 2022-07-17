@@ -164,6 +164,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   void showSuccess({String? email}) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SetNewPasswordPage(email: email,)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SetNewPasswordPage(
+                  email: email,
+                )));
   }
 }

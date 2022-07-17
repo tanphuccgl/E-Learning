@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/data/models/get_all_studen_res.dart';
+
 @immutable
 abstract class GetAllStudentState extends Equatable {
   @override

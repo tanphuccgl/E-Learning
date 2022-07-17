@@ -8,7 +8,9 @@ class GetInfoLectureResponse {
   GetInfoLectureResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     statusCode = json['status_code'];
-    data = json['data'] != null ? new GetInfoLectureData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new GetInfoLectureData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -31,17 +33,17 @@ class GetInfoLectureData {
 
   GetInfoLectureData(
       {this.nameLecture,
-        this.descriptionLecture,
-        this.idCourse,
-        this.fileUpload,
-        this.createDate});
+      this.descriptionLecture,
+      this.idCourse,
+      this.fileUpload,
+      this.createDate});
 
   GetInfoLectureData.fromJson(Map<String, dynamic> json) {
     nameLecture = json['nameLecture'];
     descriptionLecture = json['descriptionLecture'];
     idCourse = json['idCourse'];
     if (json['fileUpload'] != null) {
-      fileUpload =<FileUpload>[];
+      fileUpload = <FileUpload>[];
       json['fileUpload'].forEach((v) {
         fileUpload?.add(new FileUpload.fromJson(v));
       });
@@ -72,11 +74,11 @@ class FileUpload {
 
   FileUpload(
       {this.fieldname,
-        this.originalname,
-        this.filename,
-        this.pathname,
-        this.mimetype,
-        this.size});
+      this.originalname,
+      this.filename,
+      this.pathname,
+      this.mimetype,
+      this.size});
 
   FileUpload.fromJson(Map<String, dynamic> json) {
     fieldname = json['fieldname'];

@@ -16,11 +16,11 @@ Future<bool> removeLecture(
   final response = await client?.delete(
       Uri.parse('$mainUrl/lecture/DeleteLecture/$idLecture'),
       headers: {
-  "Accept": "application/json",
-  "content-type": "application/json",
-  "auth-token" : "${appUser?.token}",
-  // k co header la failed 415
-  },
+        "Accept": "application/json",
+        "content-type": "application/json",
+        "auth-token": "${appUser?.token}",
+        // k co header la failed 415
+      },
       body: body);
   log("delete removeLecture: " + "$mainUrl/lecture/DeleteLecture/$idLecture");
   log("delete body removeLecture: " + body);

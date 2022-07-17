@@ -15,17 +15,14 @@ class GetPointStudent
   Future<Either<Failure, GetPointStudentResponse>> call(
       GetPointStudentParams params) async {
     return await getPointStudentRepository.getPointStudent(
-      params.idCourse!,params.idAccount!
-    );
+        params.idCourse!, params.idAccount!);
   }
 }
 
 class GetPointStudentParams extends Equatable {
   final String? idCourse;
   final int? idAccount;
-  GetPointStudentParams({
-    this.idCourse,this.idAccount
-  });
+  GetPointStudentParams({this.idCourse, this.idAccount});
 
   @override
   // TODO: implement props

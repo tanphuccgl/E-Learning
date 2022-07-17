@@ -186,15 +186,17 @@ class BodyLoginState extends State<BodyLogin> {
                                 spreadRadius: 1,
                                 blurRadius: 5)
                           ],
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(size.width / 30))),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(size.width / 30))),
                       child: ElevatedButton(
                           onPressed: () {
                             if (_email != null && _pass != null) {
                               return login();
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text('Email or password is Invalid')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Email or password is Invalid')));
 
                               return clear();
                             }

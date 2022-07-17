@@ -13,11 +13,9 @@ Future<bool> postGradingAssignment(
     List<PlatformFile>? listFile,
     Function? success,
     Function? failure}) async {
-
   print(studyPoint);
 
-  var uri = Uri.parse(
-      '$mainUrl/answer/GradingAssignment');
+  var uri = Uri.parse('$mainUrl/answer/GradingAssignment');
   var request = http.MultipartRequest('POST', uri);
 
   request.headers["Accept"] = "application/json";
@@ -42,7 +40,7 @@ Future<bool> postGradingAssignment(
   var a = await response.stream.toBytes();
   var b = String.fromCharCodes(a);
   print("${response.request}");
-  print("${b}");
+  print("$b");
 
   if (response.statusCode == 200) {
     success!();

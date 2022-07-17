@@ -8,8 +8,8 @@ abstract class GetInformationAnswerEvent extends Equatable {
 }
 
 class GetInformationAnswerEventE extends GetInformationAnswerEvent {
-  final int? idAnswer ;
+  final int? idAnswer;
   final int? idAccount;
 
-  GetInformationAnswerEventE({this.idAnswer , this.idAccount});
+  GetInformationAnswerEventE({this.idAnswer, this.idAccount});
 }

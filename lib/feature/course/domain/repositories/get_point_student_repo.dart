@@ -4,6 +4,5 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_point_student
 
 abstract class GetPointStudentRepository {
   Future<Either<Failure, GetPointStudentResponse>> getPointStudent(
-    String idCourse,int idAccount
-  );
+      String idCourse, int idAccount);
 }

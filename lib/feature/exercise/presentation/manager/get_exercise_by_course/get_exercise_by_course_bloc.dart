@@ -8,10 +8,9 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/usecase/get_exercise
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_course/get_exercise_by_course_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_course/get_exercise_by_course_state.dart';
 
-
-class GetExerciseByCourseBloc extends Bloc<GetExerciseByCourseEvent, GetExerciseByCourseState> {
+class GetExerciseByCourseBloc
+    extends Bloc<GetExerciseByCourseEvent, GetExerciseByCourseState> {
   final GetExerciseByCourse getExerciseByCourse;
-
 
   GetExerciseByCourseBloc({@required GetExerciseByCourse? pr})
       : assert(pr != null),
@@ -22,11 +21,12 @@ class GetExerciseByCourseBloc extends Bloc<GetExerciseByCourseEvent, GetExercise
   GetExerciseByCourseState get initialState => Empty();
 
   @override
-  Stream<GetExerciseByCourseState> mapEventToState(GetExerciseByCourseEvent event) async* {
+  Stream<GetExerciseByCourseState> mapEventToState(
+      GetExerciseByCourseEvent event) async* {
     if (event is GetExerciseByCourseEventE) {
       yield Loading();
       final failureOrSuccess = await getExerciseByCourse(
-          GetExerciseByCourseParams(idCourse : event.idCourse ));
+          GetExerciseByCourseParams(idCourse: event.idCourse));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -35,8 +35,8 @@ class GetExerciseByCourseBloc extends Bloc<GetExerciseByCourseEvent, GetExercise
   Stream<GetExerciseByCourseState> _eitherLoadedOrErrorState(
       Either<Failure, GetExerciseByCourseResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

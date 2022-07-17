@@ -6,12 +6,11 @@ import 'package:thuc_tap_tot_nghiep/core/error/failures.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_point_teacher_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_point_teacher.dart';
 
-
 import 'get_point_teacher_event.dart';
 import 'get_point_teacher_state.dart';
 
-
-class GetPointTeacherBloc extends Bloc<GetPointTeacherEvent, GetPointTeacherState> {
+class GetPointTeacherBloc
+    extends Bloc<GetPointTeacherEvent, GetPointTeacherState> {
   final GetPointTeacher getPointTeacher;
 
   // final GetLocalProfile getLocalProfile;
@@ -25,11 +24,12 @@ class GetPointTeacherBloc extends Bloc<GetPointTeacherEvent, GetPointTeacherStat
   GetPointTeacherState get initialState => Empty();
 
   @override
-  Stream<GetPointTeacherState> mapEventToState(GetPointTeacherEvent event) async* {
+  Stream<GetPointTeacherState> mapEventToState(
+      GetPointTeacherEvent event) async* {
     if (event is GetPointTeacherEventE) {
       yield Loading();
       final failureOrSuccess = await getPointTeacher(
-          GetPointTeacherParams(idCourse : event.idCourse ));
+          GetPointTeacherParams(idCourse: event.idCourse));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -38,8 +38,8 @@ class GetPointTeacherBloc extends Bloc<GetPointTeacherEvent, GetPointTeacherStat
   Stream<GetPointTeacherState> _eitherLoadedOrErrorState(
       Either<Failure, GetPointTeacherResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res,data2: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data2: res.data),
     );
   }
 

@@ -8,8 +8,8 @@ import 'package:thuc_tap_tot_nghiep/main.dart';
 
 http.Client? client = http.Client();
 
-Future<bool> removeExercise (
-    {int? idExercise , Function? success, Function? failure}) async {
+Future<bool> removeExercise(
+    {int? idExercise, Function? success, Function? failure}) async {
   var body = jsonEncode({
     'idExercise': idExercise,
   });
@@ -18,11 +18,12 @@ Future<bool> removeExercise (
       headers: {
         "Accept": "application/json",
         "content-type": "application/json",
-        "auth-token" : "${appUser?.token}",
+        "auth-token": "${appUser?.token}",
         // k co header la failed 415
       },
       body: body);
-  log("delete removeExercise: " + "$mainUrl/exercise/DeleteExercise/$idExercise");
+  log("delete removeExercise: " +
+      "$mainUrl/exercise/DeleteExercise/$idExercise");
   log("delete body removeExercise: " + body);
   log("Response Json removeExercise: ${json.decode(response!.body)}");
 

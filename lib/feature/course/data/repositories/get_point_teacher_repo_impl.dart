@@ -9,8 +9,6 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_point_teacher
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_member_in_course_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_point_teacher_repo.dart';
 
-
-
 class GetPointTeacherRepositoryImpl extends GetPointTeacherRepository {
   final NetworkInfo? networkInfo;
   final GetPointTeacherRemoteDataSource? getPointTeacherRemoteDataSource;
@@ -22,10 +20,11 @@ class GetPointTeacherRepositoryImpl extends GetPointTeacherRepository {
 
   @override
   Future<Either<Failure, GetPointTeacherResponse>> getPointTeacher(
-      String idCourse
-      ,  ) {
-    return _getPointTeacher(
-        getPointTeacherRemoteDataSource!.getPointTeacher(idCourse , ));
+    String idCourse,
+  ) {
+    return _getPointTeacher(getPointTeacherRemoteDataSource!.getPointTeacher(
+      idCourse,
+    ));
   }
 
   Future<Either<Failure, GetPointTeacherResponse>> _getPointTeacher(

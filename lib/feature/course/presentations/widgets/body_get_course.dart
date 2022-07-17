@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +15,8 @@ class BodyGetCourse extends StatefulWidget {
   final String? changeWithPage;
   final bool? showAll;
 
-  const BodyGetCourse({Key? key, this.changeWithPage,this.showAll}) : super(key: key);
+  const BodyGetCourse({Key? key, this.changeWithPage, this.showAll})
+      : super(key: key);
 
   @override
   _BodyGetCourseState createState() => _BodyGetCourseState();
@@ -26,7 +25,6 @@ class BodyGetCourse extends StatefulWidget {
 class _BodyGetCourseState extends State<BodyGetCourse> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     prefs?.remove("idCourse");
   }
@@ -38,15 +36,15 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
       if (state is Empty) {
         getCourse();
       } else if (state is Loaded) {
-        if (widget.changeWithPage == "GetCoursePage"&&widget.showAll==false) {
-
+        if (widget.changeWithPage == "GetCoursePage" &&
+            widget.showAll == false) {
           return _listCourse(list: state.data);
         } else if (widget.changeWithPage == "CreateExercisePage") {
           return _dropdown(list: state.data);
-        }else if(widget.changeWithPage == "GetCoursePage"&&widget.showAll==true)
-          {
-            return _buildCoursePageShowAll(list:state.data);
-          }
+        } else if (widget.changeWithPage == "GetCoursePage" &&
+            widget.showAll == true) {
+          return _buildCoursePageShowAll(list: state.data);
+        }
       } else if (state is Loading) {
         return SpinkitLoading();
       } else if (state is Error) {
@@ -58,43 +56,39 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
     });
   }
 
-  Widget _buildCoursePageShowAll({List<GetCourseData>? list})
-  {    Size size = MediaQuery.of(context).size;
+  Widget _buildCoursePageShowAll({List<GetCourseData>? list}) {
+    Size size = MediaQuery.of(context).size;
 
-  return Scaffold(
-      appBar: appBar(context: context,title: "List Course (${list!.length})"),
-    body:Padding(
-      padding:  EdgeInsets.only(top:size.width/10),
-      child: Container(
-
-        decoration: BoxDecoration( color: Colors.blueGrey.shade50,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20))),
-        height: size.width / 0.5,
-        width: size.width,
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: size.width / 25,
-            right: size.width / 25,
-          ),
-          child: ListView.builder(
-
-
-            itemBuilder: (context, index) {
-              return _item(
-                  nameCourse: list[index].nameCourse,
-                  idCourse: list[index].idCourse);
-            },
-            scrollDirection: Axis.vertical,
-            itemCount:  list.length,
+    return Scaffold(
+      appBar: appBar(context: context, title: "List Course (${list!.length})"),
+      body: Padding(
+        padding: EdgeInsets.only(top: size.width / 10),
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.blueGrey.shade50,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          height: size.width / 0.5,
+          width: size.width,
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: size.width / 25,
+              right: size.width / 25,
+            ),
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return _item(
+                    nameCourse: list[index].nameCourse,
+                    idCourse: list[index].idCourse);
+              },
+              scrollDirection: Axis.vertical,
+              itemCount: list.length,
+            ),
           ),
         ),
       ),
-    ) ,
     );
   }
-
 
   /// danh sách khóa học theo id
   Widget _listCourse({List<GetCourseData>? list}) {
@@ -102,29 +96,27 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
 
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (overscroll) {
-        overscroll.disallowGlow();
+        overscroll.disallowIndicator();
         return true;
       },
       child: Container(
-
-        decoration: BoxDecoration( color: Colors.blueGrey.shade50,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20))),
+        decoration: BoxDecoration(
+            color: Colors.blueGrey.shade50,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         height: size.width / 0.75,
         width: size.width,
         child: Padding(
           padding: EdgeInsets.only(
-              left: size.width / 25,
-              right: size.width / 25,
-           ),
+            left: size.width / 25,
+            right: size.width / 25,
+          ),
           child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-
-              itemBuilder: (context, index) {
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
               return _item(
-                  nameCourse: list?[index]?.nameCourse,
-                  idCourse: list?[index]?.idCourse);
+                  nameCourse: list?[index].nameCourse,
+                  idCourse: list?[index].idCourse);
             },
             scrollDirection: Axis.vertical,
             itemCount: 3,
@@ -173,7 +165,8 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
                     },
                     icon: Icon(
                       Icons.keyboard_arrow_right,
-                      size: size.width / 10,color: Colors.white,
+                      size: size.width / 10,
+                      color: Colors.white,
                     ))
               ],
             ),
@@ -210,10 +203,10 @@ class _BodyGetCourseState extends State<BodyGetCourse> {
         style: TextStyle(
             fontSize: size.width / 20,
             fontWeight: FontWeight.bold,
-            color: Colors.white,shadows: [
-            Shadow(
-            color: Colors.black, offset: Offset(0, 0), blurRadius: 10)
-          ]),
+            color: Colors.white,
+            shadows: [
+              Shadow(color: Colors.black, offset: Offset(0, 0), blurRadius: 10)
+            ]),
       ),
     );
   }

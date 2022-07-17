@@ -28,15 +28,14 @@ class GetDashboardRemoteDataSourceImpl implements GetDashboardRemoteDataSource {
       headers: {
         "Accept": "application/json",
         "content-type": "application/json",
-        "auth-token": "${appUser?.token}"// k co header la failed 415
+        "auth-token": "${appUser?.token}" // k co header la failed 415
       },
     );
     log("Get GetDashboard: " + "$mainUrl/admin/Dashboard");
     log("Response Json GetDashboard: ${json.decode(response!.body)}");
 
     if (response.statusCode == 200) {
-      var success =
-      GetDashboardResponse.fromJson(json.decode(response.body));
+      var success = GetDashboardResponse.fromJson(json.decode(response.body));
 
       return success;
     } else {

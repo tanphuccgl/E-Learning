@@ -4,7 +4,7 @@ Widget gradingSummary(
     {String? title,
     String? viewAll,
     BuildContext? context,
-      Function()? onPressed,
+    Function()? onPressed,
     int? totalNumberOfSubmissions,
     int? totalNumberOfGradedSubmissions,
     int? totalStudentInCourse}) {

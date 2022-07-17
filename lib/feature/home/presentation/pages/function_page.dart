@@ -46,7 +46,8 @@ class _FunctionPageState extends State<FunctionPage> {
                 )),
                 card(
                     title: "Class",
-                    colorCard: Colors.lightBlueAccent,context: context,
+                    colorCard: Colors.lightBlueAccent,
+                    context: context,
                     colorText: Colors.white,
                     function: () {
                       Navigator.push(
@@ -56,7 +57,8 @@ class _FunctionPageState extends State<FunctionPage> {
                     }),
                 card(
                     title: "Course",
-                    colorCard: Colors.lightBlueAccent,context: context,
+                    colorCard: Colors.lightBlueAccent,
+                    context: context,
                     colorText: Colors.white,
                     function: () {
                       Navigator.push(
@@ -66,7 +68,8 @@ class _FunctionPageState extends State<FunctionPage> {
                     }),
                 card(
                     title: "User",
-                    colorCard: Colors.lightBlueAccent,context: context,
+                    colorCard: Colors.lightBlueAccent,
+                    context: context,
                     colorText: Colors.white,
                     function: () {
                       Navigator.push(
@@ -74,8 +77,6 @@ class _FunctionPageState extends State<FunctionPage> {
                           MaterialPageRoute(
                               builder: (context) => FuncUserPage()));
                     }),
-
-
               ],
             ),
           )),

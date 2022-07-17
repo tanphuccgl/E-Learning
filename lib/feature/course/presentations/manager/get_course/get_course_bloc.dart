@@ -8,7 +8,6 @@ import 'package:thuc_tap_tot_nghiep/feature/course/domain/usecases/get_course.da
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/presentations/manager/get_course/get_course_state.dart';
 
-
 class GetCourseBloc extends Bloc<GetCourseEvent, GetCourseState> {
   final GetCourse getCourse;
 
@@ -26,8 +25,9 @@ class GetCourseBloc extends Bloc<GetCourseEvent, GetCourseState> {
   Stream<GetCourseState> mapEventToState(GetCourseEvent event) async* {
     if (event is GetCourseEventE) {
       yield Loading();
-      final failureOrSuccess = await getCourse(
-          GetCourseParams(keySearchNameCourse: event.keySearchNameCourse, idAccount:  event.idAccount));
+      final failureOrSuccess = await getCourse(GetCourseParams(
+          keySearchNameCourse: event.keySearchNameCourse,
+          idAccount: event.idAccount));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -36,8 +36,8 @@ class GetCourseBloc extends Bloc<GetCourseEvent, GetCourseState> {
   Stream<GetCourseState> _eitherLoadedOrErrorState(
       Either<Failure, GetCourseResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

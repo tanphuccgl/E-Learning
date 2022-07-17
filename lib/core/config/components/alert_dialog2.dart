@@ -1,13 +1,16 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 enum DialogAction { yes, abort }
 
 class AlertDialog2 {
-  static Future<DialogAction> yesAbortDialog({ BuildContext? context,
+  static Future<DialogAction> yesAbortDialog({
+    BuildContext? context,
     String? title,
-    String? body,Function()? onPressed,}
-
-      ) async {
+    String? body,
+    Function()? onPressed,
+  }) async {
     final action = await showDialog(
       context: context!,
       barrierDismissible: false,
@@ -23,7 +26,8 @@ class AlertDialog2 {
               onPressed: () => Navigator.pop(context),
               child: const Text('No'),
             ),
-            RaisedButton(color: Colors.lightBlue,
+            RaisedButton(
+              color: Colors.lightBlue,
               onPressed: onPressed!,
               child: const Text(
                 'Yes',

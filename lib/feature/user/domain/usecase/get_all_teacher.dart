@@ -12,8 +12,7 @@ class GetAllTeacher implements UseCase<GetAllTeacherResponse, NoParams> {
   GetAllTeacher(this.getAllTeacherRepository);
 
   @override
-  Future<Either<Failure, GetAllTeacherResponse>> call(
-      NoParams params) async {
+  Future<Either<Failure, GetAllTeacherResponse>> call(NoParams params) async {
     return await getAllTeacherRepository!.getAllTeacher();
   }
 }

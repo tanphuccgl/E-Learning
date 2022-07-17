@@ -8,10 +8,8 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/usercase/get_info_lec
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/presentation/manager/get_info_lecture/get_info_lecture_state.dart';
 
-
-
-
-class GetInfoLectureBloc extends Bloc<GetInfoLectureEvent, GetInfoLectureState> {
+class GetInfoLectureBloc
+    extends Bloc<GetInfoLectureEvent, GetInfoLectureState> {
   final GetInfoLecture getInfoLecture;
 
   // final GetLocalProfile getLocalProfile;
@@ -25,11 +23,12 @@ class GetInfoLectureBloc extends Bloc<GetInfoLectureEvent, GetInfoLectureState> 
   GetInfoLectureState get initialState => Empty();
 
   @override
-  Stream<GetInfoLectureState> mapEventToState(GetInfoLectureEvent event) async* {
+  Stream<GetInfoLectureState> mapEventToState(
+      GetInfoLectureEvent event) async* {
     if (event is GetInfoLectureEventE) {
       yield Loading();
       final failureOrSuccess = await getInfoLecture(
-          GetInfoLectureParams(idLecture  : event.idLecture  ));
+          GetInfoLectureParams(idLecture: event.idLecture));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -38,8 +37,8 @@ class GetInfoLectureBloc extends Bloc<GetInfoLectureEvent, GetInfoLectureState> 
   Stream<GetInfoLectureState> _eitherLoadedOrErrorState(
       Either<Failure, GetInfoLectureResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

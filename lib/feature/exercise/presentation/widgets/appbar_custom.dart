@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar appBar({String? title,BuildContext? context }) {
+AppBar appBar({String? title, BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
 
   return AppBar(

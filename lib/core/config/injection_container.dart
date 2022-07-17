@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -120,10 +122,6 @@ Future<void> init() async {
   sl.registerFactory(() => GetPointStudentBloc(pr: sl()));
   sl.registerFactory(() => GetAllStudentBloc(pr: sl()));
 
-
-
-
-
   ///use case
   //login
   sl.registerLazySingleton(() => PostLogin(loginRepository: sl()));
@@ -145,8 +143,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetPointTeacher(sl()));
   sl.registerLazySingleton(() => GetPointStudent(sl()));
   sl.registerLazySingleton(() => GetAllStudent(sl()));
-
-
 
   ///repo
   //login
@@ -195,49 +191,45 @@ Future<void> init() async {
             networkInfo: sl(),
           ));
   sl.registerLazySingleton<GetDashboardRepository>(
-          () => GetDashboardRepositoryImpl(
-        getDashboardRemoteDataSource: sl(),
-        networkInfo: sl(),
-      ));
+      () => GetDashboardRepositoryImpl(
+            getDashboardRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
   sl.registerLazySingleton<GetAllClassRepository>(
-          () => GetAllClassRepositoryImpl(
-        getAllClassRemoteDataSource: sl(),
-        networkInfo: sl(),
-      ));
+      () => GetAllClassRepositoryImpl(
+            getAllClassRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
   sl.registerLazySingleton<GetAllTeacherRepository>(
-          () => GetAllTeacherRepositoryImpl(
-        getAllTeacherRemoteDataSource: sl(),
-        networkInfo: sl(),
-      ));
+      () => GetAllTeacherRepositoryImpl(
+            getAllTeacherRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
   sl.registerLazySingleton<GetAllLectureRepository>(
-          () => GetAllLectureRepositoryImpl(
-        getAllLectureRemoteDataSource:  sl(),
-        networkInfo: sl(),
-      ));
+      () => GetAllLectureRepositoryImpl(
+            getAllLectureRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
   sl.registerLazySingleton<GetInfoLectureRepository>(
-          () => GetInfoLectureRepositoryImpl(
-        getInfoLectureRemoteDataSource:   sl(),
-        networkInfo: sl(),
-      ));
+      () => GetInfoLectureRepositoryImpl(
+            getInfoLectureRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
   sl.registerLazySingleton<GetPointTeacherRepository>(
-          () => GetPointTeacherRepositoryImpl(
-        getPointTeacherRemoteDataSource:   sl(),
-        networkInfo: sl(),
-      ));
+      () => GetPointTeacherRepositoryImpl(
+            getPointTeacherRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
   sl.registerLazySingleton<GetPointStudentRepository>(
-          () => GetPointStudentRepositoryImpl(
-        getPointStudentRemoteDataSource:   sl(),
-        networkInfo: sl(),
-      ));
+      () => GetPointStudentRepositoryImpl(
+            getPointStudentRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
   sl.registerLazySingleton<GetAllStudentRepository>(
-          () => GetAllStudentRepositoryImpl(
-        getAllStudentRemoteDataSource:   sl(),
-        networkInfo: sl(),
-      ));
-
-
-
-
+      () => GetAllStudentRepositoryImpl(
+            getAllStudentRemoteDataSource: sl(),
+            networkInfo: sl(),
+          ));
 
   ///data source
   //login
@@ -263,25 +255,22 @@ Future<void> init() async {
   sl.registerLazySingleton<GetGradeExerciseRemoteDataSource>(
       () => GetGradeExerciseRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetDashboardRemoteDataSource>(
-          () => GetDashboardRemoteDataSourceImpl(client: sl()));
+      () => GetDashboardRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetAllClassRemoteDataSource>(
-          () => GetAllClassRemoteDataSourceImpl(client: sl()));
+      () => GetAllClassRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetAllTeacherRemoteDataSource>(
-          () => GetAllTeacherRemoteDataSourceImpl(client: sl()));
+      () => GetAllTeacherRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetAllLectureRemoteDataSource>(
-          () => GetAllLectureRemoteDataSourceImpl(client: sl()));
+      () => GetAllLectureRemoteDataSourceImpl(client: sl()));
 
   sl.registerLazySingleton<GetInfoLectureRemoteDataSource>(
-          () => GetInfoLectureRemoteDataSourceImpl(client: sl()));
+      () => GetInfoLectureRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetPointTeacherRemoteDataSource>(
-          () => GetPointTeacherRemoteDataSourceImpl(client: sl()));
+      () => GetPointTeacherRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetPointStudentRemoteDataSource>(
-          () => GetPointStudentRemoteDataSourceImpl(client: sl()));
+      () => GetPointStudentRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<GetAllStudentRemoteDataSource>(
-          () => GetAllStudentRemoteDataSourceImpl(client: sl()));
-
-
-
+      () => GetAllStudentRemoteDataSourceImpl(client: sl()));
 
   ///core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

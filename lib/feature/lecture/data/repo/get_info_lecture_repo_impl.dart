@@ -6,8 +6,6 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/data/data_source/get_info_le
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/models/get_info_lecture_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/repo/get_info_lecture_repo.dart';
 
-
-
 class GetInfoLectureRepositoryImpl extends GetInfoLectureRepository {
   final NetworkInfo? networkInfo;
   final GetInfoLectureRemoteDataSource? getInfoLectureRemoteDataSource;
@@ -19,10 +17,9 @@ class GetInfoLectureRepositoryImpl extends GetInfoLectureRepository {
 
   @override
   Future<Either<Failure, GetInfoLectureResponse>> getInfoLecture(
-      int idLecture
-      ) {
+      int idLecture) {
     return _lectureInCourseContents(
-        getInfoLectureRemoteDataSource!.getInfoLecture(idLecture  ));
+        getInfoLectureRemoteDataSource!.getInfoLecture(idLecture));
   }
 
   Future<Either<Failure, GetInfoLectureResponse>> _lectureInCourseContents(

@@ -8,7 +8,9 @@ class GetInfoExerciseResponse {
   GetInfoExerciseResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     statusCode = json['status_code'];
-    data = json['data'] != null ? new GetInfoExerciseData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new GetInfoExerciseData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -42,21 +44,21 @@ class GetInfoExerciseData {
 
   GetInfoExerciseData(
       {this.idAnswer,
-        this.idExercise,
-        this.idTeacher,
-        this.idCourse,
-        this.nameCourse,
-        this.titleExercise,
-        this.descriptionExercise,
-        this.isTextPoint,
-        this.allowSubmission,
-        this.submissionDeadline,
-        this.totalNumberOfSubmissions,
-        this.totalNumberOfGradedSubmissions,
-        this.totalStudentInCourse,
-        this.files,
-        this.createDate,
-        this.updateDate});
+      this.idExercise,
+      this.idTeacher,
+      this.idCourse,
+      this.nameCourse,
+      this.titleExercise,
+      this.descriptionExercise,
+      this.isTextPoint,
+      this.allowSubmission,
+      this.submissionDeadline,
+      this.totalNumberOfSubmissions,
+      this.totalNumberOfGradedSubmissions,
+      this.totalStudentInCourse,
+      this.files,
+      this.createDate,
+      this.updateDate});
 
   GetInfoExerciseData.fromJson(Map<String, dynamic> json) {
     idAnswer = json['idAnswer'];
@@ -117,11 +119,11 @@ class Files {
 
   Files(
       {this.fieldname,
-        this.originalname,
-        this.filename,
-        this.pathname,
-        this.mimetype,
-        this.size});
+      this.originalname,
+      this.filename,
+      this.pathname,
+      this.mimetype,
+      this.size});
 
   Files.fromJson(Map<String, dynamic> json) {
     fieldname = json['fieldname'];

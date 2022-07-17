@@ -4,7 +4,8 @@ Widget card(
     {String? title,
     Function()? function,
     BuildContext? context,
-    Color? colorCard,Color? colorText}) {
+    Color? colorCard,
+    Color? colorText}) {
   Size size = MediaQuery.of(context!).size;
 
   return Padding(

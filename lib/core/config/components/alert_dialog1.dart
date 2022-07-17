@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class AlertDialog1 extends StatelessWidget {
@@ -8,23 +10,22 @@ class AlertDialog1 extends StatelessWidget {
   final Function()? onPressed;
   // final String? image;
 
-  const AlertDialog1(
-      {Key? key,
-        @required this.title,
-        @required this.description,
-        @required this.onPressed,
+  const AlertDialog1({
+    Key? key,
+    @required this.title,
+    @required this.description,
+    @required this.onPressed,
     //    @required this.image
-      })
-      : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size= MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
         child: Stack(
-          overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
             Container(
@@ -36,10 +37,10 @@ class AlertDialog1 extends StatelessWidget {
                     Text(
                       title!,
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     SizedBox(
-                      height: size.height/128,
+                      height: size.height / 128,
                     ),
                     Center(
                       child: Text(
@@ -49,7 +50,7 @@ class AlertDialog1 extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: size.height/32,
+                      height: size.height / 32,
                     ),
                     RaisedButton(
                       onPressed: onPressed,
@@ -78,11 +79,12 @@ class AlertDialog1 extends StatelessWidget {
         ));
   }
 }
+
 void showPopup(
     {String? title,
-      String? description,
-      Function()? function,
-      BuildContext? context}) {
+    String? description,
+    Function()? function,
+    BuildContext? context}) {
   var alert = new AlertDialog1(
     title: title,
     description: description,

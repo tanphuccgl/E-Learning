@@ -2,7 +2,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 
-Widget chooseFile({String? title,BuildContext? context,Function()? function}) {
+Widget chooseFile(
+    {String? title, BuildContext? context, Function()? function}) {
   Size size = MediaQuery.of(context!).size;
 
   return Container(
@@ -29,19 +30,20 @@ Widget chooseFile({String? title,BuildContext? context,Function()? function}) {
                   decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.3),
                       borderRadius:
-                      BorderRadius.all(Radius.circular(size.width / 40))),
+                          BorderRadius.all(Radius.circular(size.width / 40))),
                   child: IconButton(
                     icon: Icon(
                       Icons.upload_file,
                       color: Colors.black,
                     ),
-                    onPressed:function,
+                    onPressed: function,
                   ))
             ],
           ),
         ],
       ));
 }
+
 void openFile({PlatformFile? file}) {
   OpenFile.open(file?.path);
 }

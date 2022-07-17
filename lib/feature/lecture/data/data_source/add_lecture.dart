@@ -8,11 +8,11 @@ http.Client? client = http.Client();
 
 Future<bool> addLecture(
     {String? nameLecture,
-      String? idCourse,
-      String? descriptionLecture,
-      List<PlatformFile>? listFile,
-      Function? success,
-      Function? failure}) async {
+    String? idCourse,
+    String? descriptionLecture,
+    List<PlatformFile>? listFile,
+    Function? success,
+    Function? failure}) async {
   print(idCourse);
   var uri = Uri.parse('$mainUrl/lecture/OpenLecture?idCourse=$idCourse');
   var request = http.MultipartRequest('POST', uri);

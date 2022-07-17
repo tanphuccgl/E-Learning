@@ -1,9 +1,11 @@
-
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-Widget accept({ Function()? function,BuildContext? context,String? content,Color? color=Colors.green}) {
+Widget accept(
+    {Function()? function,
+    BuildContext? context,
+    String? content,
+    Color? color = Colors.green}) {
   Size size = MediaQuery.of(context!).size;
 
   return Center(
@@ -23,7 +25,8 @@ Widget accept({ Function()? function,BuildContext? context,String? content,Color
     ),
   );
 }
-Widget changePage({ Function()? function,BuildContext? context,Icon? icon}) {
+
+Widget changePage({Function()? function, BuildContext? context, Icon? icon}) {
   Size size = MediaQuery.of(context!).size;
 
   return Padding(
@@ -33,7 +36,7 @@ Widget changePage({ Function()? function,BuildContext? context,Icon? icon}) {
       width: size.width / 7,
       child: ElevatedButton(
         onPressed: function,
-        child:icon,
+        child: icon,
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),

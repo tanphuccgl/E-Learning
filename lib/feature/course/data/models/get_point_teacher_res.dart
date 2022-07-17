@@ -36,10 +36,10 @@ class Data {
 
   Data(
       {this.idAccount,
-        this.fullName,
-        this.idCourse,
-        this.nameCourse,
-        this.data});
+      this.fullName,
+      this.idCourse,
+      this.nameCourse,
+      this.data});
 
   Data.fromJson(Map<String, dynamic> json) {
     idAccount = json['idAccount'];
@@ -85,19 +85,19 @@ class GetPointTeacherData {
 
   GetPointTeacherData(
       {this.iId,
-        this.idAccount,
-        this.idCourse,
-        this.idExercise,
-        this.fileUpload,
-        this.descriptionAnswer,
-        this.studyPoint,
-        this.feedbackFromTeacher,
-        this.feedbackFromTeacherByImage,
-        this.createDate,
-        this.updateDate,
-        this.deleted,
-        this.iV,
-        this.isTextPoint});
+      this.idAccount,
+      this.idCourse,
+      this.idExercise,
+      this.fileUpload,
+      this.descriptionAnswer,
+      this.studyPoint,
+      this.feedbackFromTeacher,
+      this.feedbackFromTeacherByImage,
+      this.createDate,
+      this.updateDate,
+      this.deleted,
+      this.iV,
+      this.isTextPoint});
 
   GetPointTeacherData.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
@@ -163,13 +163,13 @@ class FileUpload {
 
   FileUpload(
       {this.fieldname,
-        this.originalname,
-        this.encoding,
-        this.mimetype,
-        this.destination,
-        this.filename,
-        this.path,
-        this.size});
+      this.originalname,
+      this.encoding,
+      this.mimetype,
+      this.destination,
+      this.filename,
+      this.path,
+      this.size});
 
   FileUpload.fromJson(Map<String, dynamic> json) {
     fieldname = json['fieldname'];

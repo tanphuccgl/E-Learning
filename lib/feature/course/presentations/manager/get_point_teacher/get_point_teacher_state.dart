@@ -19,8 +19,7 @@ class Loaded extends GetPointTeacherState {
   // final List<GetPointTeacherData>? data1;
   final List<Data>? data2;
 
-
-  Loaded({@required this.swagger,@required this.data2});
+  Loaded({@required this.swagger, @required this.data2});
 
   @override
   List<Object> get props => [swagger!];

@@ -8,10 +8,9 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/usecase/get_grade_ex
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_grade_exercise/get_grade_exercise_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_grade_exercise/get_grade_exercise_state.dart';
 
-
-class GetGradeExerciseBloc extends Bloc<GetGradeExerciseEvent, GetGradeExerciseState> {
+class GetGradeExerciseBloc
+    extends Bloc<GetGradeExerciseEvent, GetGradeExerciseState> {
   final GetGradeExercise getGradeExercise;
-
 
   GetGradeExerciseBloc({@required GetGradeExercise? pr})
       : assert(pr != null),
@@ -22,11 +21,12 @@ class GetGradeExerciseBloc extends Bloc<GetGradeExerciseEvent, GetGradeExerciseS
   GetGradeExerciseState get initialState => Empty();
 
   @override
-  Stream<GetGradeExerciseState> mapEventToState(GetGradeExerciseEvent event) async* {
+  Stream<GetGradeExerciseState> mapEventToState(
+      GetGradeExerciseEvent event) async* {
     if (event is GetGradeExerciseEventE) {
       yield Loading();
-      final failureOrSuccess = await getGradeExercise(
-          GetGradeExerciseParams(idExercise   : event.idExercise ,idCourse: event.idCourse  ));
+      final failureOrSuccess = await getGradeExercise(GetGradeExerciseParams(
+          idExercise: event.idExercise, idCourse: event.idCourse));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -35,8 +35,8 @@ class GetGradeExerciseBloc extends Bloc<GetGradeExerciseEvent, GetGradeExerciseS
   Stream<GetGradeExerciseState> _eitherLoadedOrErrorState(
       Either<Failure, GetGradeExerciseResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

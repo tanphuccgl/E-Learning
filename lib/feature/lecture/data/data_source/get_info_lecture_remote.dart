@@ -9,31 +9,33 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_member_in_cou
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/models/get_info_lecture_res.dart';
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
-
 abstract class GetInfoLectureRemoteDataSource {
-  Future<GetInfoLectureResponse> getInfoLecture(int idLecture );
+  Future<GetInfoLectureResponse> getInfoLecture(int idLecture);
 }
 
-class GetInfoLectureRemoteDataSourceImpl implements GetInfoLectureRemoteDataSource {
+class GetInfoLectureRemoteDataSourceImpl
+    implements GetInfoLectureRemoteDataSource {
   final http.Client? client;
 
   GetInfoLectureRemoteDataSourceImpl({this.client});
 
   @override
-  Future<GetInfoLectureResponse> getInfoLecture(int idLecture   ) {
-    return _getInfoLecture(idLecture , );
+  Future<GetInfoLectureResponse> getInfoLecture(int idLecture) {
+    return _getInfoLecture(
+      idLecture,
+    );
   }
 
   Future<GetInfoLectureResponse> _getInfoLecture(
-      int idLecture , ) async {
+    int idLecture,
+  ) async {
     final response = await client!.get(
-      Uri.parse(
-          '$mainUrl/lecture/GetInformationLecture/$idLecture'),
+      Uri.parse('$mainUrl/lecture/GetInformationLecture/$idLecture'),
       headers: {
         "Accept": "application/json",
         "content-type": "application/json", // k co header la failed 415
         //'Content-Type': 'application/x-www-form-urlencoded'
-        "auth-token":"${appUser?.token}"
+        "auth-token": "${appUser?.token}"
       },
     );
 

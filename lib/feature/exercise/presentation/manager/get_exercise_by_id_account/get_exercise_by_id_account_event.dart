@@ -8,8 +8,7 @@ abstract class GetExerciseByIdAccountEvent extends Equatable {
 }
 
 class GetExerciseByIdAccountEventE extends GetExerciseByIdAccountEvent {
-  final int? idAccount  ;
+  final int? idAccount;
 
-
-  GetExerciseByIdAccountEventE({this.idAccount  });
+  GetExerciseByIdAccountEventE({this.idAccount});
 }

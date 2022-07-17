@@ -61,7 +61,8 @@ class PageRoutes {
   static const String createLecturePage = CreateLecturePage.routeName;
   static const String submitExercisePage = SubmitExercisePage.routeName;
   static const String infoAnswerPage = InfoAnswerPage.routeName;
-  static const String gradeExerciseTeacherPage = GradeExerciseTeacherPage.routeName;
+  static const String gradeExerciseTeacherPage =
+      GradeExerciseTeacherPage.routeName;
   static const String gradingAssignmentPage = GradingAssignmentPage.routeName;
 
   static const String examplePage = ExamplePage.routeName;
@@ -82,28 +83,11 @@ class PageRoutes {
   static const String resetPwPage = ResetPwPage.routeName;
   static const String listUserPage = ListUserPage.routeName;
   static const String lecturePage = LecturePage.routeName;
- static const String listScorePage = ListScorePage.routeName;
+  static const String listScorePage = ListScorePage.routeName;
   static const String notifiPage = NotifiPage.routeName;
   static const String personalPage = PersonalPage.routeName;
   static const String changePasswordPage = ChangePasswordPage.routeName;
   static const String getAllUserPage = GetAllUserPage.routeName;
 
-
-
-
-
-
-
-
-
   static const String test = Test.routeName;
-
-
-
-
-
-
-
-
 }
-

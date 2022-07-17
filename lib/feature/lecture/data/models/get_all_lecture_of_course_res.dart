@@ -39,13 +39,13 @@ class GetAllLectureData {
 
   GetAllLectureData(
       {this.iId,
-        this.nameLecture,
-        this.descriptionLecture,
-        this.idCourse,
-        this.fileUpload,
-        this.createDate,
-        this.deleted,
-        this.iV});
+      this.nameLecture,
+      this.descriptionLecture,
+      this.idCourse,
+      this.fileUpload,
+      this.createDate,
+      this.deleted,
+      this.iV});
 
   GetAllLectureData.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
@@ -91,13 +91,13 @@ class FileUpload {
 
   FileUpload(
       {this.fieldname,
-        this.originalname,
-        this.encoding,
-        this.mimetype,
-        this.destination,
-        this.filename,
-        this.path,
-        this.size});
+      this.originalname,
+      this.encoding,
+      this.mimetype,
+      this.destination,
+      this.filename,
+      this.path,
+      this.size});
 
   FileUpload.fromJson(Map<String, dynamic> json) {
     fieldname = json['fieldname'];

@@ -4,7 +4,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/input_title.dart';
 
 class ChangePwPage extends StatefulWidget {
-  static const String routeName="/ChangePwPage";
+  static const String routeName = "/ChangePwPage";
   const ChangePwPage({Key? key}) : super(key: key);
 
   @override
@@ -12,9 +12,7 @@ class ChangePwPage extends StatefulWidget {
 }
 
 class _ChangePwPageState extends State<ChangePwPage> {
-
   final _fullNameController = TextEditingController();
-
 
   String? _fullName;
 
@@ -23,9 +21,7 @@ class _ChangePwPageState extends State<ChangePwPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(context: context, title: "Change Password"),
@@ -60,10 +56,7 @@ class _ChangePwPageState extends State<ChangePwPage> {
               SizedBox(
                 height: size.width / 20,
               ),
-
               accept(function: () {}, context: context, content: "Accept"),
-
-
             ],
           ),
         ),

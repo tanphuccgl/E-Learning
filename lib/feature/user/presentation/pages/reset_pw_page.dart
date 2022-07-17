@@ -5,7 +5,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/input_
 import 'package:thuc_tap_tot_nghiep/feature/password/reset_pw/data/datasources/put_reset_pw.dart';
 
 class ResetPwPage extends StatefulWidget {
-  static const String routeName= "/ResetPwPage";
+  static const String routeName = "/ResetPwPage";
   const ResetPwPage({Key? key}) : super(key: key);
 
   @override
@@ -15,16 +15,13 @@ class ResetPwPage extends StatefulWidget {
 class _ResetPwPageState extends State<ResetPwPage> {
   final _fullNameController = TextEditingController();
 
-
   String? _fullName;
 
   bool _isChecked = false;
   String dropdownValue = 'Man';
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(context: context, title: "Reset Password"),
@@ -48,12 +45,7 @@ class _ResetPwPageState extends State<ResetPwPage> {
               SizedBox(
                 height: size.width / 20,
               ),
-
-              accept(function: () {
-
-              }, context: context, content: "Reset"),
-
-
+              accept(function: () {}, context: context, content: "Reset"),
             ],
           ),
         ),

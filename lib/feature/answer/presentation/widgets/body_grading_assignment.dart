@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_statements, deprecated_member_use
+
 import 'dart:collection';
 import 'dart:io';
 
@@ -19,7 +21,6 @@ import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/manager/get_info
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/manager/get_info_answer/get_info_answer_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/manager/get_info_answer/get_info_answer_state.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/widgets/haha.dart';
-import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/accpect_button.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/list_file.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/pick_multi_file.dart';
@@ -53,7 +54,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
   List<FileUpload>? listFileUpdate;
   List<String> lv = ["Đạt", "Không Đạt"];
 
-  String? dropdownValue="" ;
+  String? dropdownValue = "";
   FilePickerResult? result;
 
   @override
@@ -66,7 +67,9 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
     cmtController = TextEditingController();
     listFile = [];
     listFileUpdate = [];
-    prefs?.remove("textPoint",);
+    prefs?.remove(
+      "textPoint",
+    );
   }
 
   @override
@@ -174,48 +177,50 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                             ),
                             context: context,
                             function: () {}),
-                        state.swagger?.data?.isTextPoint==0?     accept(
-                            content: "Accept",
-                            context: context,
-                            function: () {
-                              ///check nhập tên bài tập
-                              if (point?.toString().trim().length == 0 ||
-                                  point == null) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text("Input Score"),
-                                ));
-                              } else {
-                                postGradingAssignment(
-                                    idAnswer: widget.idAnswer,
-                                    studyPoint:point,
-                                    feedbackFromTeacher: cmt,
-                                    success: () => showSuccess(),
-                                    failure: () => showCancel(),
-                                    listFile: listFile);
-                              }
-                            }):
-                        accept(
-                            content: "Accept",
-                            context: context,
-                            function: () {
-                              ///check nhập tên bài tập
-                              if (dropdownValue == "" ||
-                                  dropdownValue == null) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text("Input Score"),
-                                ));
-                              } else {
-                                postGradingAssignment(
-                                    idAnswer: widget.idAnswer,
-                                    studyPoint:  dropdownValue=="Đạt"? 1:0,
-                                    feedbackFromTeacher: cmt,
-                                    success: () => showSuccess(),
-                                    failure: () => showCancel(),
-                                    listFile: listFile);
-                              }
-                            }),
+                        state.swagger?.data?.isTextPoint == 0
+                            ? accept(
+                                content: "Accept",
+                                context: context,
+                                function: () {
+                                  ///check nhập tên bài tập
+                                  if (point?.toString().trim().length == 0 ||
+                                      point == null) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text("Input Score"),
+                                    ));
+                                  } else {
+                                    postGradingAssignment(
+                                        idAnswer: widget.idAnswer,
+                                        studyPoint: point,
+                                        feedbackFromTeacher: cmt,
+                                        success: () => showSuccess(),
+                                        failure: () => showCancel(),
+                                        listFile: listFile);
+                                  }
+                                })
+                            : accept(
+                                content: "Accept",
+                                context: context,
+                                function: () {
+                                  ///check nhập tên bài tập
+                                  if (dropdownValue == "" ||
+                                      dropdownValue == null) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text("Input Score"),
+                                    ));
+                                  } else {
+                                    postGradingAssignment(
+                                        idAnswer: widget.idAnswer,
+                                        studyPoint:
+                                            dropdownValue == "Đạt" ? 1 : 0,
+                                        feedbackFromTeacher: cmt,
+                                        success: () => showSuccess(),
+                                        failure: () => showCancel(),
+                                        listFile: listFile);
+                                  }
+                                }),
                         changePage(
                             icon: Icon(
                               Icons.add,
@@ -409,8 +414,6 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                           content: Text("$result"),
                           duration: Duration(seconds: 3),
                         ));
-
-
                 },
                 child: Container(
                   width: size.width,
@@ -660,7 +663,7 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
   }
 
   Widget _textPoint() {
-    dropdownValue="Đạt";
+    dropdownValue = "Đạt";
     prefs?.setString("textPoint", dropdownValue!);
     return StatefulBuilder(
         builder: (context, setState) => DropdownButton<String>(
@@ -692,7 +695,6 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
 
   //String? feedback, TextEditingController? textEditingController
   Widget framesGrade({double? point, String? cmt, int? isTextPoint}) {
-
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
@@ -702,7 +704,6 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
           isTextPoint == 1
               ? GestureDetector(
                   onTap: () {
-
                     showDialogTextPoint();
                   },
                   child: Container(
@@ -724,8 +725,9 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
                             ),
                             Center(
                               child: Text(
-                                prefs?.getString("textPoint")==null?
-                             "":  "${ prefs?.getString("textPoint")}",
+                                prefs?.getString("textPoint") == null
+                                    ? ""
+                                    : "${prefs?.getString("textPoint")}",
                                 style: TextStyle(
                                     color: Colors.red,
                                     fontWeight: FontWeight.bold,
@@ -953,12 +955,8 @@ class _BodyGradingAssignmentState extends State<BodyGradingAssignment> {
               onPressed: () {
                 // Send them to your email maybe?
 
-
-setState(() {
-
-});
-                  Navigator.pop(context);
-
+                setState(() {});
+                Navigator.pop(context);
               },
               child: Text('Send'),
             ),

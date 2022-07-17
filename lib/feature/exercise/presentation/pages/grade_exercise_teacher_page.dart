@@ -9,11 +9,14 @@ class GradeExerciseTeacherPage extends StatefulWidget {
   final int? idExercise;
   final String? idCourse;
   final int? isTextPoint;
-  static const String routeName="/GradeExerciseTeacherPage";
-  const GradeExerciseTeacherPage({Key? key,this.idCourse,this.idExercise,this.isTextPoint}) : super(key: key);
+  static const String routeName = "/GradeExerciseTeacherPage";
+  const GradeExerciseTeacherPage(
+      {Key? key, this.idCourse, this.idExercise, this.isTextPoint})
+      : super(key: key);
 
   @override
-  _GradeExerciseTeacherPageState createState() => _GradeExerciseTeacherPageState();
+  _GradeExerciseTeacherPageState createState() =>
+      _GradeExerciseTeacherPageState();
 }
 
 class _GradeExerciseTeacherPageState extends State<GradeExerciseTeacherPage> {
@@ -23,11 +26,12 @@ class _GradeExerciseTeacherPageState extends State<GradeExerciseTeacherPage> {
       appBar: appBar(context: context, title: "List submitting assignments"),
       body: BlocProvider(
         create: (_) => sl<GetGradeExerciseBloc>(),
-        child: BodyGradeExe(idExercise: widget.idExercise,idCourse: widget.idCourse,isTextPoint: widget.isTextPoint,
-
+        child: BodyGradeExe(
+          idExercise: widget.idExercise,
+          idCourse: widget.idCourse,
+          isTextPoint: widget.isTextPoint,
         ),
       ),
     );
   }
-
 }

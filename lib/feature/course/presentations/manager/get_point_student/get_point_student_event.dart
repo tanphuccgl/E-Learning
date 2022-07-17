@@ -8,8 +8,8 @@ abstract class GetPointStudentEvent extends Equatable {
 }
 
 class GetPointStudentEventE extends GetPointStudentEvent {
-  final String? idCourse ;
+  final String? idCourse;
   final int? idAccount;
 
-  GetPointStudentEventE({this.idCourse , this.idAccount});
+  GetPointStudentEventE({this.idCourse, this.idAccount});
 }

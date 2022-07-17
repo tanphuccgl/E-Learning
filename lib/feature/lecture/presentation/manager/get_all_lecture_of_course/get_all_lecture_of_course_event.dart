@@ -8,8 +8,7 @@ abstract class GetAllLectureEvent extends Equatable {
 }
 
 class GetAllLectureEventE extends GetAllLectureEvent {
-  final String? idCourse ;
-
+  final String? idCourse;
 
   GetAllLectureEventE({this.idCourse});
 }

@@ -6,8 +6,6 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_point_s
 import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_point_student_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_point_student_repo.dart';
 
-
-
 class GetPointStudentRepositoryImpl extends GetPointStudentRepository {
   final NetworkInfo? networkInfo;
   final GetPointStudentRemoteDataSource? getPointStudentRemoteDataSource;
@@ -19,10 +17,9 @@ class GetPointStudentRepositoryImpl extends GetPointStudentRepository {
 
   @override
   Future<Either<Failure, GetPointStudentResponse>> getPointStudent(
-      String idCourse
-      , int idAccount ) {
+      String idCourse, int idAccount) {
     return _getPointStudent(
-        getPointStudentRemoteDataSource!.getPointStudent(idCourse , idAccount ));
+        getPointStudentRemoteDataSource!.getPointStudent(idCourse, idAccount));
   }
 
   Future<Either<Failure, GetPointStudentResponse>> _getPointStudent(

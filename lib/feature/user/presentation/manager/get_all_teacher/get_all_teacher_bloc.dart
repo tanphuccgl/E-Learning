@@ -9,9 +9,6 @@ import 'package:thuc_tap_tot_nghiep/feature/user/domain/usecase/get_all_teacher.
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/manager/get_all_teacher/get_all_teacher_state.dart';
 
-
-
-
 class GetAllTeacherBloc extends Bloc<GetAllTeacherEvent, GetAllTeacherState> {
   final GetAllTeacher? getGetAllTeacher;
 
@@ -35,8 +32,8 @@ class GetAllTeacherBloc extends Bloc<GetAllTeacherEvent, GetAllTeacherState> {
   Stream<GetAllTeacherState> _eitherLoadedOrErrorState(
       Either<Failure, GetAllTeacherResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

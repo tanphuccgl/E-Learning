@@ -67,13 +67,13 @@ class GetMemberInCourseData {
 
   GetMemberInCourseData(
       {this.iId,
-        this.idAccount,
-        this.fullName,
-        this.idCourse,
-        this.nameCourse,
-        this.role,
-        this.createDate,
-        this.deleted});
+      this.idAccount,
+      this.fullName,
+      this.idCourse,
+      this.nameCourse,
+      this.role,
+      this.createDate,
+      this.deleted});
 
   GetMemberInCourseData.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];

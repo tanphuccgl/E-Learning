@@ -11,14 +11,14 @@ class LoginData {
 
   LoginData(
       {this.iId,
-        this.fullName,
-        this.idClass,
-        this.nameClass,
-        this.address,
-        this.role,
-        this.username,
-        this.gender,
-        this.token});
+      this.fullName,
+      this.idClass,
+      this.nameClass,
+      this.address,
+      this.role,
+      this.username,
+      this.gender,
+      this.token});
 
   LoginData.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];

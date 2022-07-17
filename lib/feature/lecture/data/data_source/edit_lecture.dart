@@ -17,10 +17,11 @@ Future<bool> editLecture(
     Function? success,
     Function? failure}) async {
   print(idCourse);
-  ///chua chinh link api
-  var uri = Uri.parse('$mainUrl/lecture/EditLecture?idCourse=$idCourse&idLecture=$idLecture');
-  var request = http.MultipartRequest('PUT', uri);
 
+  ///chua chinh link api
+  var uri = Uri.parse(
+      '$mainUrl/lecture/EditLecture?idCourse=$idCourse&idLecture=$idLecture');
+  var request = http.MultipartRequest('PUT', uri);
 
   for (int i = 0; i < fileKeep!.length; i++) {
     request.fields["fileKeep[$i]"] = "${fileKeep[i].filename!}";
@@ -33,12 +34,9 @@ Future<bool> editLecture(
   request.fields["nameLecture"] = "$nameLecture";
   request.fields["idLecture"] = "$idLecture";
 
-
-
   if (descriptionAnswer != null) {
     request.fields["descriptionAnswer"] = "$descriptionAnswer";
   }
-
 
   request.fields["files"] = "files";
   request.fields['idCourse'] = '$idCourse';

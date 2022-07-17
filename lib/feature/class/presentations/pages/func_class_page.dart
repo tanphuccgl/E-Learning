@@ -58,6 +58,7 @@ class _FuncClassPageState extends State<FuncClassPage> {
                           MaterialPageRoute(
                               builder: (context) => CreateClassPage()));
                     }),
+
                 /// edit class
                 // card(
                 //     title: "Edit Class",
@@ -80,9 +81,9 @@ class _FuncClassPageState extends State<FuncClassPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => BlocProvider(
-                                create: (_) => sl<GetAllClassBloc>(),
-                                child: RemoveClassPage(),
-                              )));
+                                    create: (_) => sl<GetAllClassBloc>(),
+                                    child: RemoveClassPage(),
+                                  )));
                     }),
                 // _card(title: "Class"),
                 // _card(title: "Class"),

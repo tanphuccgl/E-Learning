@@ -8,8 +8,7 @@ abstract class GetExerciseByCourseEvent extends Equatable {
 }
 
 class GetExerciseByCourseEventE extends GetExerciseByCourseEvent {
-  final String? idCourse ;
+  final String? idCourse;
 
-
-  GetExerciseByCourseEventE({this.idCourse });
+  GetExerciseByCourseEventE({this.idCourse});
 }

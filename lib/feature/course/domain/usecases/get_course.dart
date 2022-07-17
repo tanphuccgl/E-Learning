@@ -5,14 +5,14 @@ import 'package:thuc_tap_tot_nghiep/core/usecase/usecase.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_couse_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_course_repo.dart';
 
-
 class GetCourse implements UseCase<GetCourseResponse, GetCourseParams> {
   final GetCourseRepository courseContentsRepository;
 
   GetCourse(this.courseContentsRepository);
 
   @override
-  Future<Either<Failure, GetCourseResponse>> call(GetCourseParams params) async {
+  Future<Either<Failure, GetCourseResponse>> call(
+      GetCourseParams params) async {
     return await courseContentsRepository.getCourse(
         params.keySearchNameCourse!, params.idAccount!);
   }

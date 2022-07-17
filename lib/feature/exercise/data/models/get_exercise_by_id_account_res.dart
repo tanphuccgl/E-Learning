@@ -12,7 +12,7 @@ class GetExerciseByIdAccountResponse {
     statusCode = json['status_code'];
     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
     if (json['data'] != null) {
-      data =<GetExerciseByIdAccountData>[];
+      data = <GetExerciseByIdAccountData>[];
       json['data'].forEach((v) {
         data?.add(new GetExerciseByIdAccountData.fromJson(v));
       });
@@ -72,18 +72,18 @@ class GetExerciseByIdAccountData {
 
   GetExerciseByIdAccountData(
       {this.iId,
-        this.idTeacher,
-        this.idCourse,
-        this.nameCourse,
-        this.titleExercise,
-        this.isTextPoint,
-        this.fileUpload,
-        this.descriptionExercise,
-        this.allowSubmission,
-        this.submissionDeadline,
-        this.createDate,
-        this.updateDate,
-        this.deleted});
+      this.idTeacher,
+      this.idCourse,
+      this.nameCourse,
+      this.titleExercise,
+      this.isTextPoint,
+      this.fileUpload,
+      this.descriptionExercise,
+      this.allowSubmission,
+      this.submissionDeadline,
+      this.createDate,
+      this.updateDate,
+      this.deleted});
 
   GetExerciseByIdAccountData.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
@@ -139,13 +139,13 @@ class FileUpload {
 
   FileUpload(
       {this.fieldname,
-        this.originalname,
-        this.encoding,
-        this.mimetype,
-        this.destination,
-        this.filename,
-        this.path,
-        this.size});
+      this.originalname,
+      this.encoding,
+      this.mimetype,
+      this.destination,
+      this.filename,
+      this.path,
+      this.size});
 
   FileUpload.fromJson(Map<String, dynamic> json) {
     fieldname = json['fieldname'];

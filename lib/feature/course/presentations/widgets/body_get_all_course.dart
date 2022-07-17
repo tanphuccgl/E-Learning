@@ -24,7 +24,7 @@ class BodyGetAllCourse extends StatefulWidget {
 }
 
 class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
-  bool? isChoose=false;
+  bool? isChoose = false;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetCourseBloc, GetCourseState>(
@@ -98,7 +98,8 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
                           data: list?[index],
                           number: index + 1,
                           onPressed: () {
-                            showDialogListStudent(idCourse: list?[index].idCourse);
+                            showDialogListStudent(
+                                idCourse: list?[index].idCourse);
                           });
                     },
                     separatorBuilder: (context, index) => Divider(
@@ -166,7 +167,6 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
     showDialog(
       context: context,
       builder: (_) {
-
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -184,11 +184,10 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
                       BlocProvider.of<GetAllStudentBloc>(context)
                           .add(GetAllStudentE());
                     } else if (state is Loaded1) {
-
                       return Scaffold(
                           body: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: _list1(list: state.data,idCourse: idCourse),
+                        child: _list1(list: state.data, idCourse: idCourse),
                       ));
                     } else if (state is Loading1) {
                       return SpinkitLoading();
@@ -206,17 +205,16 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
               onPressed: () => Navigator.pop(context),
               child: Text('Cancel'),
             ),
-
           ],
         );
       },
     );
   }
+
   void showDialogConfirm({String? idCourse}) {
     showDialog(
       context: context,
       builder: (_) {
-
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -224,9 +222,10 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
           content: Builder(builder: (context) {
             var width = MediaQuery.of(context).size.width;
             return Container(
-                height: width/10,
-                width: width/5,
-                child: Text("Add student ${prefs?.getString("addNameStudent")} to course"));
+                height: width / 10,
+                width: width / 5,
+                child: Text(
+                    "Add student ${prefs?.getString("addNameStudent")} to course"));
           }),
           actions: [
             TextButton(
@@ -235,18 +234,19 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
             ),
             TextButton(
               onPressed: () {
-                addStudentToCourse(idStudent:prefs?.getInt("addIdStudent"),idCourse: idCourse! );
+                addStudentToCourse(
+                    idStudent: prefs?.getInt("addIdStudent"),
+                    idCourse: idCourse!);
               },
               child: Text('OK'),
             ),
-
           ],
         );
       },
     );
   }
 
-  Widget _list1({List<GetAllStudentData>? list,String? idCourse}) {
+  Widget _list1({List<GetAllStudentData>? list, String? idCourse}) {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
@@ -283,8 +283,6 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
                         data: list?[index],
                         number: index + 1,
                         onTap: () {
-
-
                           prefs?.remove("addIdStudent");
                           prefs?.remove("addNameStudent");
                           prefs?.setInt("addIdStudent", list![index].iId!);
@@ -298,7 +296,6 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
                       ),
                   itemCount: list!.length),
             ),
-
           ],
         ),
       ),
@@ -307,7 +304,9 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
 
   Widget _item1({GetAllStudentData? data, int? number, Function()? onTap}) {
     Size size = MediaQuery.of(context).size;
-    return ElevatedButton(onPressed:onTap ,style:ElevatedButton.styleFrom(primary: Colors.transparent),
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(primary: Colors.transparent),
       child: Container(
         width: size.width,
         height: size.width / 8,
@@ -324,7 +323,6 @@ class _BodyGetAllCourseState extends State<BodyGetAllCourse> {
               child: Text(data.fullName!),
               width: size.width / 10,
             ),
-
           ],
         ),
       ),

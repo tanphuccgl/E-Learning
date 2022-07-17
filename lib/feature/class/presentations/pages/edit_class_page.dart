@@ -4,7 +4,7 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/appbar
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/widgets/input_title.dart';
 
 class EditClassPage extends StatefulWidget {
-  static const String routeName="/EditClassPage";
+  static const String routeName = "/EditClassPage";
   const EditClassPage({Key? key}) : super(key: key);
 
   @override
@@ -52,14 +52,11 @@ class _EditClassPageState extends State<EditClassPage> {
               SizedBox(
                 height: size.width / 20,
               ),
-              accept(context: context,function: (){},content: "Change"),
-
+              accept(context: context, function: () {}, content: "Change"),
             ],
           ),
         ),
       ),
     );
   }
-
-
 }

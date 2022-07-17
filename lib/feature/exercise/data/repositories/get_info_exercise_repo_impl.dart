@@ -6,10 +6,6 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/data/data_source/get_info_e
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/repositories/get_info_exercise_repo.dart';
 
-
-
-
-
 class GetInfoExerciseRepositoryImpl extends GetInfoExerciseRepository {
   final NetworkInfo? networkInfo;
   final GetInfoExerciseRemoteDataSource? getInfoExerciseRemoteDataSource;
@@ -21,10 +17,9 @@ class GetInfoExerciseRepositoryImpl extends GetInfoExerciseRepository {
 
   @override
   Future<Either<Failure, GetInfoExerciseResponse>> getInfoExercise(
-      int idExercise
-      ) {
+      int idExercise) {
     return _infoExerciseContents(
-        getInfoExerciseRemoteDataSource!.getInfoExercise(idExercise   ));
+        getInfoExerciseRemoteDataSource!.getInfoExercise(idExercise));
   }
 
   Future<Either<Failure, GetInfoExerciseResponse>> _infoExerciseContents(

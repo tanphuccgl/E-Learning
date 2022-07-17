@@ -8,18 +8,17 @@ import 'package:thuc_tap_tot_nghiep/main.dart';
 
 http.Client? client = http.Client();
 
-Future<bool> removeClass (
-    {int? idClass  , Function? success, Function? failure}) async {
-
+Future<bool> removeClass(
+    {int? idClass, Function? success, Function? failure}) async {
   final response = await client?.delete(
-      Uri.parse('$mainUrl/class/DeleteClass/$idClass '),
-      headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "auth-token" : "${appUser?.token}",
-        // k co header la failed 415
-      },
-     );
+    Uri.parse('$mainUrl/class/DeleteClass/$idClass '),
+    headers: {
+      "Accept": "application/json",
+      "content-type": "application/json",
+      "auth-token": "${appUser?.token}",
+      // k co header la failed 415
+    },
+  );
 
   log("Response Json removeClass: ${json.decode(response!.body)}");
 

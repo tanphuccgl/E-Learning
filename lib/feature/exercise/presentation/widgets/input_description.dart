@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Widget inputDescription(
-    {String? title,bool? enabled,
+    {String? title,
+    bool? enabled,
     BuildContext? context,
     TextEditingController? textEditingController,
     Function(String)? function}) {
@@ -37,7 +38,8 @@ Widget inputDescription(
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(700),
                 ],
-                maxLines: 20,enabled: enabled,
+                maxLines: 20,
+                enabled: enabled,
                 decoration: InputDecoration(
                   hintText: "Input description",
                   border: InputBorder.none,

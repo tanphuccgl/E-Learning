@@ -11,8 +11,7 @@ class GetDashboard implements UseCase<GetDashboardResponse, NoParams> {
   GetDashboard(this.getDashboardRepository);
 
   @override
-  Future<Either<Failure, GetDashboardResponse>> call(
-      NoParams params) async {
+  Future<Either<Failure, GetDashboardResponse>> call(NoParams params) async {
     return await getDashboardRepository!.getDashboard();
   }
 }

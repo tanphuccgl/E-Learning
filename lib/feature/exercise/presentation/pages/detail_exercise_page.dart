@@ -35,12 +35,11 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
     return BlocProvider(
       create: (_) => sl<GetInfoExerciseBloc>(),
       child: BodyDetailExercise(
-        idExercise: widget.idExercise,
-        descriptionExercise: widget.descriptionExercise,
-        allowSubmission: widget.allowSubmission,
-        submissionDeadline: widget.submissionDeadline,
-          nameExercise:widget.nameExercise
-      ),
+          idExercise: widget.idExercise,
+          descriptionExercise: widget.descriptionExercise,
+          allowSubmission: widget.allowSubmission,
+          submissionDeadline: widget.submissionDeadline,
+          nameExercise: widget.nameExercise),
     );
   }
 }

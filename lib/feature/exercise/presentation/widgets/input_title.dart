@@ -5,7 +5,7 @@ Widget inputName(
     {String? title,
     TextEditingController? textEditingController,
     Function(String)? function,
-      String? hintText,
+    String? hintText,
     BuildContext? context}) {
   Size size = MediaQuery.of(context!).size;
 

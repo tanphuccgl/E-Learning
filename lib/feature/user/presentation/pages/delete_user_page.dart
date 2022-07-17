@@ -9,7 +9,7 @@ import 'package:thuc_tap_tot_nghiep/feature/user/presentation/pages/change_info_
 import 'package:thuc_tap_tot_nghiep/feature/user/presentation/widgets/delete_teacher.dart';
 
 class DeleteUserPage extends StatefulWidget {
-  static const String routeName="/DeleteUserPage";
+  static const String routeName = "/DeleteUserPage";
   const DeleteUserPage({Key? key}) : super(key: key);
 
   @override
@@ -19,9 +19,7 @@ class DeleteUserPage extends StatefulWidget {
 class _DeleteUserPageState extends State<DeleteUserPage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(context: context, title: "Delete User"),
@@ -44,25 +42,26 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => BlocProvider(
-                              create: (_) => sl<GetAllTeacherBloc>(),
-                              child: DeleteTeacherPage(title: "Delete Teacher"),
-                            )));
-                  }), card(
+                                  create: (_) => sl<GetAllTeacherBloc>(),
+                                  child: DeleteTeacherPage(
+                                      title: "Delete Teacher"),
+                                )));
+                  }),
+              card(
                   title: "Delete Student",
                   colorCard: Colors.red,
                   colorText: Colors.white,
                   context: context,
-                  function: ()
-                  {
+                  function: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => BlocProvider(
-                              create: (_) => sl<GetAllTeacherBloc>(),
-                              child: DeleteTeacherPage(title: "Delete Student"),
-                            )));
+                                  create: (_) => sl<GetAllTeacherBloc>(),
+                                  child: DeleteTeacherPage(
+                                      title: "Delete Student"),
+                                )));
                   }),
-
             ],
           ),
         ),

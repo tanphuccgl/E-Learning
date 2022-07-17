@@ -9,11 +9,9 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_point_student
 
 import '../../../../main.dart';
 
-
 abstract class GetPointStudentRemoteDataSource {
   Future<GetPointStudentResponse> getPointStudent(
-      String idCourse,int idAccount
-      );
+      String idCourse, int idAccount);
 }
 
 class GetPointStudentRemoteDataSourceImpl
@@ -24,16 +22,15 @@ class GetPointStudentRemoteDataSourceImpl
 
   @override
   Future<GetPointStudentResponse> getPointStudent(
-      String idCourse,int idAccount
-      ) {
-    return _getPointStudent(idCourse,idAccount);
+      String idCourse, int idAccount) {
+    return _getPointStudent(idCourse, idAccount);
   }
 
   Future<GetPointStudentResponse> _getPointStudent(
-      String idCourse,int idAccount
-      ) async {
+      String idCourse, int idAccount) async {
     final response = await client!.get(
-      Uri.parse('$mainUrl/course/GetPointStudent?idCourse=$idCourse&idAccount=$idAccount'),
+      Uri.parse(
+          '$mainUrl/course/GetPointStudent?idCourse=$idCourse&idAccount=$idAccount'),
       headers: {
         "Accept": "application/json",
         "content-type": "application/json", // k co header la failed 415
@@ -47,7 +44,7 @@ class GetPointStudentRemoteDataSourceImpl
 
     if (response.statusCode == 200) {
       var success =
-      GetPointStudentResponse.fromJson(json.decode(response.body));
+          GetPointStudentResponse.fromJson(json.decode(response.body));
 
       return success;
     } else {

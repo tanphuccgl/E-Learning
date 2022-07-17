@@ -13,15 +13,15 @@ Future<bool> postForgotPw(
   var body = jsonEncode({
     'email': email,
   });
-  final response = await client?.post(
-      Uri.parse('$mainUrl/account/ForgotPassword'),
-      headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "auth-token" : "${appUser?.token}",
-        // k co header la failed 415
-      },
-      body: body);
+  final response =
+      await client?.post(Uri.parse('$mainUrl/account/ForgotPassword'),
+          headers: {
+            "Accept": "application/json",
+            "content-type": "application/json",
+            "auth-token": "${appUser?.token}",
+            // k co header la failed 415
+          },
+          body: body);
 
   log("status removeLecture: ${response!.statusCode}");
 

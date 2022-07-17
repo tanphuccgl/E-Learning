@@ -8,7 +8,9 @@ class GetInformationAnswerResponse {
   GetInformationAnswerResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     statusCode = json['status_code'];
-    data = json['data'] != null ? new GetInformationAnswerData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new GetInformationAnswerData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -37,16 +39,16 @@ class GetInformationAnswerData {
 
   GetInformationAnswerData(
       {this.iId,
-        this.idAccount,
-        this.idExercise,
-        this.descriptionAnswer,
-        this.fileUpload,
-        this.studyPoint,
-        this.isTextPoint,
-        this.feedbackFromTeacher,
-        this.feedbackFromTeacherByImage,
-        this.createDate,
-        this.updateDate});
+      this.idAccount,
+      this.idExercise,
+      this.descriptionAnswer,
+      this.fileUpload,
+      this.studyPoint,
+      this.isTextPoint,
+      this.feedbackFromTeacher,
+      this.feedbackFromTeacherByImage,
+      this.createDate,
+      this.updateDate});
 
   GetInformationAnswerData.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];
@@ -104,11 +106,11 @@ class FileUpload {
 
   FileUpload(
       {this.fieldname,
-        this.originalname,
-        this.filename,
-        this.pathname,
-        this.mimetype,
-        this.size});
+      this.originalname,
+      this.filename,
+      this.pathname,
+      this.mimetype,
+      this.size});
 
   FileUpload.fromJson(Map<String, dynamic> json) {
     fieldname = json['fieldname'];

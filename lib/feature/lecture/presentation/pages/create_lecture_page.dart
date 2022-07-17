@@ -18,7 +18,8 @@ class CreateLecturePage extends StatefulWidget {
   final String? nameCourse;
   static const String routeName = "/CreateLecturePage";
 
-  const CreateLecturePage({Key? key, this.idCourse,this.nameCourse}) : super(key: key);
+  const CreateLecturePage({Key? key, this.idCourse, this.nameCourse})
+      : super(key: key);
 
   @override
   _CreateLecturePageState createState() => _CreateLecturePageState();
@@ -119,8 +120,8 @@ class _CreateLecturePageState extends State<CreateLecturePage> {
 
                 /// nút xac nhận
                 accept(
-
-                    context: context,content: "Accept",
+                    context: context,
+                    content: "Accept",
                     function: () {
                       ///check nhập tên bài tập
                       if (nameLecture?.trim().length == 0 ||
@@ -132,7 +133,6 @@ class _CreateLecturePageState extends State<CreateLecturePage> {
                         /// gọi api thêm bài giảng
                         addLecture(
                             idCourse: widget.idCourse,
-
                             descriptionLecture: description,
                             nameLecture: nameLecture,
                             success: () => showSuccess(),
@@ -170,10 +170,12 @@ class _CreateLecturePageState extends State<CreateLecturePage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DetailCoursePage(idCourse: widget.idCourse,
-                    nameCourse: widget.nameCourse,choosingPos: 1,widgetId: 1,
-
-                  )));
+                  builder: (context) => DetailCoursePage(
+                        idCourse: widget.idCourse,
+                        nameCourse: widget.nameCourse,
+                        choosingPos: 1,
+                        widgetId: 1,
+                      )));
         },
         title: "SUCCESS",
         description: "Create successful lecture");

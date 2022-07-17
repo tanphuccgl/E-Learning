@@ -8,15 +8,15 @@ import 'package:thuc_tap_tot_nghiep/core/error/exceptions.dart';
 
 http.Client? client = http.Client();
 
-Future<bool> addClass({String? nameClass, int? lv,Function? success,Function? failure}) async {
+Future<bool> addClass(
+    {String? nameClass, int? lv, Function? success, Function? failure}) async {
   var body = jsonEncode({'nameClass': nameClass, 'lv': lv});
-  final response =
-      await client?.post(Uri.parse('$mainUrl/class/AddClass'),
-          headers: {
-            "Accept": "application/json",
-            "content-type": "application/json" // k co header la failed 415
-          },
-          body: body);
+  final response = await client?.post(Uri.parse('$mainUrl/class/AddClass'),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json" // k co header la failed 415
+      },
+      body: body);
   log("Post AddClass: " + "$mainUrl/class/AddClass");
   log("Post body AddClass: " + body);
   log("Response Json AddClass: ${json.decode(response!.body)}");

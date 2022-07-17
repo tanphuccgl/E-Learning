@@ -8,10 +8,9 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/usecase/get_exercise
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_id_account/get_exercise_by_id_account_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/presentation/manager/get_exercise_by_id_account/get_exercise_by_id_account_state.dart';
 
-
-class GetExerciseByIdAccountBloc extends Bloc<GetExerciseByIdAccountEvent, GetExerciseByIdAccountState> {
+class GetExerciseByIdAccountBloc
+    extends Bloc<GetExerciseByIdAccountEvent, GetExerciseByIdAccountState> {
   final GetExerciseByIdAccount getExerciseByIdAccount;
-
 
   GetExerciseByIdAccountBloc({@required GetExerciseByIdAccount? pr})
       : assert(pr != null),
@@ -22,11 +21,12 @@ class GetExerciseByIdAccountBloc extends Bloc<GetExerciseByIdAccountEvent, GetEx
   GetExerciseByIdAccountState get initialState => Empty();
 
   @override
-  Stream<GetExerciseByIdAccountState> mapEventToState(GetExerciseByIdAccountEvent event) async* {
+  Stream<GetExerciseByIdAccountState> mapEventToState(
+      GetExerciseByIdAccountEvent event) async* {
     if (event is GetExerciseByIdAccountEventE) {
       yield Loading();
       final failureOrSuccess = await getExerciseByIdAccount(
-          GetExerciseByIdAccountParams(idAccount  : event.idAccount  ));
+          GetExerciseByIdAccountParams(idAccount: event.idAccount));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -35,8 +35,8 @@ class GetExerciseByIdAccountBloc extends Bloc<GetExerciseByIdAccountEvent, GetEx
   Stream<GetExerciseByIdAccountState> _eitherLoadedOrErrorState(
       Either<Failure, GetExerciseByIdAccountResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

@@ -10,7 +10,9 @@ class GetDashboardResponse {
     status = json['status'];
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new GetDashboardData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new GetDashboardData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -35,11 +37,11 @@ class GetDashboardData {
 
   GetDashboardData(
       {this.totalLecture,
-        this.totalCourse,
-        this.totalExercise,
-        this.totalAnswer,
-        this.totalStudent,
-        this.totalTeacher});
+      this.totalCourse,
+      this.totalExercise,
+      this.totalAnswer,
+      this.totalStudent,
+      this.totalTeacher});
 
   GetDashboardData.fromJson(Map<String, dynamic> json) {
     totalLecture = json['totalLecture'];

@@ -8,8 +8,7 @@ abstract class GetInfoLectureEvent extends Equatable {
 }
 
 class GetInfoLectureEventE extends GetInfoLectureEvent {
-  final int? idLecture  ;
+  final int? idLecture;
 
-
-  GetInfoLectureEventE({this.idLecture });
+  GetInfoLectureEventE({this.idLecture});
 }

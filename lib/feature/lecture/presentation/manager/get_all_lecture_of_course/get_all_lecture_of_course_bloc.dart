@@ -9,8 +9,6 @@ import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/usercase/get_all_lect
 import 'get_all_lecture_of_course_event.dart';
 import 'get_all_lecture_of_course_state.dart';
 
-
-
 class GetAllLectureBloc extends Bloc<GetAllLectureEvent, GetAllLectureState> {
   final GetAllLecture getAllLecture;
 
@@ -28,8 +26,8 @@ class GetAllLectureBloc extends Bloc<GetAllLectureEvent, GetAllLectureState> {
   Stream<GetAllLectureState> mapEventToState(GetAllLectureEvent event) async* {
     if (event is GetAllLectureEventE) {
       yield Loading();
-      final failureOrSuccess = await getAllLecture(
-          GetAllLectureParams(idCourse : event.idCourse ));
+      final failureOrSuccess =
+          await getAllLecture(GetAllLectureParams(idCourse: event.idCourse));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -38,8 +36,8 @@ class GetAllLectureBloc extends Bloc<GetAllLectureEvent, GetAllLectureState> {
   Stream<GetAllLectureState> _eitherLoadedOrErrorState(
       Either<Failure, GetAllLectureResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, data: res.data),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(swagger: res, data: res.data),
     );
   }
 

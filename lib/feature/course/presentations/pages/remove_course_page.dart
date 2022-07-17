@@ -30,11 +30,11 @@ class RemoveCoursePageState extends State<RemoveCoursePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<GetCourseBloc>(),
-      child: BlocBuilder<GetCourseBloc, GetCourseState>(
-          builder: (context, state) {
+      child:
+          BlocBuilder<GetCourseBloc, GetCourseState>(builder: (context, state) {
         if (state is Empty) {
-          BlocProvider.of<GetCourseBloc>(context)
-              .add(GetCourseEventE(idAccount: "", keySearchNameCourse: "ForAdmin"));
+          BlocProvider.of<GetCourseBloc>(context).add(
+              GetCourseEventE(idAccount: "", keySearchNameCourse: "ForAdmin"));
         } else if (state is Loaded) {
           return Scaffold(
               appBar: appBar(context: context, title: "Remove Course"),

@@ -6,12 +6,11 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/data/data_source/get_exerci
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_exercise_by_id_account_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/repositories/get_exercise_by_id_account_repo.dart';
 
-
-
-
-class GetExerciseByIdAccountRepositoryImpl extends GetExerciseByIdAccountRepository {
+class GetExerciseByIdAccountRepositoryImpl
+    extends GetExerciseByIdAccountRepository {
   final NetworkInfo? networkInfo;
-  final GetExerciseByIdAccountRemoteDataSource? getExerciseByIdAccountRemoteDataSource;
+  final GetExerciseByIdAccountRemoteDataSource?
+      getExerciseByIdAccountRemoteDataSource;
 
   GetExerciseByIdAccountRepositoryImpl({
     this.networkInfo,
@@ -19,15 +18,15 @@ class GetExerciseByIdAccountRepositoryImpl extends GetExerciseByIdAccountReposit
   });
 
   @override
-  Future<Either<Failure, GetExerciseByIdAccountResponse>> getExerciseByIdAccount(
-      int idAccount
-      ) {
-    return _exerciseByIdAccountContents(
-        getExerciseByIdAccountRemoteDataSource!.getExerciseByIdAccount(idAccount  ));
+  Future<Either<Failure, GetExerciseByIdAccountResponse>>
+      getExerciseByIdAccount(int idAccount) {
+    return _exerciseByIdAccountContents(getExerciseByIdAccountRemoteDataSource!
+        .getExerciseByIdAccount(idAccount));
   }
 
-  Future<Either<Failure, GetExerciseByIdAccountResponse>> _exerciseByIdAccountContents(
-      Future<GetExerciseByIdAccountResponse> getExerciseByIdAccount) async {
+  Future<Either<Failure, GetExerciseByIdAccountResponse>>
+      _exerciseByIdAccountContents(
+          Future<GetExerciseByIdAccountResponse> getExerciseByIdAccount) async {
     if (await networkInfo!.isConnected) {
       try {
         final exerciseByIdAccount = await getExerciseByIdAccount;

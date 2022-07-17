@@ -39,7 +39,6 @@ class _BodyAddCourseState extends State<BodyAddCourse> {
       } else if (state is Loaded) {
         return Column(
           children: [
-
             _dropdown(
               list: state.data,
             ),
@@ -164,12 +163,8 @@ class _BodyAddCourseState extends State<BodyAddCourse> {
         function: () {
           Navigator.pop(context);
           Navigator.pop(context);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => FuncCoursePage(
-
-                  )));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => FuncCoursePage()));
         },
         title: "SUCCESS",
         description: "Successful create course");

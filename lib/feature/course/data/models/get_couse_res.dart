@@ -66,13 +66,13 @@ class GetCourseData {
 
   GetCourseData(
       {this.iId,
-        this.idAccount,
-        this.fullName,
-        this.idCourse,
-        this.nameCourse,
-        this.role,
-        this.createDate,
-        this.deleted});
+      this.idAccount,
+      this.fullName,
+      this.idCourse,
+      this.nameCourse,
+      this.role,
+      this.createDate,
+      this.deleted});
 
   GetCourseData.fromJson(Map<String, dynamic> json) {
     iId = json['_id'];

@@ -9,7 +9,11 @@ import 'package:thuc_tap_tot_nghiep/main.dart';
 http.Client? client = http.Client();
 
 Future<bool> putTokenAndNewPw(
-    {String? email,String? newPassword ,String? token , Function? success, Function? failure}) async {
+    {String? email,
+    String? newPassword,
+    String? token,
+    Function? success,
+    Function? failure}) async {
   var body = jsonEncode({
     'newPassword': newPassword,
     'token': token,
@@ -19,7 +23,7 @@ Future<bool> putTokenAndNewPw(
       headers: {
         "Accept": "application/json",
         "content-type": "application/json",
-        "auth-token" : "${appUser?.token}",
+        "auth-token": "${appUser?.token}",
         // k co header la failed 415
       },
       body: body);

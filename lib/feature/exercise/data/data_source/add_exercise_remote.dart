@@ -11,8 +11,8 @@ Future<bool> addExercise(
     String? idCourse,
     String? descriptionExercise,
     DateTime? allowSubmission,
-      int? isTextPoint,
-      DateTime? submissionDeadline,
+    int? isTextPoint,
+    DateTime? submissionDeadline,
     List<PlatformFile>? listFile,
     Function? success,
     Function? failure}) async {

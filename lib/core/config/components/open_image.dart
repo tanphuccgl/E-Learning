@@ -1,13 +1,11 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:thuc_tap_tot_nghiep/core/config/components/alert_dialog1.dart';
-
 import 'package:thuc_tap_tot_nghiep/core/config/components/type_file.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exercise_res.dart';
 
@@ -28,10 +26,8 @@ class OpenImage extends StatefulWidget {
 class _OpenImageState extends State<OpenImage> {
   final Dio dio = Dio();
 
-
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -110,8 +106,7 @@ class _OpenImageState extends State<OpenImage> {
       if (await directory.exists()) {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
-          setState(() {
-          });
+          setState(() {});
         });
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
@@ -139,9 +134,7 @@ class _OpenImageState extends State<OpenImage> {
   }
 
   downloadFile() async {
-    setState(() {
-
-    });
+    setState(() {});
     print("${widget.url!}");
     print("${widget.originalname!}");
     bool downloaded = await saveFile(widget.url!, "${widget.originalname!}");
@@ -152,9 +145,7 @@ class _OpenImageState extends State<OpenImage> {
       showCancel();
       print("Problem Downloading File");
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   void showCancel() {

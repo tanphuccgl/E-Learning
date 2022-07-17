@@ -6,11 +6,10 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/data/data_source/get_exerci
 import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_exercise_by_course_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/repositories/get_exercise_by_course_repo.dart';
 
-
-
 class GetExerciseByCourseRepositoryImpl extends GetExerciseByCourseRepository {
   final NetworkInfo? networkInfo;
-  final GetExerciseByCourseRemoteDataSource? getExerciseByCourseRemoteDataSource;
+  final GetExerciseByCourseRemoteDataSource?
+      getExerciseByCourseRemoteDataSource;
 
   GetExerciseByCourseRepositoryImpl({
     this.networkInfo,
@@ -19,14 +18,14 @@ class GetExerciseByCourseRepositoryImpl extends GetExerciseByCourseRepository {
 
   @override
   Future<Either<Failure, GetExerciseByCourseResponse>> getExerciseByCourse(
-      String idCourse
-      ) {
+      String idCourse) {
     return _exerciseByCourseContents(
-        getExerciseByCourseRemoteDataSource!.getExerciseByCourse(idCourse ));
+        getExerciseByCourseRemoteDataSource!.getExerciseByCourse(idCourse));
   }
 
-  Future<Either<Failure, GetExerciseByCourseResponse>> _exerciseByCourseContents(
-      Future<GetExerciseByCourseResponse> getExerciseByCourse) async {
+  Future<Either<Failure, GetExerciseByCourseResponse>>
+      _exerciseByCourseContents(
+          Future<GetExerciseByCourseResponse> getExerciseByCourse) async {
     if (await networkInfo!.isConnected) {
       try {
         final exerciseByCourse = await getExerciseByCourse;

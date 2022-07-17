@@ -8,9 +8,8 @@ abstract class GetGradeExerciseEvent extends Equatable {
 }
 
 class GetGradeExerciseEventE extends GetGradeExerciseEvent {
-  final int? idExercise   ;
+  final int? idExercise;
   final String? idCourse;
 
-
-  GetGradeExerciseEventE({this.idExercise ,this.idCourse  });
+  GetGradeExerciseEventE({this.idExercise, this.idCourse});
 }

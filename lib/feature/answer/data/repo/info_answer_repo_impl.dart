@@ -6,11 +6,11 @@ import 'package:thuc_tap_tot_nghiep/feature/answer/data/data_course/get_info_ans
 import 'package:thuc_tap_tot_nghiep/feature/answer/data/models/get_info_answer_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/domain/repo/info_answer_repo.dart';
 
-
 class GetInformationAnswerRepositoryImpl
     extends GetInformationAnswerRepository {
   final NetworkInfo? networkInfo;
-  final GetInformationAnswerRemoteDataSource? getInformationAnswerRemoteDataSource;
+  final GetInformationAnswerRemoteDataSource?
+      getInformationAnswerRemoteDataSource;
 
   GetInformationAnswerRepositoryImpl({
     this.networkInfo,
@@ -19,11 +19,10 @@ class GetInformationAnswerRepositoryImpl
 
   @override
   Future<Either<Failure, GetInformationAnswerResponse>> getInformationAnswer(
-      int idAccount
-      , int idAnswer) {
-    return _infoAnswer(
-        getInformationAnswerRemoteDataSource!.getInformationAnswer(idAccount, idAnswer));
-    }
+      int idAccount, int idAnswer) {
+    return _infoAnswer(getInformationAnswerRemoteDataSource!
+        .getInformationAnswer(idAccount, idAnswer));
+  }
 
   Future<Either<Failure, GetInformationAnswerResponse>> _infoAnswer(
       Future<GetInformationAnswerResponse> getInformationAnswer) async {

@@ -7,26 +7,29 @@ import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_membe
 import 'package:thuc_tap_tot_nghiep/feature/lecture/data/models/get_all_lecture_of_course_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/lecture/domain/repo/get_all_lecture_of_course_repo.dart';
 
-
-
-class GetAllLecture implements UseCase<GetAllLectureResponse, GetAllLectureParams> {
+class GetAllLecture
+    implements UseCase<GetAllLectureResponse, GetAllLectureParams> {
   final GetAllLectureRepository lectureInCourseRepository;
 
   GetAllLecture(this.lectureInCourseRepository);
 
   @override
-  Future<Either<Failure, GetAllLectureResponse>> call(GetAllLectureParams params) async {
-    return await lectureInCourseRepository.getAllLecture(
-        params.idCourse!);
+  Future<Either<Failure, GetAllLectureResponse>> call(
+      GetAllLectureParams params) async {
+    return await lectureInCourseRepository.getAllLecture(params.idCourse!);
   }
 }
 
 class GetAllLectureParams extends Equatable {
-  final String? idCourse ;
+  final String? idCourse;
 
-  GetAllLectureParams({this.idCourse, });
+  GetAllLectureParams({
+    this.idCourse,
+  });
 
   @override
   // TODO: implement props
-  List<Object> get props => [idCourse!, ];
+  List<Object> get props => [
+        idCourse!,
+      ];
 }

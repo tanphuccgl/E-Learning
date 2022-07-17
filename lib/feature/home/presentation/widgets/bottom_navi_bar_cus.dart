@@ -27,13 +27,15 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         appUser?.role == "admin"
             ? Navigator.pushNamedAndRemoveUntil(context,
                 PageRoutes.functionPage, (Route<dynamic> route) => false)
-            :    Navigator.pushNamedAndRemoveUntil(
-            context, PageRoutes.personalPage, (Route<dynamic> route) => false);;
+            : Navigator.pushNamedAndRemoveUntil(context,
+                PageRoutes.personalPage, (Route<dynamic> route) => false);
+        ;
 
         break;
       case 2:
-    if( appUser?.role == "admin")    Navigator.pushNamedAndRemoveUntil(
-            context, PageRoutes.personalPage, (Route<dynamic> route) => false);
+        if (appUser?.role == "admin")
+          Navigator.pushNamedAndRemoveUntil(context, PageRoutes.personalPage,
+              (Route<dynamic> route) => false);
 
         break;
       case 3:
@@ -88,10 +90,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             appUser?.role == "admin"
                 ? BottomNavigationBarItem(
                     icon: Icon(Icons.grid_view_outlined), label: ('Feature'))
-                :  BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline), label: ("Personal")),
-       if( appUser?.role == "admin")     BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline), label: ("Personal")),
+                : BottomNavigationBarItem(
+                    icon: Icon(Icons.person_outline), label: ("Personal")),
+            if (appUser?.role == "admin")
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline), label: ("Personal")),
             // BottomNavigationBarItem(
             //     icon: Image.asset("assets/icons/Messages, Chat.png"),
             //     label: ('Messages')),

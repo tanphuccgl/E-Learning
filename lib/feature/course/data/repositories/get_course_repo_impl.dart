@@ -6,7 +6,6 @@ import 'package:thuc_tap_tot_nghiep/feature/course/data/data_sources/get_course_
 import 'package:thuc_tap_tot_nghiep/feature/course/data/models/get_couse_res.dart';
 import 'package:thuc_tap_tot_nghiep/feature/course/domain/repositories/get_course_repo.dart';
 
-
 class GetCourseRepositoryImpl extends GetCourseRepository {
   final NetworkInfo? networkInfo;
   final GetCourseRemoteDataSource? getCourseRemoteDataSource;
@@ -18,8 +17,7 @@ class GetCourseRepositoryImpl extends GetCourseRepository {
 
   @override
   Future<Either<Failure, GetCourseResponse>> getCourse(
-      String keySearchNameCourse
-      , String idAccount) {
+      String keySearchNameCourse, String idAccount) {
     return _courseContents(
         getCourseRemoteDataSource!.getCourse(keySearchNameCourse, idAccount));
   }

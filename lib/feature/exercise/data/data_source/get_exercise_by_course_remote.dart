@@ -9,10 +9,11 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_exercise_by
 import 'package:thuc_tap_tot_nghiep/main.dart';
 
 abstract class GetExerciseByCourseRemoteDataSource {
-  Future<GetExerciseByCourseResponse> getExerciseByCourse(String idCourse );
+  Future<GetExerciseByCourseResponse> getExerciseByCourse(String idCourse);
 }
 
-class GetExerciseByCourseRemoteDataSourceImpl implements GetExerciseByCourseRemoteDataSource {
+class GetExerciseByCourseRemoteDataSourceImpl
+    implements GetExerciseByCourseRemoteDataSource {
   final http.Client? client;
 
   GetExerciseByCourseRemoteDataSourceImpl({@required this.client});
@@ -22,12 +23,13 @@ class GetExerciseByCourseRemoteDataSourceImpl implements GetExerciseByCourseRemo
     return _getExerciseByCourse(idCourse);
   }
 
-  Future<GetExerciseByCourseResponse> _getExerciseByCourse(String idCourse) async {
+  Future<GetExerciseByCourseResponse> _getExerciseByCourse(
+      String idCourse) async {
     final response = await client?.get(
       Uri.parse('$mainUrl/exercise/GetExerciseByCourse/$idCourse'),
       headers: {
         "Accept": "application/json",
-        "content-type": "application/json" ,
+        "content-type": "application/json",
         "auth-token": "${appUser?.token}",
       },
     );
@@ -35,7 +37,7 @@ class GetExerciseByCourseRemoteDataSourceImpl implements GetExerciseByCourseRemo
 
     if (response.statusCode == 200) {
       var success =
-      GetExerciseByCourseResponse.fromJson(json.decode(response.body));
+          GetExerciseByCourseResponse.fromJson(json.decode(response.body));
 
       return success;
     } else {

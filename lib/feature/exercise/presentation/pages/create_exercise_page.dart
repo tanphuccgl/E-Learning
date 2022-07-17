@@ -206,7 +206,8 @@ class _CreateExercisePageState extends State<CreateExercisePage> {
 
                         /// gọi api thêm bài tập
                         addExercise(
-                            idCourse: widget.idCourse,isTextPoint: isClick==true? 0:1,
+                            idCourse: widget.idCourse,
+                            isTextPoint: isClick == true ? 0 : 1,
                             submissionDeadline:
 
                                 /// bật nút mới gửi DateTime tới server

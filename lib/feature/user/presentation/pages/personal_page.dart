@@ -22,7 +22,7 @@ class _PersonalPageState extends State<PersonalPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(
-        index: appUser?.role == "admin" ? 2 :1,
+        index: appUser?.role == "admin" ? 2 : 1,
       ),
       body: Container(
         width: size.width,

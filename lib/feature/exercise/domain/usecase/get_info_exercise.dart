@@ -7,28 +7,29 @@ import 'package:thuc_tap_tot_nghiep/feature/exercise/data/models/get_info_exerci
 import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/repositories/get_exercise_by_id_account_repo.dart';
 import 'package:thuc_tap_tot_nghiep/feature/exercise/domain/repositories/get_info_exercise_repo.dart';
 
-
-
-
-class GetInfoExercise implements UseCase<GetInfoExerciseResponse, GetInfoExerciseParams> {
+class GetInfoExercise
+    implements UseCase<GetInfoExerciseResponse, GetInfoExerciseParams> {
   final GetInfoExerciseRepository InfoExerciseRepository;
 
   GetInfoExercise(this.InfoExerciseRepository);
 
   @override
-  Future<Either<Failure, GetInfoExerciseResponse>> call(GetInfoExerciseParams params) async {
+  Future<Either<Failure, GetInfoExerciseResponse>> call(
+      GetInfoExerciseParams params) async {
     return await InfoExerciseRepository.getInfoExercise(
-      params.idExercise  !,);
+      params.idExercise!,
+    );
   }
 }
 
 class GetInfoExerciseParams extends Equatable {
-  final int? idExercise   ;
+  final int? idExercise;
 
-
-  GetInfoExerciseParams({this.idExercise  , });
+  GetInfoExerciseParams({
+    this.idExercise,
+  });
 
   @override
   // TODO: implement props
-  List<Object> get props => [idExercise  !];
+  List<Object> get props => [idExercise!];
 }

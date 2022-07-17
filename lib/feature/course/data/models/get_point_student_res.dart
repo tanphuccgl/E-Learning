@@ -38,12 +38,12 @@ class GetPointStudentData {
 
   GetPointStudentData(
       {this.idAccount,
-        this.idCourse,
-        this.idExercise,
-        this.titleExercise,
-        this.idAnswer,
-        this.studyPoint,
-        this.isTextPoint});
+      this.idCourse,
+      this.idExercise,
+      this.titleExercise,
+      this.idAnswer,
+      this.studyPoint,
+      this.isTextPoint});
 
   GetPointStudentData.fromJson(Map<String, dynamic> json) {
     idAccount = json['idAccount'];

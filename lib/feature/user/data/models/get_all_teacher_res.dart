@@ -77,24 +77,24 @@ class GetAllTeacherData {
 
   GetAllTeacherData(
       {this.address,
-        this.dateBirth,
-        this.phoneNumber,
-        this.parentName,
-        this.phoneNumberParent,
-        this.email,
-        this.tokenResetPassword,
-        this.iId,
-        this.fullName,
-        this.idClass,
-        this.nameClass,
-        this.role,
-        this.username,
-        this.password,
-        this.gender,
-        this.avatar,
-        this.createDate,
-        this.deleted,
-        this.iV});
+      this.dateBirth,
+      this.phoneNumber,
+      this.parentName,
+      this.phoneNumberParent,
+      this.email,
+      this.tokenResetPassword,
+      this.iId,
+      this.fullName,
+      this.idClass,
+      this.nameClass,
+      this.role,
+      this.username,
+      this.password,
+      this.gender,
+      this.avatar,
+      this.createDate,
+      this.deleted,
+      this.iV});
 
   GetAllTeacherData.fromJson(Map<String, dynamic> json) {
     address = json['address'];

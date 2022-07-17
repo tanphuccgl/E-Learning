@@ -74,9 +74,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SignInPage(),
+    return MaterialApp(debugShowCheckedModeBanner: false, home: SignInPage(),
         //CreateExercisePage(idCourse: "eb5f9ca4-0d73-4dbb-a28a-03dc76e5cdb6",),
         //  initialRoute: widget.initScreen ==0 || widget.initScreen==null ?? ,
         routes: {
@@ -113,7 +111,6 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.editCoursePage: (context) => EditCoursePage(),
           PageRoutes.funcUserPage: (context) => FuncUserPage(),
           PageRoutes.editClassPage: (context) => EditClassPage(),
-
           PageRoutes.removeClassPage: (context) => RemoveClassPage(),
           PageRoutes.changeInfoUserPage: (context) => ChangeInfoUserPage(),
           PageRoutes.changePwPage: (context) => ChangePwPage(),
@@ -122,19 +119,14 @@ class _MyAppState extends State<MyApp> {
           PageRoutes.resetPwPage: (context) => ResetPwPage(),
           PageRoutes.listUserPage: (context) => ListUserPage(),
           PageRoutes.lecturePage: (context) => LecturePage(),
-         PageRoutes.listScorePage: (context) => ListScorePage(),
+          PageRoutes.listScorePage: (context) => ListScorePage(),
           PageRoutes.notifiPage: (context) => NotifiPage(),
           PageRoutes.personalPage: (context) => PersonalPage(),
           PageRoutes.changePasswordPage: (context) => ChangePasswordPage(),
           PageRoutes.getAllUserPage: (context) => GetAllUserPage(),
-
-
-
-
           PageRoutes.test: (context) => Test(),
-
-
-        }, supportedLocales: [Locale('en', 'US')]
-    );
+        }, supportedLocales: [
+      Locale('en', 'US')
+    ]);
   }
 }

@@ -8,8 +8,8 @@ import 'package:thuc_tap_tot_nghiep/feature/answer/domain/usecase/get_info_answe
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/manager/get_info_answer/get_info_answer_event.dart';
 import 'package:thuc_tap_tot_nghiep/feature/answer/presentation/manager/get_info_answer/get_info_answer_state.dart';
 
-
-class GetInformationAnswerBloc extends Bloc<GetInformationAnswerEvent, GetInformationAnswerState> {
+class GetInformationAnswerBloc
+    extends Bloc<GetInformationAnswerEvent, GetInformationAnswerState> {
   final GetInformationAnswer getInformationAnswer;
 
   // final GetLocalProfile getLocalProfile;
@@ -19,15 +19,16 @@ class GetInformationAnswerBloc extends Bloc<GetInformationAnswerEvent, GetInform
         getInformationAnswer = pr!,
         super(Empty());
 
-  @override
   GetInformationAnswerState get initialState => Empty();
 
   @override
-  Stream<GetInformationAnswerState> mapEventToState(GetInformationAnswerEvent event) async* {
+  Stream<GetInformationAnswerState> mapEventToState(
+      GetInformationAnswerEvent event) async* {
     if (event is GetInformationAnswerEventE) {
       yield Loading();
       final failureOrSuccess = await getInformationAnswer(
-          GetInformationAnswerParams(idAnswer:  event.idAnswer, idAccount:  event.idAccount));
+          GetInformationAnswerParams(
+              idAnswer: event.idAnswer, idAccount: event.idAccount));
       yield* _eitherLoadedOrErrorState(failureOrSuccess);
       print(failureOrSuccess);
     }
@@ -36,8 +37,10 @@ class GetInformationAnswerBloc extends Bloc<GetInformationAnswerEvent, GetInform
   Stream<GetInformationAnswerState> _eitherLoadedOrErrorState(
       Either<Failure, GetInformationAnswerResponse> failureOrSuccess) async* {
     yield failureOrSuccess.fold(
-          (failure) => Error(message: _mapFailureToMessage(failure)),
-          (res) => Loaded(swagger: res, ),
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (res) => Loaded(
+        swagger: res,
+      ),
     );
   }
 

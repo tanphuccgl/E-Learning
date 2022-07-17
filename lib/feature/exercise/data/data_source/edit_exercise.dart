@@ -34,7 +34,6 @@ Future<bool> editExercise(
   request.headers["auth-token"] = "${appUser?.token}";
   request.headers["Content-Type"] = "multipart/form-data";
 
-
   request.fields["titleExercise"] = "$titleExercise";
   request.fields["idExercise"] = "$idExercise";
 

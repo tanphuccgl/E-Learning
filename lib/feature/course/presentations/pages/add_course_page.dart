@@ -60,7 +60,8 @@ class _AddCoursePageState extends State<AddCoursePage> {
               SizedBox(
                 height: size.width / 20,
               ),
-              Align(alignment:Alignment.topLeft ,
+              Align(
+                alignment: Alignment.topLeft,
                 child: Text(
                   "Choose teacher",
                   style: TextStyle(
@@ -69,20 +70,23 @@ class _AddCoursePageState extends State<AddCoursePage> {
                       fontWeight: FontWeight.w600),
                 ),
               ),
-              SizedBox(height: size.width/20,),
-              buildListTeacher(nameCourse: nameCourse,context: context),
-
+              SizedBox(
+                height: size.width / 20,
+              ),
+              buildListTeacher(nameCourse: nameCourse, context: context),
             ],
           ),
         ),
       ),
     );
   }
-
-
 }
 
-BlocProvider<GetAllTeacherBloc> buildListTeacher({BuildContext? context, String? nameCourse}) {
+BlocProvider<GetAllTeacherBloc> buildListTeacher(
+    {BuildContext? context, String? nameCourse}) {
   return BlocProvider(
-      create: (_) => sl<GetAllTeacherBloc>(), child: BodyAddCourse(nameCourse:nameCourse ,));
+      create: (_) => sl<GetAllTeacherBloc>(),
+      child: BodyAddCourse(
+        nameCourse: nameCourse,
+      ));
 }

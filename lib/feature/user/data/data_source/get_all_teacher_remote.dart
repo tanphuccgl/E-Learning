@@ -12,7 +12,8 @@ abstract class GetAllTeacherRemoteDataSource {
   Future<GetAllTeacherResponse> getAllTeacher();
 }
 
-class GetAllTeacherRemoteDataSourceImpl implements GetAllTeacherRemoteDataSource {
+class GetAllTeacherRemoteDataSourceImpl
+    implements GetAllTeacherRemoteDataSource {
   final http.Client? client;
 
   GetAllTeacherRemoteDataSourceImpl({@required this.client});
@@ -34,8 +35,7 @@ class GetAllTeacherRemoteDataSourceImpl implements GetAllTeacherRemoteDataSource
     log("Response Json GetAllTeacher: ${json.decode(response!.body)}");
 
     if (response.statusCode == 200) {
-      var success =
-      GetAllTeacherResponse.fromJson(json.decode(response.body));
+      var success = GetAllTeacherResponse.fromJson(json.decode(response.body));
 
       return success;
     } else {

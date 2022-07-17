@@ -38,22 +38,22 @@ class GetGradeExerciseData {
   String? nameCourse;
   int? idExercise;
   var studyPoint;
-int? isTextPoint;
+  int? isTextPoint;
   String? createDate;
   String? updateDate;
   int? idAnswer;
 
   GetGradeExerciseData(
       {this.idAccount,
-        this.fullName,
-        this.idCourse,
-        this.nameCourse,
-        this.isTextPoint,
-        this.idExercise,
-        this.studyPoint,
-        this.createDate,
-        this.updateDate,
-        this.idAnswer});
+      this.fullName,
+      this.idCourse,
+      this.nameCourse,
+      this.isTextPoint,
+      this.idExercise,
+      this.studyPoint,
+      this.createDate,
+      this.updateDate,
+      this.idAnswer});
 
   GetGradeExerciseData.fromJson(Map<String, dynamic> json) {
     idAccount = json['idAccount'];
@@ -66,8 +66,6 @@ int? isTextPoint;
     updateDate = json['updateDate'];
     idAnswer = json['idAnswer'];
     isTextPoint = json['isTextPoint'];
-
-
   }
 
   Map<String, dynamic> toJson() {
@@ -82,7 +80,6 @@ int? isTextPoint;
     data['updateDate'] = this.updateDate;
     data['idAnswer'] = this.idAnswer;
     data['isTextPoint'] = this.isTextPoint;
-
 
     return data;
   }

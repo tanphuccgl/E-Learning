@@ -31,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBar(context: context,title: "Register Account"),
+      appBar: appBar(context: context, title: "Register Account"),
       body: SingleChildScrollView(
         child: Container(
           width: size.width,
@@ -152,16 +152,23 @@ class _SignUpPageState extends State<SignUpPage> {
                 //   ],
                 // ),
                 // SizedBox(height: size.width/20,),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  _gender(context: context,function: (a){},typePointValue: "Male"),
-                  _role(context: context,function: (a){},typePointValue: "Teacher")
-                ],),
-                accept(function: (){},context: context,content: "Accept"),
+                    _gender(
+                        context: context,
+                        function: (a) {},
+                        typePointValue: "Male"),
+                    _role(
+                        context: context,
+                        function: (a) {},
+                        typePointValue: "Teacher")
+                  ],
+                ),
+                accept(function: () {}, context: context, content: "Accept"),
                 SizedBox(
                   height: size.width / 20,
                 ),
-
               ],
             ),
           ),
@@ -169,7 +176,11 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-  Widget _gender({BuildContext? context,String? typePointValue,Function(String?)? function}) {
+
+  Widget _gender(
+      {BuildContext? context,
+      String? typePointValue,
+      Function(String?)? function}) {
     Size size = MediaQuery.of(context!).size;
 
     return Container(
@@ -223,7 +234,11 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-  Widget _role({BuildContext? context,String? typePointValue,Function(String?)? function}) {
+
+  Widget _role(
+      {BuildContext? context,
+      String? typePointValue,
+      Function(String?)? function}) {
     Size size = MediaQuery.of(context!).size;
 
     return Container(
@@ -278,4 +293,3 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-

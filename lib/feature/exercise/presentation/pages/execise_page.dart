@@ -54,7 +54,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
     return Container(
       width: size.width,
-      height: size.height-size.width/7-size.width/5,
+      height: size.height - size.width / 7 - size.width / 5,
       child: Padding(
         padding: EdgeInsets.only(
             left: size.width / 25,
@@ -250,10 +250,13 @@ class _ExercisePageState extends State<ExercisePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => DetailExercisePage(
-                                     submissionDeadline:data!.submissionDeadline ,
-                                    allowSubmission: data.allowSubmission,
-                                    descriptionExercise: data.descriptionExercise,
-                                    idExercise: data.iId,nameExercise: data.titleExercise,
+                                        submissionDeadline:
+                                            data!.submissionDeadline,
+                                        allowSubmission: data.allowSubmission,
+                                        descriptionExercise:
+                                            data.descriptionExercise,
+                                        idExercise: data.iId,
+                                        nameExercise: data.titleExercise,
                                       )));
                         },
                         icon: Icon(
